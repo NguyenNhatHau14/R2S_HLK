@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pikachu_education/data/data_user.dart';
+import 'package:pikachu_education/routes/page_name.dart';
 
 class AnswerPage extends StatefulWidget {
   const AnswerPage({super.key});
@@ -32,6 +33,31 @@ class _AnswerPageState extends State<AnswerPage> {
               )
             ]),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                width: MediaQuery.of(context).size.width / 2,
+                height: MediaQuery.of(context).size.height / 13,
+                color: Colors.transparent,
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, PageName.loginPage);
+                    },
+                    child: const Text(
+                      'Post Answer',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 25),
+                    )),
+              ),
+            ),
+          ),
           Expanded(
             child: ListView.builder(
               itemBuilder: (context, index) => item(lists[index]),
@@ -42,6 +68,9 @@ class _AnswerPageState extends State<AnswerPage> {
       ),
     );
   }
+
+  var numberFavorite = 0;
+  bool favoriteIcon = false;
 
   Widget item(User user) {
     return Padding(
@@ -78,19 +107,63 @@ class _AnswerPageState extends State<AnswerPage> {
                         padding: EdgeInsets.all(0),
                         child: Text(
                           '1 day ago',
-                          style: TextStyle(
-                              fontSize: 15),
+                          style: TextStyle(fontSize: 15),
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
-              const Text(
-                  'Pika Pika Pika Pika Pika Pika Pika Pika Pika Pika Pika Pika Pika Pika Pika Pika Pika Pika Pika Pika Pika '),
-            const Row(children: [
-              Icon(Icons.favorite_border),
-            ],)
+              Text(user.answerContent),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Row(
+                      children: [
+                        InkWell(
+                            onTap: () {
+                              setState(() {
+                                if (numberFavorite == 0) {
+                                  numberFavorite += 1;
+                                }
+                                if (numberFavorite == 1) {
+                                  numberFavorite -= 1;
+                                }
+                                favoriteIcon = !favoriteIcon;
+                              });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(favoriteIcon
+                                  ? Icons.favorite
+                                  : Icons.favorite_border),
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('${user.numberOfLike}'),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        InkWell(
+                            onTap: () {
+                              setState(() {});
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(Icons.comment),
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('${user.numberOfComment}'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),
