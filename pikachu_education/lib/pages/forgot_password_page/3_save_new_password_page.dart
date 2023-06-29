@@ -3,18 +3,20 @@ import 'package:pikachu_education/components/text_form_field_widget.dart';
 import 'package:pikachu_education/data/data_image.dart';
 import 'package:pikachu_education/routes/page_name.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SaveNewPasswordPage extends StatefulWidget {
+  const SaveNewPasswordPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SaveNewPasswordPage> createState() => _SaveNewPasswordPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final keyOfLogin = GlobalKey<FormState>();
-  bool checkRememberMe = false;
+class _SaveNewPasswordPageState extends State<SaveNewPasswordPage> {
+  final keySavePassword = GlobalKey<FormState>();
+  final passwordController = TextEditingController();
   bool showPassword = true;
   bool showPasswordIcon = true;
+  bool showConfirmPassword = true;
+  bool showConfirmPasswordIcon = true;
 
   @override
   Widget build(BuildContext context) {
@@ -22,40 +24,31 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
-            key: keyOfLogin,
+            key: keySavePassword,
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Image.asset(logoImage.image),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(logoImage.image),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset('assets/image/time_line_step_3.png'),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Enter Your New PassWord',
+                    textAlign: TextAlign.center,
+                    style:
+                        TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+              ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      hintText: 'User',
-                      hintStyle: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      fillColor: Colors.white),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'User can not be empty';
-                    }
-                    RegExp userExp =
-                        RegExp('^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}\$');
-                    if (!userExp!.hasMatch(value)) {
-                      return 'Your User is invalid';
-                    }
-                  },
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: TextFormField(
-                  keyboardType: TextInputType.text,
                   obscuringCharacter: '*',
                   obscureText: showPassword,
+                  controller: passwordController,
                   decoration: InputDecoration(
                     hintText: 'Password',
                     hintStyle: const TextStyle(
@@ -88,19 +81,38 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 12, bottom: 12, right: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, PageName.getOtpPage);
+                padding: const EdgeInsets.all(10.0),
+                child: TextFormField(
+                  keyboardType: TextInputType.text,
+                  obscuringCharacter: '*',
+                  obscureText: showConfirmPassword,
+                  decoration: InputDecoration(
+                      hintText: 'Confirm Password',
+                      hintStyle: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      fillColor: Colors.white,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            showConfirmPassword = !showConfirmPassword;
+                            showConfirmPasswordIcon = !showConfirmPasswordIcon;
+                          });
                         },
-                        child: const Text(
-                          'Forgot password?',
-                          style: TextStyle(fontSize: 15),
-                        ))
-                  ],
+                        icon: Icon(showConfirmPasswordIcon
+                            ? Icons.visibility_off
+                            : Icons.visibility),
+                      )),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password can not be empty';
+                    }
+                    if (value != passwordController.text) {
+                      return 'Password and Confirm Password not same';
+                    }
+                  },
                 ),
               ),
               Padding(
@@ -117,13 +129,15 @@ class _LoginPageState extends State<LoginPage> {
                               MaterialStateProperty.all(Colors.yellow),
                         ),
                         onPressed: () {
-                          keyOfLogin.currentState!.validate();
-                          if (keyOfLogin.currentState!.validate() == true) {
-                            Navigator.pushNamed(context, PageName.answerPage);
+                          keySavePassword.currentState!.validate();
+                          if (keySavePassword.currentState!.validate() ==
+                              true) {
+                            Navigator.pushNamed(
+                                context, PageName.successChangePasswordPage);
                           }
                         },
                         child: const Text(
-                          'LOGIN',
+                          'SAVE',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
@@ -132,34 +146,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 12, bottom: 12, right: 8),
-                child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, PageName.signupPage);
-                    },
-                    child: const Text(
-                      'Do not have an account? SIGN UP',
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                    )),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 12, bottom: 12, right: 8),
-                child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, PageName.answerPage);
-                    },
-                    child: Text('View Answer')),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 12, bottom: 12, right: 8),
-                child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, PageName.changePasswordPage);
-                    },
-                    child: Text('change password')),
-              )
             ]),
           ),
         ),
