@@ -151,8 +151,8 @@ class _AnswerPageState extends State<AnswerPage> {
                             onTap: () {
                               setState(() {});
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
                               child: Icon(Icons.comment),
                             )),
                         Padding(
