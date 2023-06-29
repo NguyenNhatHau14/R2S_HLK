@@ -7,6 +7,6 @@ class User {
   User (this.avatar,this.name, this.gender, this.age);
 }
 
-User pikachu = User ('assets/image/pikachu.jpg','Pikachu','Male',5);
+User pikachu = User ('assets/image/pikachu.png','Pikachu','Male',5);
 
 List<User> lists=[pikachu];
