@@ -4,7 +4,7 @@ import 'package:pikachu_education/pages/change_password_page.dart';
 import 'package:pikachu_education/pages/forgot_password_page/1_get_otp_page.dart';
 import 'package:pikachu_education/pages/forgot_password_page/2_verify_page.dart';
 import 'package:pikachu_education/pages/forgot_password_page/3_save_new_password_page.dart';
-import 'package:pikachu_education/pages/forgot_password_page/4_success_change+password_page.dart';
+import 'package:pikachu_education/pages/forgot_password_page/4_success_change_password_page.dart';
 import 'package:pikachu_education/pages/signup_page/signup_page.dart';
 import 'package:pikachu_education/pages/signup_page/signup_success_page.dart';
 import 'package:pikachu_education/routes/page_name.dart';
