@@ -148,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                                 if (keyOfLogin.currentState!.validate() ==
                                     true) {
                                   Navigator.pushNamed(
-                                      context, PageName.answerPage);
+                                      context, PageName.listAnswerPage);
                                 }
                               },
                               child: const Text(
@@ -183,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
                           const EdgeInsets.only(top: 12, bottom: 12, right: 8),
                       child: InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, PageName.answerPage);
+                            Navigator.pushNamed(context, PageName.listAnswerPage);
                           },
                           child: Text('View Answer')),
                     ),

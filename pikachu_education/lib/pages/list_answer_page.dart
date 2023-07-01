@@ -5,53 +5,55 @@ import 'package:pikachu_education/routes/page_name.dart';
 
 import '../data/data_image.dart';
 
-class AnswerPage extends StatefulWidget {
-  const AnswerPage({super.key});
+class ListAnswerPage extends StatefulWidget {
+  const ListAnswerPage({super.key});
 
   @override
-  State<AnswerPage> createState() => _AnswerPageState();
+  State<ListAnswerPage> createState() => _ListAnswerPageState();
 }
 
-class _AnswerPageState extends State<AnswerPage> {
+class _ListAnswerPageState extends State<ListAnswerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 70,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
+        height: 55,
         child: Padding(
-          padding: EdgeInsets.only(left: 10,right: 10),
+          padding: EdgeInsets.only(left: 10, right: 10),
           child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             InkWell(
-              onTap: () {},
+                onTap: () {},
 
-                child: const Column(
+                child: Column(
                   children: [
-                    Icon(Icons.home_outlined,
-                        size: 50, color: Color(0xFFFDCA15)),
-                    Text('Home')
+                    Image.asset('assets/image/bottom_bar_home.png'),
+                    const Text ('Home')
                   ],
-                ),
+                )
             ),
             InkWell(
               onTap: () {},
-              child: const  Column(
-                  children: [
-                    Icon(Icons.menu_book, size: 50, color: Color(0xFFFDCA15)),
-                    Text('My Post')
-                  ],
-                ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: const  Column(
-                  children: [
-                    Icon(Icons.person, size: 50, color: Color(0xFFFDCA15)),
-                    Text('Me')
-                  ],
-                ),
+              child: Column(
+                children: [
+                  Image.asset('assets/image/bottom_bar_home.png'),
+                  const Text('My Post')
+                ],
               ),
+            ),
+            InkWell(
+                onTap: () {},
+                child: Column(
+                  children: [
+                    Image.asset('assets/image/bottom_bar_me.png'),
+                    const Text('Me')
+                  ],
+                )
+            ),
           ]),
         ),
       ),
@@ -141,13 +143,16 @@ class _AnswerPageState extends State<AnswerPage> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Container(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 height: 60,
                 color: Colors.transparent,
                 child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all(Color(0xFFFDCA15)),
+                      MaterialStateProperty.all(Color(0xFFFDCA15)),
                     ),
                     onPressed: () {
                       showDialog(
@@ -191,59 +196,63 @@ class _AnswerPageState extends State<AnswerPage> {
   Widget item(User user) {
     return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: Color(0xFFFFFAC9),
-              borderRadius: BorderRadius.circular(10)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(user.answeTitle,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 18)),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(user.answerContent),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(Icons.favorite_border),
-                        Text('${user.numberOfLike}'),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.comment_sharp),
-                        Text('${user.numberOfComment} comment'),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Container(
-                              width: 23,
-                              height: 23,
-                              child: Image.asset(
-                                user.avatar,
-                                fit: BoxFit.fill,
-                              )),
-                        ),
-                        Text(user.name),
-                      ],
-                    )
-                  ],
+        child: InkWell(onTap: () {
+          Navigator.pushNamed(context, PageName.detailAnswerPage);
+        },
+          child: Container(
+            decoration: BoxDecoration(
+                color: Color(0xFFFFFAC9),
+                borderRadius: BorderRadius.circular(10)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(user.answeTitle,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18)),
                 ),
-              )
-            ],
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(user.answerContent),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.favorite_border),
+                          Text('${user.numberOfLike}'),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.comment_sharp),
+                          Text('${user.numberOfComment} comment'),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Container(
+                                width: 23,
+                                height: 23,
+                                child: Image.asset(
+                                  user.avatar,
+                                  fit: BoxFit.fill,
+                                )),
+                          ),
+                          Text(user.name),
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ));
   }
