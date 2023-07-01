@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pikachu_education/pages/login_page.dart';
+import 'package:pikachu_education/pages/signup_page/profile_page.dart';
 import 'package:pikachu_education/routes/route_management.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(),
-      home: const LoginPage(),
+      home: const ProfilePage(),
       onGenerateRoute: generateRoute,
     );
   }
