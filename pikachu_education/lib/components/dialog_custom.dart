@@ -6,8 +6,11 @@ class DialogCustom {
   static dialogOfPostAnswer(BuildContext context) {
     return AlertDialog(
       title: const Text('Post Answer'),
+      shape: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Colors.transparent)),
+
       content: const Text('You have to login to do this action'),
-      alignment: Alignment.center,
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

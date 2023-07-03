@@ -16,51 +16,10 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
-        height: 55,
-        child: Padding(
-          padding: EdgeInsets.only(left: 10, right: 10),
-          child:
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            InkWell(
-                onTap: () {},
-
-                child: Column(
-                  children: [
-                    Image.asset('assets/image/bottom_bar_home.png'),
-                    const Text ('Home')
-                  ],
-                )
-            ),
-            InkWell(
-              onTap: () {},
-              child: Column(
-                children: [
-                  Image.asset('assets/image/bottom_bar_home.png'),
-                  const Text('My Post')
-                ],
-              ),
-            ),
-            InkWell(
-                onTap: () {},
-                child: Column(
-                  children: [
-                    Image.asset('assets/image/bottom_bar_me.png'),
-                    const Text('Me')
-                  ],
-                )
-            ),
-          ]),
-        ),
-      ),
       body: SafeArea(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Padding(
-            padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -85,10 +44,13 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
             padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
             child: Container(
                 decoration: BoxDecoration(
-                    color: Color(0x33000000),
+                    gradient: const LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [Color(0xFFFDFFAE), Color(0xFFFFFFFF)]),
                     borderRadius: BorderRadius.circular(10)),
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -103,7 +65,7 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                         child: Text('1+1=?'),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -128,7 +90,7 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                                       'assets/image/pikachu.png',
                                       fit: BoxFit.fill,
                                     )),
-                                Text(' Pikachu 1'),
+                                const Text(' Pikachu 1'),
                               ],
                             )
                           ],
@@ -143,16 +105,13 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Container(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
+                width: MediaQuery.of(context).size.width,
                 height: 60,
                 color: Colors.transparent,
                 child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor:
-                      MaterialStateProperty.all(Color(0xFFFDCA15)),
+                          MaterialStateProperty.all(const Color(0xFFFDCA15)),
                     ),
                     onPressed: () {
                       showDialog(
@@ -192,23 +151,26 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
     );
   }
 
-
   Widget item(User user) {
     return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: InkWell(onTap: () {
-          Navigator.pushNamed(context, PageName.detailAnswerPage);
-        },
+        child: InkWell(
+          onTap: () {
+            Navigator.pushNamed(context, PageName.detailAnswerWithLikePage);
+          },
           child: Container(
             decoration: BoxDecoration(
-                color: Color(0xFFFFFAC9),
+                gradient: const LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [Color(0xFFFDFFAE), Color(0xFFFFFFFF)]),
                 borderRadius: BorderRadius.circular(10)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text(user.answeTitle,
+                  child: Text(user.answerTitle,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 18)),
                 ),
