@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pikachu_education/components/commnet_form.dart';
 import 'package:pikachu_education/components/dialog_custom.dart';
 import 'package:pikachu_education/data/data_user.dart';
-import 'package:pikachu_education/pages/detail_anwer_with_like_page.dart';
+import 'package:pikachu_education/pages/detail_answer_with_like_page.dart';
 import 'package:pikachu_education/routes/page_name.dart';
 import '../components/like_form.dart';
 import '../data/data_image.dart';
@@ -167,42 +167,46 @@ class _DetailAnswerWithCommentPageState
           ),
           Expanded(
             child: SingleChildScrollView(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 25),
-                      child: Column(
-                        children: [
-                          CommentForm(
-                              avatar: pikachu1.avatar,
-                              name: pikachu1.name,
-                              dayAgo: pikachu1.dayAgo,
-                              commentContent: pikachu1.comment),
-                          CommentForm(
-                              avatar: pikachu2.avatar,
-                              name: pikachu2.name,
-                              dayAgo: pikachu2.dayAgo,
-                              commentContent: pikachu2.comment),
-                          CommentForm(
-                              avatar: pikachu3.avatar,
-                              name: pikachu3.name,
-                              dayAgo: pikachu3.dayAgo,
-                              commentContent: pikachu3.comment),
-                          CommentForm(
-                              avatar: pikachu4.avatar,
-                              name: pikachu4.name,
-                              dayAgo: pikachu4.dayAgo,
-                              commentContent: pikachu4.comment),
-                          CommentForm(
-                              avatar: pikachu5.avatar,
-                              name: pikachu5.name,
-                              dayAgo: pikachu5.dayAgo,
-                              commentContent: pikachu5.comment)
-                        ],
-                      ),
-                    ),
-                  ]),
+              child: Stack(
+                children: [
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 25),
+                          child: Column(
+                            children: [
+                              CommentForm(
+                                  avatar: pikachu1.avatar,
+                                  name: pikachu1.name,
+                                  dayAgo: pikachu1.dayAgo,
+                                  commentContent: pikachu1.comment),
+                              CommentForm(
+                                  avatar: pikachu2.avatar,
+                                  name: pikachu2.name,
+                                  dayAgo: pikachu2.dayAgo,
+                                  commentContent: pikachu2.comment),
+                              CommentForm(
+                                  avatar: pikachu3.avatar,
+                                  name: pikachu3.name,
+                                  dayAgo: pikachu3.dayAgo,
+                                  commentContent: pikachu3.comment),
+                              CommentForm(
+                                  avatar: pikachu4.avatar,
+                                  name: pikachu4.name,
+                                  dayAgo: pikachu4.dayAgo,
+                                  commentContent: pikachu4.comment),
+                              CommentForm(
+                                  avatar: pikachu5.avatar,
+                                  name: pikachu5.name,
+                                  dayAgo: pikachu5.dayAgo,
+                                  commentContent: pikachu5.comment)
+                            ],
+                          ),
+                        ),
+                      ]),
+                ],
+              ),
             ),
           ),
         ]),

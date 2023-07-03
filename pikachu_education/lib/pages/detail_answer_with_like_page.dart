@@ -145,7 +145,7 @@ class _DetailAnswerWithLikePageState extends State<DetailAnswerWithLikePage> {
                         context, PageName.detailAnswerWithCommentPage);
                   },
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Color(0xFFFDCA15),
                         borderRadius:
                             BorderRadius.only(bottomLeft: Radius.circular(10))),

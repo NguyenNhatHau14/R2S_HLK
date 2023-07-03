@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pikachu_education/components/text_form_field_widget.dart';
 import 'package:pikachu_education/data/data_image.dart';
 import 'package:pikachu_education/routes/page_name.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../components/save_data_login.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,9 +15,32 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final keyOfLogin = GlobalKey<FormState>();
-  bool checkRememberMe = false;
+  final userController = TextEditingController();
+  final passwordController = TextEditingController();
   bool showPassword = true;
   bool showPasswordIcon = true;
+
+  @override
+  void dispose() {
+    userController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> loadDataForLogin() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var user = prefs.getString('user')??'';
+    var password=prefs.getString('password')??'';
+    setState(() {
+      userController.text=user;
+      passwordController.text=password;
+    });
+  }
+  @override
+  void initState() {
+    loadDataForLogin();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                           const EdgeInsets.only(top: 60, left: 10, right: 10),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
+                        controller: userController,
                         decoration: InputDecoration(
                             hintText: 'User',
                             hintStyle: const TextStyle(
@@ -75,6 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                       padding: EdgeInsets.only(top: 40, left: 10, right: 10),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
+                        controller: passwordController,
                         obscuringCharacter: '*',
                         obscureText: showPassword,
                         decoration: InputDecoration(
@@ -149,7 +177,10 @@ class _LoginPageState extends State<LoginPage> {
                                     true) {
                                   Navigator.pushNamed(
                                       context, PageName.listAnswerPage);
+                                  saveDataForLogin(context, userController.text,
+                                      passwordController.text);
                                 }
+
                               },
                               child: const Text(
                                 'LOGIN',
@@ -171,10 +202,12 @@ class _LoginPageState extends State<LoginPage> {
                             text: const TextSpan(children: [
                               TextSpan(
                                   text: 'Don\'t have an accounts? ',
-                                  style: TextStyle(color: Colors.black,fontSize: 15)),
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 15)),
                               TextSpan(
                                   text: 'Sign up now',
-                                  style: TextStyle(color: Color(0xFFFDCA15),fontSize: 15))
+                                  style: TextStyle(
+                                      color: Color(0xFFFDCA15), fontSize: 15))
                             ]),
                           )),
                     ),
@@ -183,7 +216,8 @@ class _LoginPageState extends State<LoginPage> {
                           const EdgeInsets.only(top: 12, bottom: 12, right: 8),
                       child: InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, PageName.listAnswerPage);
+                            Navigator.pushNamed(
+                                context, PageName.listAnswerPage);
                           },
                           child: Text('View Answer')),
                     ),

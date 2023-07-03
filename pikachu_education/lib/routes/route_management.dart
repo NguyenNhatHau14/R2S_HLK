@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pikachu_education/pages/detail_answer_with_commnet_page.dart';
-import 'package:pikachu_education/pages/detail_anwer_with_like_page.dart';
+import 'package:pikachu_education/pages/detail_answer_with_like_page.dart';
 import 'package:pikachu_education/pages/list_answer_page.dart';
 import 'package:pikachu_education/pages/change_password_page.dart';
 import 'package:pikachu_education/pages/forgot_password_page/1_get_otp_page.dart';

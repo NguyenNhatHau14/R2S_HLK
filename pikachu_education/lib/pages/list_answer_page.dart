@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pikachu_education/components/dialog_custom.dart';
 import 'package:pikachu_education/data/data_user.dart';
 import 'package:pikachu_education/routes/page_name.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/data_image.dart';
 
@@ -13,6 +14,19 @@ class ListAnswerPage extends StatefulWidget {
 }
 
 class _ListAnswerPageState extends State<ListAnswerPage> {
+  String? userForPage;
+  Future<void> loadDataForAnswerListPage() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var user = prefs.getString('user')??'';
+    setState(() {
+      userForPage = user;
+    });
+  }
+  @override
+  void initState() {
+    loadDataForAnswerListPage();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +47,8 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                       onTap: () {
                         Navigator.pushNamed(context, PageName.loginPage);
                       },
-                      child: const Text('Login',
-                          style: TextStyle(
+                      child: Text('User: ${userForPage??''}',
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.normal)),
                     ),
                   )
