@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pikachu_education/pages/profile_page.dart';
+
+import 'package:pikachu_education/pages/home_page_test.dart';
 
 import 'package:pikachu_education/routes/route_management.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home: const ProfilePage(),
+      home: const HomePage(),
       onGenerateRoute: generateRoute,
     );
   }
