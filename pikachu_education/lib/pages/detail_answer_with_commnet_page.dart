@@ -23,7 +23,7 @@ class _DetailAnswerWithCommentPageState
       body: SafeArea(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Padding(
-            padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -32,7 +32,7 @@ class _DetailAnswerWithCommentPageState
                     child: Icon(Icons.arrow_back, size: 25),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: InkWell(
                       onTap: () {
                         Navigator.pushNamed(context, PageName.loginPage);
@@ -57,9 +57,9 @@ class _DetailAnswerWithCommentPageState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Row(children: [
-                    Container(
+                    SizedBox(
                         width: MediaQuery.of(context).size.width / 6,
                         child: Image.asset(pikachu3.avatar, fit: BoxFit.fill)),
                     Column(
@@ -72,20 +72,20 @@ class _DetailAnswerWithCommentPageState
                         ),
                         Text(
                           '${pikachu3.dayAgo} day ago',
-                          style: TextStyle(fontSize: 15),
+                          style: const TextStyle(fontSize: 15),
                         )
                       ],
                     )
                   ]),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(pikachu3.answerTitle,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 18)),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(pikachu3.answerContent),
                 ),
                 Padding(
@@ -109,7 +109,7 @@ class _DetailAnswerWithCommentPageState
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(2.0),
-                            child: Container(
+                            child: SizedBox(
                                 width: 23,
                                 height: 23,
                                 child: Image.asset(
@@ -173,7 +173,7 @@ class _DetailAnswerWithCommentPageState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(top: 25),
+                          padding: const EdgeInsets.only(top: 25),
                           child: Column(
                             children: [
                               CommentForm(

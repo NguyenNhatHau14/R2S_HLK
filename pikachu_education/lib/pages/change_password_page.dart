@@ -36,7 +36,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 10, top: 8),
+                      padding: const EdgeInsets.only(left: 10, top: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -44,7 +44,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                               onTap: () {
                                 Navigator.pop(context);
                               },
-                              child: Icon(Icons.arrow_back, size: 30)),
+                              child: const Icon(Icons.arrow_back, size: 30)),
                         ],
                       ),
                     ),
@@ -95,9 +95,10 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           }
                           RegExp passwordExp = RegExp(
                               '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@\$%^&*-]).{8,18}\$');
-                          if (!passwordExp!.hasMatch(value)) {
+                          if (!passwordExp.hasMatch(value)) {
                             return 'Your Password is invalid';
                           }
+                          return null;
                         },
                       ),
                     ),
@@ -139,9 +140,10 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           }
                           RegExp passwordExp = RegExp(
                               '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@\$%^&*-]).{8,18}\$');
-                          if (!passwordExp!.hasMatch(value)) {
+                          if (!passwordExp.hasMatch(value)) {
                             return 'Your Password is invalid';
                           }
+                          return null;
                         },
                       ),
                     ),
@@ -181,6 +183,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           if (value != newPasswordController.text) {
                             return 'Password and Confirm Password not same';
                           }
+                          return null;
                         },
                       ),
                     ),
@@ -196,14 +199,15 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           child: ElevatedButton(
                               style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(
-                                    Color(0xFFFDCA15)),
+                                    const Color(0xFFFDCA15)),
                               ),
                               onPressed: () {
                                 keyChangePassword.currentState!.validate();
                                 if (keyChangePassword.currentState!
                                         .validate() ==
                                     true) {
-                                 Navigator.pushNamed(context, PageName.successChangePasswordPage);
+                                  Navigator.pushNamed(context,
+                                      PageName.successChangePasswordPage);
                                 }
                               },
                               child: const Text(

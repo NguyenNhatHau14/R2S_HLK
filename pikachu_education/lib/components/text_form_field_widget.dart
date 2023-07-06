@@ -31,9 +31,10 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
             return '${widget.hintTextContent} can not be empty';
           }
           RegExp Exp = RegExp(widget.regRxpContent);
-          if (!Exp!.hasMatch(value)) {
+          if (!Exp.hasMatch(value)) {
             return 'Your ${widget.hintTextContent} is invalid';
           }
+          return null;
         },
       ),
     );
