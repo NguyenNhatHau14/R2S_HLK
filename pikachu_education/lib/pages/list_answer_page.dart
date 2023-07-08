@@ -170,7 +170,7 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           onTap: () {
-            Navigator.pushNamed(context, PageName.detailAnswerWithLikePage);
+            Navigator.pushNamed(context, PageName.detailAnswerPage);
           },
           child: Container(
             decoration: BoxDecoration(
