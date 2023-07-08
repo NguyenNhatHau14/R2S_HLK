@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pikachu_education/pages/login_page.dart';
-
+import 'package:pikachu_education/pages/home_page_test.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pikachu_education/routes/route_management.dart';
 
 void main() {
@@ -15,7 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home: const LoginPage(),
+      home: HomePage(),
+      localizationsDelegates: const [FormBuilderLocalizations.delegate],
       onGenerateRoute: generateRoute,
     );
   }
