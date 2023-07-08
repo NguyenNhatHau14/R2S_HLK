@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:pikachu_education/models/content_add_model.dart';
 import 'package:pikachu_education/pages/profile_page.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:pikachu_education/service/add_question_service.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({
@@ -26,7 +28,7 @@ class HomePage extends StatelessWidget {
           IconButton(
               onPressed: () {
                 showModalBottomSheet(
-                  backgroundColor: Colors.yellow[50],
+                  backgroundColor: const Color(0xFFFDFFAE),
                   shape: const RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(20))),
@@ -39,7 +41,11 @@ class HomePage extends StatelessWidget {
                         child: Column(
                           children: [
                             const Center(
-                              child: Text('N e w Q u e s t i o n'),
+                              child: Text(
+                                'N e w Q u e s t i o n',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
                             ),
                             const SizedBox(
                               height: 16,
@@ -86,14 +92,55 @@ class HomePage extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: const Text('Cancel')),
+                                    child: const Text(
+                                      'Cancel',
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.red),
+                                    )),
                                 SizedBox(
                                   height: 40,
                                   child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.yellow),
-                                      onPressed: () {},
-                                      child: const Text('Add question')),
+                                          backgroundColor:
+                                              const Color(0xFFFDCA15)),
+                                      onPressed: () async {
+                                        final curState = _formKey.currentState!;
+                                        var message = '';
+                                        curState.save();
+                                        if (curState.validate()) {
+                                          try {
+                                            await AddQuestionService
+                                                .addDataToServer(
+                                              AddModalList(
+                                                  title:
+                                                      curState.value['title'],
+                                                  content: curState
+                                                      .value['content']),
+                                            );
+                                            Navigator.pop(context, curState);
+                                            message = 'add success';
+                                          } catch (error) {
+                                            message = 'Add task failed';
+                                            print(error);
+                                          }
+                                        } else {
+                                          message = 'Validation failed';
+                                          final snackBar = SnackBar(
+                                            content: Text(
+                                              message,
+                                              style:
+                                                  const TextStyle(fontSize: 20),
+                                            ),
+                                            backgroundColor: Colors.red,
+                                          );
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
+                                        }
+                                      },
+                                      child: const Text(
+                                        'Add question',
+                                        style: TextStyle(fontSize: 20),
+                                      )),
                                 )
                               ],
                             )
