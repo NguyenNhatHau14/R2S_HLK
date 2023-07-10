@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pikachu_education/data/data_questions.dart';
-
+import 'package:anim_search_bar/anim_search_bar.dart';
 import '../data/data_image.dart';
 import '../models/content_add_model.dart';
 import '../routes/page_name.dart';
@@ -18,214 +18,191 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _formAddQuestionKey = GlobalKey<FormBuilderState>();
-
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(children: [
-          Image.asset(logoImage.image),
+        child: Column( crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(logoImage.image),
+            ],
+          ),
           Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width / 2.3,
-                  decoration: BoxDecoration(
-                      color: Color(0xFFFDCA15),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.search,
-                            size: 35,
-                          )),
-                      const Text('Search Question')
-                    ],
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 2.3,
-                  decoration: BoxDecoration(
-                      color: Color(0xFFFDCA15),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      IconButton(
-                          onPressed: () async{
-                            await showModalBottomSheet(
-                              backgroundColor: const Color(0xFFFDFFAE),
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))),
-                              context: context,
-                              builder: (context) {
-                                print('Result:asjkdhsaoihfafnmzxnvozxh');
-                                return
-                                  Padding(
-                                  padding: MediaQuery.of(context).viewInsets,
-                                  child: SingleChildScrollView(
-                                    padding: const EdgeInsets.all(20),
-                                    child: Column(
-                                      children: [
-                                        const Center(
-                                          child: Text(
-                                            'N e w Q u e s t i o n',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold),
+            padding: const EdgeInsets.only(left: 8,right: 8,top: 8),
+            child: SizedBox(height: 50,
+              child: AnimSearchBar(
+                boxShadow: true,
+                width: MediaQuery.of(context).size.width,
+                helpText: 'Search Question',prefixIcon: Icon(Icons.search,size: 35,),
+                textController: searchController,
+                onSuffixTap: () {
+                  setState(() {
+                    searchController.clear();
+                  });
+                },
+                textFieldColor: Color(0xFFFDFFAE),
+                color:Color(0xFFFDCA15),
+                onSubmitted: (p0) {},
+                animationDurationInMilli: 2000,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width/2,
+              decoration: BoxDecoration(
+                  color: Color(0xFFFDCA15),
+                  borderRadius: BorderRadius.circular(15)),
+              child: InkWell(onTap: () {showModalBottomSheet(
+                backgroundColor: const Color(0xFFFDFFAE),
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20))),
+                context: context,
+                builder: (context) {
+                  return Padding(
+                    padding: MediaQuery.of(context).viewInsets,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          const Center(
+                            child: Text(
+                              'N e w Q u e s t i o n',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          FormBuilder(
+                            key: _formAddQuestionKey,
+                            child: Column(
+                              children: [
+                                FormBuilderTextField(
+                                    autofocus: true,
+                                    keyboardType: TextInputType.text,
+                                    decoration: const InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        labelText: 'Title'),
+                                    validator:
+                                    FormBuilderValidators.compose([
+                                      FormBuilderValidators.required(),
+                                      FormBuilderValidators.maxLength(
+                                          10)
+                                    ]),
+                                    name: 'title'),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                FormBuilderTextField(
+                                    maxLines: 8,
+                                    keyboardType: TextInputType.text,
+                                    decoration: const InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        labelText: 'Content'),
+                                    validator:
+                                    FormBuilderValidators.compose([
+                                      FormBuilderValidators.required(),
+                                      FormBuilderValidators.maxLength(
+                                          10)
+                                    ]),
+                                    name: 'content')
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceEvenly,
+                            children: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text(
+                                    'Cancel',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.red),
+                                  )),
+                              SizedBox(
+                                height: 40,
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                        const Color(0xFFFDCA15)),
+                                    onPressed: () async {
+                                      final curState =
+                                      _formAddQuestionKey
+                                          .currentState!;
+                                      var message = '';
+                                      curState.save();
+                                      if (curState.validate()) {
+                                        try {
+                                          await AddQuestionService
+                                              .addDataToServer(
+                                            AddModalList(
+                                                title: curState
+                                                    .value['title'],
+                                                content: curState
+                                                    .value['content']),
+                                          );
+                                          Navigator.pop(
+                                              context, curState);
+                                          message = 'add success';
+                                        } catch (error) {
+                                          message = 'Add task failed';
+                                          print(error);
+                                        }
+                                      } else {
+                                        message = 'Validation failed';
+                                        final snackBar = SnackBar(
+                                          content: Text(
+                                            message,
+                                            style: const TextStyle(
+                                                fontSize: 20),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          height: 16,
-                                        ),
-                                        FormBuilder(
-                                          key: _formAddQuestionKey,
-                                          child: Column(
-                                            children: [
-                                              FormBuilderTextField(
-                                                  autofocus: true,
-                                                  keyboardType: TextInputType
-                                                      .text,
-                                                  decoration:
-                                                      const InputDecoration(
-                                                          border:
-                                                              OutlineInputBorder(),
-                                                          labelText: 'Title'),
-                                                  validator:
-                                                      FormBuilderValidators
-                                                          .compose([
-                                                    FormBuilderValidators
-                                                        .required(),
-                                                    FormBuilderValidators
-                                                        .maxLength(10)
-                                                  ]),
-                                                  name: 'title'),
-                                              const SizedBox(
-                                                height: 16,
-                                              ),
-                                              FormBuilderTextField(
-                                                  maxLines: 8,
-                                                  keyboardType: TextInputType
-                                                      .text,
-                                                  decoration:
-                                                      const InputDecoration(
-                                                          border:
-                                                              OutlineInputBorder(),
-                                                          labelText: 'Content'),
-                                                  validator:
-                                                      FormBuilderValidators
-                                                          .compose([
-                                                    FormBuilderValidators
-                                                        .required(),
-                                                    FormBuilderValidators
-                                                        .maxLength(10)
-                                                  ]),
-                                                  name: 'content')
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 16,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: const Text(
-                                                  'Cancel',
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Colors.red),
-                                                )),
-                                            SizedBox(
-                                              height: 40,
-                                              child: ElevatedButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                          backgroundColor:
-                                                              const Color(
-                                                                  0xFFFDCA15)),
-                                                  onPressed: () async {
-                                                    final curState =
-                                                        _formAddQuestionKey
-                                                            .currentState!;
-                                                    var message = '';
-                                                    curState.save();
-                                                    if (curState.validate()) {
-                                                      try {
-                                                        await AddQuestionService
-                                                            .addDataToServer(
-                                                          AddModalList(
-                                                              title: curState
-                                                                      .value[
-                                                                  'title'],
-                                                              content: curState
-                                                                      .value[
-                                                                  'content']),
-                                                        );
-                                                        Navigator.pop(
-                                                            context, curState);
-                                                        message = 'add success';
-                                                      } catch (error) {
-                                                        message =
-                                                            'Add task failed';
-                                                        print(error);
-                                                      }
-                                                    } else {
-                                                      message =
-                                                          'Validation failed';
-                                                      final snackBar = SnackBar(
-                                                        content: Text(
-                                                          message,
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 20),
-                                                        ),
-                                                        backgroundColor:
-                                                            Colors.red,
-                                                      );
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                              snackBar);
-                                                    }
-                                                  },
-                                                  child: const Text(
-                                                    'Add question',
-                                                    style:
-                                                        TextStyle(fontSize: 20),
-                                                  )),
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.add,
-                            size: 35,
-                            color: Colors.black,
-                          )),
-                      const Text('Add Question')
-                    ],
-                  ),
+                                          backgroundColor: Colors.red,
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                      }
+                                    },
+                                    child: const Text(
+                                      'Add question',
+                                      style: TextStyle(fontSize: 20),
+                                    )),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );},
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                          Icons.add,
+                          size: 35,
+                          color: Colors.black,
+                        ),
+                    Text('Add Question',style: TextStyle(fontSize: 25),)
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
           Expanded(
