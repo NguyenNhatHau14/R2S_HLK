@@ -6,11 +6,13 @@ import 'package:pikachu_education/pages/profile_page.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:pikachu_education/service/add_question_service.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({
+class HomePageTest extends StatelessWidget {
+  HomePageTest({
     super.key,
   });
+
   final _formKey = GlobalKey<FormBuilderState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,7 +156,7 @@ class HomePage extends StatelessWidget {
               icon: const Icon(
                 Icons.add,
                 color: Colors.black,
-              ))
+              )),
         ],
       ),
       floatingActionButton: SpeedDial(

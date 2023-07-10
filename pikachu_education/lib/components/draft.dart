@@ -4,15 +4,14 @@ import 'package:pikachu_education/data/data_user.dart';
 import 'package:pikachu_education/routes/page_name.dart';
 import '../components/like_form.dart';
 
-class DetailAnswerPage extends StatefulWidget {
-  const DetailAnswerPage({super.key});
+class draftPage extends StatefulWidget {
+  const draftPage({super.key});
 
   @override
-  State<DetailAnswerPage> createState() => _DetailAnswerPageState();
+  State<draftPage> createState() => _draftPageState();
 }
 
-class _DetailAnswerPageState extends State<DetailAnswerPage>
-    with TickerProviderStateMixin {
+class _draftPageState extends State<draftPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final TabController tabController = TabController(
@@ -25,14 +24,9 @@ class _DetailAnswerPageState extends State<DetailAnswerPage>
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.arrow_back, size: 25),
-                    ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(Icons.arrow_back, size: 25),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),

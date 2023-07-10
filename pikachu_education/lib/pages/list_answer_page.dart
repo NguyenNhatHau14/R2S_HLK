@@ -37,9 +37,13 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Icon(Icons.arrow_back, size: 25),
+                  InkWell(onTap: () {
+                    Navigator.pop(context);
+                  },
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(Icons.arrow_back, size: 25),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(10.0),
