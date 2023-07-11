@@ -28,32 +28,32 @@ DataQuestion mockDataQuestionUser1 = DataQuestion(
     3,
     12);
 DataQuestion nockDataQuestionUser2 = DataQuestion(
-    'Pikachu 1',
-    '1 hour',
+    'Pikachu 2',
+    '3 day',
     'assets/image/pikachu_itachi.png',
-    'match',
-    'Match Question',
-    '1 + 1 = ?',
-    3,
-    12);
+    'physics',
+    'How to calculate velocity?',
+    'v = s / t \n v=?\ns=?\nt=?',
+    4,
+    77);
 DataQuestion mockDataQuestionUser3 = DataQuestion(
-    'Pikachu 1',
-    '1 hour',
+    'Pikachu 3',
+    '6 day',
     'assets/image/pikachu_itachi.png',
-    'match',
-    'Match Question',
-    '1 + 1 = ?',
-    3,
-    12);
+    'chemistry',
+    'Atomic mass',
+    'How many atomic mass of the Copper (Cu)?',
+    5,
+    38);
 DataQuestion mockDataQuestionUser4 = DataQuestion(
-    'Pikachu 1',
-    '1 hour',
+    'Pikachu 4',
+    '1 week',
     'assets/image/pikachu_itachi.png',
-    'match',
-    'Match Question',
-    '1 + 1 = ?',
-    3,
-    12);
+    'literature',
+    'Author',
+    'who is romeo and juliet author?',
+    4,
+    142);
 
 
 List<DataQuestion> mockListQuestion = [

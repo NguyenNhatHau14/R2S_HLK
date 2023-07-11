@@ -218,8 +218,10 @@ class _LoginPageState extends State<LoginPage> {
                           onTap: () {
                             Navigator.pushNamed(
                                 context, PageName.listAnswerPage);
+                            saveDataForLogin(context, userController.text='',
+                                passwordController.text='');
                           },
-                          child: Text('View Answer')),
+                          child: const Text('View Answer Without Login')),
                     ),
                     Padding(
                       padding:

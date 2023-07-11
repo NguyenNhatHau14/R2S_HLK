@@ -5,6 +5,7 @@ import 'package:pikachu_education/routes/page_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/data_image.dart';
+import 'create_answer_page.dart';
 
 class ListAnswerPage extends StatefulWidget {
   const ListAnswerPage({super.key});
@@ -15,18 +16,21 @@ class ListAnswerPage extends StatefulWidget {
 
 class _ListAnswerPageState extends State<ListAnswerPage> {
   String? userForPage;
+
   Future<void> loadDataForAnswerListPage() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user = prefs.getString('user')??'';
+    var user = prefs.getString('user') ?? '';
     setState(() {
       userForPage = user;
     });
   }
+
   @override
   void initState() {
     loadDataForAnswerListPage();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,9 +41,10 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(onTap: () {
-                    Navigator.pop(context);
-                  },
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(Icons.arrow_back, size: 25),
@@ -51,7 +56,10 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                       onTap: () {
                         Navigator.pushNamed(context, PageName.loginPage);
                       },
-                      child: Text('User: ${userForPage??''}',
+                      child: Text(
+                          (userForPage?.length ?? 0) == 0
+                              ? 'Login'
+                              : '${userForPage ?? ''}',
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.normal)),
                     ),
@@ -132,12 +140,25 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                           MaterialStateProperty.all(const Color(0xFFFDCA15)),
                     ),
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return DialogCustom.dialogOfPostAnswer(context);
-                        },
-                      );
+                      if ((userForPage?.length ?? 0) == 0) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return DialogCustom.dialogOfPostAnswer(context);
+                          },
+                        );
+                      } else {
+                        showModalBottomSheet(
+                            backgroundColor: const Color(0xFFFDFFAE),
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(20))),
+                            context: context,
+                            builder: (context) {
+                              print('aaaaaaaaaaaaaaaaaaammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
+                              return createAnswerPage(context);
+                            });
+                      }
                     },
                     child: const Text(
                       'Post Answer',
