@@ -4,7 +4,6 @@ import 'package:pikachu_education/pages/home_page.dart';
 import 'package:pikachu_education/pages/answer_page/list_answer_page.dart';
 import 'package:pikachu_education/routes/route_management.dart';
 
-import 'components/draft.dart';
 
 void main() {
   runApp(const MyApp());
