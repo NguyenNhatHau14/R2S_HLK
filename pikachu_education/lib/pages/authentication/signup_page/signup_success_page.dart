@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pikachu_education/components/text_form_field_widget.dart';
 import 'package:pikachu_education/data/data_image.dart';
 import 'package:pikachu_education/routes/page_name.dart';
-
-import '../../components/snack_bar_custom.dart';
+import '../../../components/snack_bar_custom.dart';
 
 class SignupSuccessPage extends StatefulWidget {
   const SignupSuccessPage({super.key});

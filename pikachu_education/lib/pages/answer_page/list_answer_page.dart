@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pikachu_education/components/dialog_custom.dart';
-import 'package:pikachu_education/data/data_user.dart';
+import 'package:pikachu_education/data/data_answer.dart';
 import 'package:pikachu_education/routes/page_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../data/data_image.dart';
+import 'create_answer_page.dart';
 
 class ListAnswerPage extends StatefulWidget {
   const ListAnswerPage({super.key});
@@ -15,18 +14,21 @@ class ListAnswerPage extends StatefulWidget {
 
 class _ListAnswerPageState extends State<ListAnswerPage> {
   String? userForPage;
+
   Future<void> loadDataForAnswerListPage() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user = prefs.getString('user')??'';
+    var user = prefs.getString('user') ?? '';
     setState(() {
       userForPage = user;
     });
   }
+
   @override
   void initState() {
     loadDataForAnswerListPage();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,9 +39,14 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Icon(Icons.arrow_back, size: 25),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(Icons.arrow_back, size: 25),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(10.0),
@@ -47,7 +54,10 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                       onTap: () {
                         Navigator.pushNamed(context, PageName.loginPage);
                       },
-                      child: Text('User: ${userForPage??''}',
+                      child: Text(
+                          (userForPage?.length ?? 0) == 0
+                              ? 'Login'
+                              : '${userForPage ?? ''}',
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.normal)),
                     ),
@@ -128,12 +138,26 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                           MaterialStateProperty.all(const Color(0xFFFDCA15)),
                     ),
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return DialogCustom.dialogOfPostAnswer(context);
-                        },
-                      );
+                      if ((userForPage?.length ?? 0) == 0) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return DialogCustom.dialogOfPostAnswer(context);
+                          },
+                        );
+                      } else {
+                        showModalBottomSheet(
+                            backgroundColor: const Color(0xFFFDFFAE),
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(20))),
+                            context: context,
+                            builder: (context) {
+                              print(
+                                  'aaaaaaaaaaaaaaaaaaammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
+                              return createAnswerPage(context);
+                            });
+                      }
                     },
                     child: const Text(
                       'Post Answer',
@@ -155,8 +179,9 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
             child: Padding(
               padding: const EdgeInsets.only(top: 25, left: 8, right: 8),
               child: ListView.builder(
-                itemBuilder: (context, index) => item(lists[index]),
-                itemCount: lists.length,
+                itemBuilder: (context, index) =>
+                    item(mockListAnswers[index], index),
+                itemCount: mockListAnswers.length,
               ),
             ),
           )
@@ -165,7 +190,7 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
     );
   }
 
-  Widget item(User user) {
+  Widget item(User user, index) {
     return Padding(
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
@@ -184,29 +209,41 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
               children: [
                 Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text(user.answerTitle,
+                  child: Text(mockListAnswers[index].answerTitle,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 18)),
                 ),
                 Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text(user.answerContent),
+                  child: Text(mockListAnswers[index].answerContent),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          const Icon(Icons.favorite_border),
-                          Text('${user.numberOfLike}'),
-                        ],
+                      InkWell(
+                        onTap: () {
+                          mockListAnswers[index].favorite =
+                              !mockListAnswers[index].favorite;
+                          setState(() {
+
+                          });
+                        },
+                        child: Row(
+                          children: [
+                            Icon(mockListAnswers[index].favorite
+                                ? Icons.favorite
+                                : Icons.favorite_border),
+                            Text('${mockListAnswers[index].numberOfLike}'),
+                          ],
+                        ),
                       ),
                       Row(
                         children: [
                           const Icon(Icons.comment_sharp),
-                          Text('${user.numberOfComment} comment'),
+                          Text(
+                              '${mockListAnswers[index].numberOfComment} comment'),
                         ],
                       ),
                       Row(
@@ -217,11 +254,11 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                                 width: 23,
                                 height: 23,
                                 child: Image.asset(
-                                  user.avatar,
+                                  mockListAnswers[index].avatar,
                                   fit: BoxFit.fill,
                                 )),
                           ),
-                          Text(user.name),
+                          Text(mockListAnswers[index].name),
                         ],
                       )
                     ],

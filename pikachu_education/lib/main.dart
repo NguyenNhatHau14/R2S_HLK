@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pikachu_education/pages/home_page_test.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:pikachu_education/pages/home_page.dart';
+import 'package:pikachu_education/pages/answer_page/list_answer_page.dart';
 import 'package:pikachu_education/routes/route_management.dart';
+
 
 void main() {
   runApp(const MyApp());
