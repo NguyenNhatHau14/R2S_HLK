@@ -4,7 +4,7 @@ import 'package:pikachu_education/data/data_image.dart';
 import 'package:pikachu_education/routes/page_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../components/save_data_login.dart';
+import '../../components/save_data_login.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

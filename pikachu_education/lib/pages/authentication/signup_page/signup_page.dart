@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../data/data_image.dart';
-import '../../routes/page_name.dart';
-
+import '../../../data/data_image.dart';
+import '../../../routes/page_name.dart';
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
 
