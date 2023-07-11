@@ -4,7 +4,7 @@ import 'package:pikachu_education/data/data_user.dart';
 import 'package:pikachu_education/routes/page_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../data/data_image.dart';
+import '../../data/data_image.dart';
 import 'create_answer_page.dart';
 
 class ListAnswerPage extends StatefulWidget {

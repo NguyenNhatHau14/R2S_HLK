@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pikachu_education/components/commnet_form.dart';
 import 'package:pikachu_education/data/data_user.dart';
 import 'package:pikachu_education/routes/page_name.dart';
-import '../components/like_form.dart';
+import '../../components/like_form.dart';
 
 class DetailAnswerPage extends StatefulWidget {
   const DetailAnswerPage({super.key});
