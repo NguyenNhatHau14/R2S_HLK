@@ -133,6 +133,23 @@ class _HomePageState extends State<HomePage> {
                                             height: 16,
                                           ),
                                           FormBuilderTextField(
+                                              autofocus: true,
+                                              keyboardType: TextInputType.text,
+                                              decoration: const InputDecoration(
+                                                  border: OutlineInputBorder(),
+                                                  labelText: 'Subject'),
+                                              validator: FormBuilderValidators
+                                                  .compose([
+                                                FormBuilderValidators
+                                                    .required(),
+                                                FormBuilderValidators.maxLength(
+                                                    10)
+                                              ]),
+                                              name: 'Subject'),
+                                          const SizedBox(
+                                            height: 16,
+                                          ),
+                                          FormBuilderTextField(
                                               maxLines: 8,
                                               keyboardType: TextInputType.text,
                                               decoration: const InputDecoration(
@@ -373,7 +390,7 @@ class _HomePageState extends State<HomePage> {
                                   InkWell(
                                     onTap: () {
                                       mockListQuestion[index].favorite =
-                                          !(mockListQuestion[index].favorite);
+                                          !(mockListQuestion[index].favorite??false);
 
                                       setState(() {});
                                     },
@@ -384,7 +401,7 @@ class _HomePageState extends State<HomePage> {
                                         children: [
                                           Text(
                                               '${mockListQuestion[index].numberLike}'),
-                                          Icon(mockListQuestion[index].favorite
+                                          Icon((mockListQuestion[index].favorite??false )
                                               ? Icons.favorite
                                               : Icons.favorite_border)
                                         ],

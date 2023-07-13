@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home: ListAnswerPage(),
+      home: HomePage(),
       localizationsDelegates: const [FormBuilderLocalizations.delegate],
       onGenerateRoute: generateRoute,
     );

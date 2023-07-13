@@ -1,4 +1,5 @@
 class DataQuestion {
+  final String? userID;
   String? userName;
   num? timeAgo;
   String? tag;
@@ -6,20 +7,83 @@ class DataQuestion {
   String? content;
   num? numberAnswer;
   int? numberLike;
-  bool favorite;
+  bool? favorite;
 
-  DataQuestion(this.userName, this.timeAgo, this.tag, this.title, this.content,
-      this.numberAnswer, this.numberLike, this.favorite);
+  DataQuestion({
+    this.userID,
+    this.userName,
+    this.timeAgo,
+    this.tag,
+    this.title,
+    this.content,
+    this.numberAnswer,
+    this.numberLike,
+    this.favorite,
+  });
+
+  static DataQuestion fromJson(Map<String, dynamic> json) => DataQuestion(
+      userID: json['userid'],
+      userName: json['userName'],
+      timeAgo: json['timeAgo'],
+      tag: json['tag'],
+      title: json['title'],
+      content: json['content'],
+      numberAnswer: json['numberAnswer'],
+      numberLike: json['numberLike'],
+      favorite: json['favorite']);
+
+  Map<String, dynamic> toJson() => {
+        'userid': userID,
+        'userName': userName,
+        'timeAgo': timeAgo,
+        'tag': tag,
+        'title': title,
+        'content': content,
+        'numberAnswer': numberAnswer,
+        'numberLike': numberLike,
+        'favorite': favorite,
+      };
 }
 
 DataQuestion mockDataQuestionUser1 = DataQuestion(
-    'Pikachu 1', 1, 'match', 'Match Question', '1 + 1 = ?', 3, 12, false);
-DataQuestion nockDataQuestionUser2 = DataQuestion('Pikachu 2', 3, 'physics',
-    'How to calculate velocity?', 'v = s / t \n v=?\ns=?\nt=?', 4, 77, false);
-DataQuestion mockDataQuestionUser3 = DataQuestion('Pikachu 3', 6, 'chemistry',
-    'Atomic mass', 'How many atomic mass of the Copper (Cu)?', 5, 38, false);
-DataQuestion mockDataQuestionUser4 = DataQuestion('Pikachu 4', 1, 'literature',
-    'Author', 'who is romeo and juliet author?', 4, 142, false);
+    userID: '1',
+    userName: 'Pikachu 1',
+    timeAgo: 1,
+    tag: 'match',
+    title: 'Match Question',
+    content: '1 + 1 = ?',
+    numberAnswer: 3,
+    numberLike: 12,
+    favorite: false);
+DataQuestion nockDataQuestionUser2 = DataQuestion(
+    userID: '1',
+    userName: 'Pikachu 2',
+    timeAgo: 3,
+    tag: 'physics',
+    title: 'How to calculate velocity?',
+    content: 'v = s / t \n v=?\ns=?\nt=?',
+    numberAnswer: 4,
+    numberLike: 77,
+    favorite: false);
+DataQuestion mockDataQuestionUser3 = DataQuestion(
+    userID: '1',
+    timeAgo: 6,
+    userName: 'Pikachu 3',
+    tag: 'chemistry',
+    title: 'Atomic mass',
+    content: 'How many atomic mass of the Copper (Cu)?',
+    numberAnswer: 5,
+    numberLike: 38,
+    favorite: false);
+DataQuestion mockDataQuestionUser4 = DataQuestion(
+    userID: '1',
+    userName: 'Pikachu 4',
+    timeAgo: 1,
+    tag: 'literature',
+    title: 'Author',
+    numberAnswer: 4,
+    numberLike: 142,
+    favorite: false);
 
 List<DataQuestion> mockListQuestion = [
   mockDataQuestionUser1,
