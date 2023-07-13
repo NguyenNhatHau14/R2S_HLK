@@ -12,4 +12,5 @@ class PageName {
   static const String successChangePasswordPage = 'success_change_password_page';
   static const String detailAnswerPage = 'detail_answer_page';
   static const String homePage = 'home_page';
+  static const String profilePage = 'profile_page';
 }

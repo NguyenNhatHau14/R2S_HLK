@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pikachu_education/pages/answer_page/detail_answer_page.dart';
+import 'package:pikachu_education/pages/authentication/profile_page.dart';
 import 'package:pikachu_education/pages/home_page_test.dart';
 import 'package:pikachu_education/pages/answer_page/list_answer_page.dart';
 import 'package:pikachu_education/pages/authentication/change_password_page.dart';
@@ -64,6 +65,11 @@ var generateRoute = (settings) {
       {
         return MaterialPageRoute(
             builder: (context) => const HomePage());
+      }
+    case PageName.profilePage:
+      {
+        return MaterialPageRoute(
+            builder: (context) => const ProfilePage());
       }
   }
 };
