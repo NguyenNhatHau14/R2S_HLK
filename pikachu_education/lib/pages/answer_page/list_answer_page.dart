@@ -146,17 +146,16 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                           },
                         );
                       } else {
-                        showModalBottomSheet(
-                            backgroundColor: const Color(0xFFFDFFAE),
-                            shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(20))),
-                            context: context,
-                            builder: (context) {
-                              print(
-                                  'aaaaaaaaaaaaaaaaaaammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
-                              return createAnswerPage(context);
-                            });
+                        showDialog(context: context, builder: (context) =>createAnswerPage(context) );
+                        // showModalBottomSheet(
+                        //     backgroundColor: const Color(0xFFFDFFAE),
+                        //     shape: const RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.vertical(
+                        //             top: Radius.circular(20))),
+                        //     context: context,
+                        //     builder: (context) {
+
+                            // });
                       }
                     },
                     child: const Text(

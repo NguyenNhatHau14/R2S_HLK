@@ -37,9 +37,10 @@ class _HomePageState extends State<HomePage> {
               Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 1,right: 8),
+                  padding: const EdgeInsets.only(top: 1, right: 8),
                   child: SpeedDial(
-                    icon: Icons.menu,iconTheme: const IconThemeData(size: 35),
+                    icon: Icons.menu,
+                    iconTheme: const IconThemeData(size: 35),
                     foregroundColor: Colors.black,
                     activeIcon: Icons.close,
                     backgroundColor: const Color(0xFFFDCA15),
@@ -78,7 +79,7 @@ class _HomePageState extends State<HomePage> {
               Align(
                 alignment: Alignment.center,
                 child: Padding(
-                  padding: const EdgeInsets.only(top:5),
+                  padding: const EdgeInsets.only(top: 5),
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2,
                     decoration: BoxDecoration(
@@ -120,9 +121,10 @@ class _HomePageState extends State<HomePage> {
                                               decoration: const InputDecoration(
                                                   border: OutlineInputBorder(),
                                                   labelText: 'Title'),
-                                              validator:
-                                                  FormBuilderValidators.compose([
-                                                FormBuilderValidators.required(),
+                                              validator: FormBuilderValidators
+                                                  .compose([
+                                                FormBuilderValidators
+                                                    .required(),
                                                 FormBuilderValidators.maxLength(
                                                     10)
                                               ]),
@@ -136,9 +138,10 @@ class _HomePageState extends State<HomePage> {
                                               decoration: const InputDecoration(
                                                   border: OutlineInputBorder(),
                                                   labelText: 'Content'),
-                                              validator:
-                                                  FormBuilderValidators.compose([
-                                                FormBuilderValidators.required(),
+                                              validator: FormBuilderValidators
+                                                  .compose([
+                                                FormBuilderValidators
+                                                    .required(),
                                                 FormBuilderValidators.maxLength(
                                                     10)
                                               ]),
@@ -182,8 +185,9 @@ class _HomePageState extends State<HomePage> {
                                                       AddModalList(
                                                           title: curState
                                                               .value['title'],
-                                                          content: curState
-                                                              .value['content']),
+                                                          content:
+                                                              curState.value[
+                                                                  'content']),
                                                     );
                                                     Navigator.pop(
                                                         context, curState);
@@ -241,7 +245,7 @@ class _HomePageState extends State<HomePage> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 8,right: 8),
+                  padding: const EdgeInsets.only(left: 8, right: 8),
                   child: SizedBox(
                     height: 50,
                     child: AnimSearchBar(
@@ -300,7 +304,7 @@ class _HomePageState extends State<HomePage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Image.asset(
-                                      mockListQuestion[index].avatar ?? ''),
+                                      'assets/image/pikachu_itachi.png'),
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         right: 8, left: 8),
@@ -313,8 +317,7 @@ class _HomePageState extends State<HomePage> {
                                                 '',
                                             style: TextStyle(fontSize: 15)),
                                         Text(
-                                            mockListQuestion[index].timeAgo ??
-                                                '',
+                                            '${mockListQuestion[index].timeAgo ?? 0} day ago',
                                             style: const TextStyle(
                                                 fontSize: 10,
                                                 color: Color(0x4D000000))),
