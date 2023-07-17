@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:pikachu_education/pages/home_page/edit_question_dialog.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
 import '../../bloc_home_page/data_home_page_bloc.dart';
@@ -264,6 +265,7 @@ class _HomePageState extends State<HomePage> {
                                                           AlignmentDirectional
                                                               .centerEnd,
                                                       child: PopupMenuButton(
+
                                                           shape: ContinuousRectangleBorder(
                                                               borderRadius:
                                                                   BorderRadius
@@ -274,18 +276,28 @@ class _HomePageState extends State<HomePage> {
                                                                   <PopupMenuEntry>[
                                                                     PopupMenuItem(
                                                                       child:
-                                                                          const Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.start,
-                                                                        children: [
-                                                                          Icon(Icons
-                                                                              .edit),
-                                                                          Text(
-                                                                              'Edit'),
-                                                                        ],
+                                                                          InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          await showDialog(
+                                                                              context: context,
+                                                                              builder: (context) => editQuestion(context: context, itemHomePage: dataQuestionFromServer[index]));
+                                                                          await Future.delayed(
+                                                                              Duration(seconds: 1));
+                                                                          context
+                                                                              .read<DataHomePageBloc>()
+                                                                              .add(FetchDataHomePage());
+                                                                        },
+                                                                        child:
+                                                                            const Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.start,
+                                                                          children: [
+                                                                            Icon(Icons.edit),
+                                                                            Text('Edit'),
+                                                                          ],
+                                                                        ),
                                                                       ),
-                                                                      onTap:
-                                                                          () {},
                                                                     ),
                                                                     PopupMenuItem(
                                                                       child:

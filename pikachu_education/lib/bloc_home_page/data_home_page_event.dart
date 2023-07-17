@@ -15,3 +15,9 @@ class DeleteDataHomePage extends DataHomePageEvent{
   DeleteDataHomePage ( {required this.idToDelete});
 }
 
+class UpdateDataHomePage extends DataHomePageEvent{
+  final DataQuestionModal dataToUpdate;
+
+  UpdateDataHomePage ( {required this.dataToUpdate});
+}
+

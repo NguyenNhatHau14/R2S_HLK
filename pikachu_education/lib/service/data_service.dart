@@ -46,4 +46,20 @@ class DataSerVice{
     print('Check Service: DELETE data of home page SUCCESSFUL');
   }
 
+
+  static Future<void> updateDataFromServer(DataQuestionModal item) async{
+    var url = Uri(
+        scheme: 'https',
+        host: '64b4b6010efb99d86269308a.mockapi.io',
+        path: '/DataQuestion/${item.userID}');
+
+    DataQuestionModal dummyItem=item;
+    dummyItem.title=item.title;
+    dummyItem.tag=item.tag;
+    dummyItem.content=item.content;
+print('user ID: ${item.userID}');
+   await http.put(url,body: jsonEncode(dummyItem.toJson()),headers: {'Content-Type': 'application/json'});
+    print('Check Service: UPDATE data of home page SUCCESSFUL');
+
+  }
 }
