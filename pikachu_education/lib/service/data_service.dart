@@ -4,15 +4,17 @@ import 'package:http/http.dart' as http;
 import 'package:pikachu_education/data/data_questions.dart';
 
 
-class GetDataSerVice{
+class DataSerVice{
   static Future<List <DataQuestion>> getDataFromServer() async{
+
     var url = Uri(
         scheme: 'https',
-        host: 'https://64a6b38d096b3f0fcc805cbb.mockapi.io',
-        path: '/user');
+        host: '64b4b6010efb99d86269308a.mockapi.io',
+        path: '/DataQuestion');
     var response = await http.get(url);
-    var listMap =jsonDecode(response.body)as List<dynamic>;
-    List<DataQuestion> result = listMap.map((e) => DataQuestion.fromJson(e)).toList();
+    print(response.body);
+    var lisMap = jsonDecode(response.body) as List<dynamic>;
+    List<DataQuestion> result = lisMap.map((e) => DataQuestion.fromJson(e)).toList();
     return result;
   }
 }

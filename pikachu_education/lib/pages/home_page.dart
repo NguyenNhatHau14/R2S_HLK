@@ -4,6 +4,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pikachu_education/data/data_questions.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
+import 'package:pikachu_education/service/data_service.dart';
 import '../data/data_image.dart';
 import '../models/content_add_model.dart';
 import '../routes/page_name.dart';
@@ -289,134 +290,164 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          Expanded(
-            child: ListView.separated(
-              shrinkWrap: true,
-              itemCount: mockListQuestion.length,
-              separatorBuilder: (context, index) => const Divider(
-                color: Colors.transparent,
-                thickness: 0,
-              ),
-              itemBuilder: (context, index) {
-                return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, PageName.listAnswerPage);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.topCenter,
-                                colors: [Color(0xFFFDFFAE), Color(0xFFFFFFFF)]),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 8, right: 8, left: 8),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+          // ElevatedButton(
+          //     onPressed: () {
+          //       DataSerVice.getDataFromServer();
+          //     },
+          //     child: Text('Check Get Data')),
+          FutureBuilder(
+            future: DataSerVice.getDataFromServer(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done &&
+                  snapshot.hasData) {
+                var dataQuestionFromServer = snapshot.data??[];
+                return Expanded(
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: dataQuestionFromServer.length,
+                    separatorBuilder: (context, index) => const Divider(
+                      color: Colors.transparent,
+                      thickness: 0,
+                    ),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, PageName.listAnswerPage);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  gradient: const LinearGradient(
+                                      begin: Alignment.bottomCenter,
+                                      end: Alignment.topCenter,
+                                      colors: [
+                                        Color(0xFFFDFFAE),
+                                        Color(0xFFFFFFFF)
+                                      ]),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Image.asset(
-                                      'assets/image/pikachu_itachi.png'),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8, right: 8, left: 8),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Image.asset(
+                                            'assets/image/pikachu_itachi.png'),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 8, left: 8),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                  dataQuestionFromServer[index]
+                                                          .userName ??
+                                                      '',
+                                                  style:
+                                                      TextStyle(fontSize: 15)),
+                                              Text(
+                                                  '${dataQuestionFromServer[index].timeAgo ?? 0} day ago',
+                                                  style: const TextStyle(
+                                                      fontSize: 10,
+                                                      color:
+                                                          Color(0x4D000000))),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         right: 8, left: 8),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    child: Row(
                                       children: [
+                                        Icon(Icons.tag),
                                         Text(
-                                            mockListQuestion[index].userName ??
-                                                '',
-                                            style: TextStyle(fontSize: 15)),
-                                        Text(
-                                            '${mockListQuestion[index].timeAgo ?? 0} day ago',
-                                            style: const TextStyle(
-                                                fontSize: 10,
-                                                color: Color(0x4D000000))),
+                                          dataQuestionFromServer[index].tag ?? '',
+                                          style: TextStyle(fontSize: 12),
+                                        ),
                                       ],
                                     ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8, left: 8),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.tag),
-                                  Text(
-                                    mockListQuestion[index].tag ?? '',
-                                    style: TextStyle(fontSize: 12),
                                   ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 8, right: 8, left: 8),
-                              child: Text(mockListQuestion[index].title ?? '',
-                                  style: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 8, right: 8, left: 8),
-                              child: Text(mockListQuestion[index].content ?? '',
-                                  style: TextStyle(fontSize: 12)),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 8, right: 8, left: 8),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
                                   Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                        child: Row(
-                                      children: [
-                                        Text(
-                                            '${mockListQuestion[index].numberAnswer}'),
-                                        Icon(Icons.message)
-                                      ],
-                                    )),
+                                    padding: const EdgeInsets.only(
+                                        top: 8, right: 8, left: 8),
+                                    child: Text(
+                                        dataQuestionFromServer[index].title ?? '',
+                                        style: const TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold)),
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      mockListQuestion[index].favorite =
-                                          !(mockListQuestion[index].favorite??false);
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8, right: 8, left: 8),
+                                    child: Text(
+                                        dataQuestionFromServer[index].content ?? '',
+                                        style: TextStyle(fontSize: 12)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8, right: 8, left: 8),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                              child: Row(
+                                            children: [
+                                              Text(
+                                                  '${dataQuestionFromServer[index].numberAnswer}'),
+                                              Icon(Icons.message)
+                                            ],
+                                          )),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            dataQuestionFromServer[index].favorite =
+                                                !(dataQuestionFromServer[index]
+                                                        .favorite ??
+                                                    false);
 
-                                      setState(() {});
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                          child: Row(
-                                        children: [
-                                          Text(
-                                              '${mockListQuestion[index].numberLike}'),
-                                          Icon((mockListQuestion[index].favorite??false )
-                                              ? Icons.favorite
-                                              : Icons.favorite_border)
-                                        ],
-                                      )),
+                                            setState(() {});
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                                child: Row(
+                                              children: [
+                                                Text(
+                                                    '${dataQuestionFromServer[index].numberLike}'),
+                                                Icon((dataQuestionFromServer[index]
+                                                            .favorite ??
+                                                        false)
+                                                    ? Icons.favorite
+                                                    : Icons.favorite_border)
+                                              ],
+                                            )),
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   )
                                 ],
                               ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ));
-              },
-            ),
+                            ),
+                          ));
+                    },
+                  ),
+                );
+              }
+              else return Center(child: CircularProgressIndicator());
+            },
           ),
         ]),
       ),
