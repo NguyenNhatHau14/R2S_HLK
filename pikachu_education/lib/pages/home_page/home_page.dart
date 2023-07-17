@@ -12,6 +12,7 @@ import '../../models/content_add_model.dart';
 import '../../routes/page_name.dart';
 import '../../service/add_question_service.dart';
 import 'create_question_dialog.dart';
+import 'delete_question_dialog.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -265,7 +266,6 @@ class _HomePageState extends State<HomePage> {
                                                           AlignmentDirectional
                                                               .centerEnd,
                                                       child: PopupMenuButton(
-
                                                           shape: ContinuousRectangleBorder(
                                                               borderRadius:
                                                                   BorderRadius
@@ -301,24 +301,31 @@ class _HomePageState extends State<HomePage> {
                                                                     ),
                                                                     PopupMenuItem(
                                                                       child:
-                                                                          const Row(
+                                                                          InkWell(onTap: () async {
+                                                                           await showDialog(
+                                                                                context:
+                                                                                context,
+                                                                                builder: (context) =>
+                                                                                    deleteQuestion(context: context, itemHomePage: dataQuestionFromServer[index]));
+                                                                           await Future.delayed(
+                                                                               Duration(seconds: 1));
+                                                                           context
+                                                                               .read<DataHomePageBloc>()
+                                                                               .add(FetchDataHomePage());
+                                                                          },
+                                                                            child: const Row(
                                                                         mainAxisAlignment:
-                                                                            MainAxisAlignment.start,
+                                                                              MainAxisAlignment.start,
                                                                         children: [
-                                                                          Icon(
-                                                                              Icons.delete,
-                                                                              color: Colors.red),
-                                                                          Text(
-                                                                              'Delete',
-                                                                              style: TextStyle(color: Colors.red)),
+                                                                            Icon(
+                                                                                Icons.delete,
+                                                                                color: Colors.red),
+                                                                            Text(
+                                                                                'Delete',
+                                                                                style: TextStyle(color: Colors.red)),
                                                                         ],
                                                                       ),
-                                                                      onTap:
-                                                                          () {
-                                                                        context
-                                                                            .read<DataHomePageBloc>()
-                                                                            .add(DeleteDataHomePage(idToDelete: dataQuestionFromServer[index]));
-                                                                      },
+                                                                          ),
                                                                     ),
                                                                   ]),
                                                     ),
