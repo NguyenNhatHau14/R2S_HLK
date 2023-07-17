@@ -53,7 +53,6 @@ Widget createQuestionPage(BuildContext context) {
                               labelText: 'Title'),
                           validator: FormBuilderValidators.compose([
                             FormBuilderValidators.required(),
-                            FormBuilderValidators.maxLength(10)
                           ]),
                           name: 'title'),
                       const SizedBox(
@@ -70,7 +69,6 @@ Widget createQuestionPage(BuildContext context) {
                               labelText: 'Subject'),
                           validator: FormBuilderValidators.compose([
                             FormBuilderValidators.required(),
-                            FormBuilderValidators.maxLength(10)
                           ]),
                           name: 'Subject'),
                       const SizedBox(
@@ -87,7 +85,6 @@ Widget createQuestionPage(BuildContext context) {
                               labelText: 'Content'),
                           validator: FormBuilderValidators.compose([
                             FormBuilderValidators.required(),
-                            FormBuilderValidators.maxLength(10)
                           ]),
                           name: 'content')
                     ],
