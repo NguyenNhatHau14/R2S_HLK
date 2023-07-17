@@ -116,12 +116,14 @@ class _HomePageState extends State<HomePage> {
                                       color: Color(0xFFFDCA15),
                                       borderRadius: BorderRadius.circular(15)),
                                   child: InkWell(
-                                    onTap: () {
-                                      showDialog(
+                                    onTap: () async {
+                                     await showDialog(
                                         context: context,
                                         builder: (context) =>
                                             createQuestionPage(context),
                                       );
+                                     await Future.delayed(Duration(seconds: 1));
+                                     context.read<DataHomePageBloc>().add(FetchDataHomePage());
                                     },
                                     child: const Row(
                                       mainAxisAlignment:

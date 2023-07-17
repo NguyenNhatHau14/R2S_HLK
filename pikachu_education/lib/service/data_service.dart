@@ -5,16 +5,35 @@ import 'package:pikachu_education/data/data_questions_modal.dart';
 
 
 class DataSerVice{
-  static Future<List <DataQuestion>> getDataFromServer() async{
-
+  static Future<List <DataQuestionModal>> getDataFromServer() async{
     var url = Uri(
         scheme: 'https',
         host: '64b4b6010efb99d86269308a.mockapi.io',
         path: '/DataQuestion');
     var response = await http.get(url);
-    print(response.body);
     var lisMap = jsonDecode(response.body) as List<dynamic>;
-    List<DataQuestion> result = lisMap.map((e) => DataQuestion.fromJson(e)).toList();
+    List<DataQuestionModal> result = lisMap.map((e) => DataQuestionModal.fromJson(e)).toList();
+    print('Check Service: GET data of home page SUCCESSFUL');
     return result;
+
+  }
+
+  static Future<void> postDataFromServer(DataQuestionModal item) async{
+    var url = Uri(
+        scheme: 'https',
+        host: '64b4b6010efb99d86269308a.mockapi.io',
+        path: '/DataQuestion');
+
+    DataQuestionModal dummyItem = item;
+    dummyItem.userName=item.userName??'';
+    dummyItem.timeAgo=item.timeAgo??0;
+    dummyItem.title=item.title;
+    dummyItem.tag=item.tag;
+    dummyItem.content=item.content;
+    dummyItem.numberLike=item.numberLike??0;
+    dummyItem.numberAnswer=item.numberAnswer??0;
+    dummyItem.favorite=item.favorite??false;
+    await http.post(url,body: jsonEncode(dummyItem.toJson()),headers: {'Content-Type': 'application/json'});
+    print('Check Service: POST data of home page SUCCESSFUL');
   }
 }

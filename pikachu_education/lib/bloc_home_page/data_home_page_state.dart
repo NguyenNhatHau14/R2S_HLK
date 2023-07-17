@@ -2,7 +2,7 @@ part of 'data_home_page_bloc.dart';
 
 @immutable
 abstract class DataHomePageState {
-  List<DataQuestion> dataList;
+  List<DataQuestionModal> dataList;
 
   DataHomePageState(this.dataList);
 }

@@ -1,4 +1,4 @@
-class DataQuestion {
+class DataQuestionModal {
   final String? userID;
   String? userName;
   num? timeAgo;
@@ -9,7 +9,7 @@ class DataQuestion {
   int? numberLike;
   bool? favorite;
 
-  DataQuestion({
+  DataQuestionModal({
     this.userID,
     this.userName,
     this.timeAgo,
@@ -21,7 +21,7 @@ class DataQuestion {
     this.favorite,
   });
 
-  static DataQuestion fromJson(Map<String, dynamic> json) => DataQuestion(
+  static DataQuestionModal fromJson(Map<String, dynamic> json) => DataQuestionModal(
       userID: json['userid'],
       userName: json['userName'],
       timeAgo: json['timeAgo'],
@@ -45,7 +45,7 @@ class DataQuestion {
       };
 }
 
-DataQuestion mockDataQuestionUser1 = DataQuestion(
+DataQuestionModal mockDataQuestionUser1 = DataQuestionModal(
     userID: '1',
     userName: 'Pikachu 1',
     timeAgo: 1,
@@ -55,7 +55,7 @@ DataQuestion mockDataQuestionUser1 = DataQuestion(
     numberAnswer: 3,
     numberLike: 12,
     favorite: false);
-DataQuestion nockDataQuestionUser2 = DataQuestion(
+DataQuestionModal nockDataQuestionUser2 = DataQuestionModal(
     userID: '1',
     userName: 'Pikachu 2',
     timeAgo: 3,
@@ -65,7 +65,7 @@ DataQuestion nockDataQuestionUser2 = DataQuestion(
     numberAnswer: 4,
     numberLike: 77,
     favorite: false);
-DataQuestion mockDataQuestionUser3 = DataQuestion(
+DataQuestionModal mockDataQuestionUser3 = DataQuestionModal(
     userID: '1',
     timeAgo: 6,
     userName: 'Pikachu 3',
@@ -75,7 +75,7 @@ DataQuestion mockDataQuestionUser3 = DataQuestion(
     numberAnswer: 5,
     numberLike: 38,
     favorite: false);
-DataQuestion mockDataQuestionUser4 = DataQuestion(
+DataQuestionModal mockDataQuestionUser4 = DataQuestionModal(
     userID: '1',
     userName: 'Pikachu 4',
     timeAgo: 1,
@@ -85,7 +85,7 @@ DataQuestion mockDataQuestionUser4 = DataQuestion(
     numberLike: 142,
     favorite: false);
 
-List<DataQuestion> mockListQuestion = [
+List<DataQuestionModal> mockListQuestion = [
   mockDataQuestionUser1,
   nockDataQuestionUser2,
   mockDataQuestionUser3,
