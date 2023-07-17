@@ -36,4 +36,14 @@ class DataSerVice{
     await http.post(url,body: jsonEncode(dummyItem.toJson()),headers: {'Content-Type': 'application/json'});
     print('Check Service: POST data of home page SUCCESSFUL');
   }
+
+  static Future<void> DeleteDataFromServer(DataQuestionModal item) async{
+    var url = Uri(
+        scheme: 'https',
+        host: '64b4b6010efb99d86269308a.mockapi.io',
+        path: '/DataQuestion/${item.userID}');
+     await http.delete(url);
+    print('Check Service: DELETE data of home page SUCCESSFUL');
+  }
+
 }

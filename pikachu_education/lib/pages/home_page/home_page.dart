@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   final DataHomePageBloc _dataHomePageBloc = DataHomePageBloc();
 
   final RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController(initialRefresh: false);
 
   @override
   void initState() {
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                               alignment: Alignment.centerRight,
                               child: Padding(
                                 padding:
-                                    const EdgeInsets.only(top: 1, right: 8),
+                                const EdgeInsets.only(top: 1, right: 8),
                                 child: SpeedDial(
                                   icon: Icons.menu,
                                   iconTheme: const IconThemeData(size: 35),
@@ -111,23 +111,29 @@ class _HomePageState extends State<HomePage> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 5),
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width / 2,
+                                  width: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width / 2,
                                   decoration: BoxDecoration(
                                       color: Color(0xFFFDCA15),
                                       borderRadius: BorderRadius.circular(15)),
                                   child: InkWell(
                                     onTap: () async {
-                                     await showDialog(
+                                      await showDialog(
                                         context: context,
                                         builder: (context) =>
                                             createQuestionPage(context),
                                       );
-                                     await Future.delayed(Duration(seconds: 1));
-                                     context.read<DataHomePageBloc>().add(FetchDataHomePage());
+                                      await Future.delayed(
+                                          Duration(seconds: 1));
+                                      context
+                                          .read<DataHomePageBloc>()
+                                          .add(FetchDataHomePage());
                                     },
                                     child: const Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      MainAxisAlignment.start,
                                       children: [
                                         Icon(
                                           Icons.add,
@@ -148,12 +154,15 @@ class _HomePageState extends State<HomePage> {
                               alignment: Alignment.centerLeft,
                               child: Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 8, right: 8),
+                                const EdgeInsets.only(left: 8, right: 8),
                                 child: SizedBox(
                                   height: 50,
                                   child: AnimSearchBar(
                                     boxShadow: true,
-                                    width: MediaQuery.of(context).size.width,
+                                    width: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width,
                                     helpText: 'Search Question',
                                     prefixIcon: const Icon(
                                       Icons.search,
@@ -192,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                               shrinkWrap: true,
                               itemCount: dataQuestionFromServer.length,
                               separatorBuilder: (context, index) =>
-                                  const Divider(
+                              const Divider(
                                 color: Colors.transparent,
                                 thickness: 0,
                               ),
@@ -214,45 +223,64 @@ class _HomePageState extends State<HomePage> {
                                                   Color(0xFFFFFFFF)
                                                 ]),
                                             borderRadius:
-                                                BorderRadius.circular(10)),
+                                            BorderRadius.circular(10)),
                                         child: Column(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           children: [
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   top: 8, right: 8, left: 8),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.start,
+                                                MainAxisAlignment.start,
                                                 children: [
                                                   Image.asset(
                                                       'assets/image/pikachu_itachi.png'),
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsets.only(
-                                                            right: 8, left: 8),
+                                                    const EdgeInsets.only(
+                                                        right: 8, left: 8),
                                                     child: Column(
                                                       crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                                      CrossAxisAlignment
+                                                          .start,
                                                       children: [
                                                         Text(
                                                             dataQuestionFromServer[
-                                                                        index]
-                                                                    .userName ??
+                                                            index]
+                                                                .userName ??
                                                                 '',
-                                                            style: TextStyle(
-                                                                fontSize: 15)),
+                                                            style:
+                                                            const TextStyle(
+                                                                fontSize:
+                                                                15)),
                                                         Text(
-                                                            '${dataQuestionFromServer[index].timeAgo ?? 0} day ago',
+                                                            '${dataQuestionFromServer[index]
+                                                                .timeAgo ??
+                                                                0} day ago',
                                                             style: const TextStyle(
                                                                 fontSize: 10,
                                                                 color: Color(
                                                                     0x4D000000))),
                                                       ],
                                                     ),
-                                                  )
+                                                  ),
+                                                  Expanded(
+                                                      child: InkWell(
+                                                          onTap: () {
+                                                            context.read<
+                                                                DataHomePageBloc>()
+                                                                .add(
+                                                                DeleteDataHomePage(
+                                                                    idToDelete: dataQuestionFromServer[index]));
+                                                          },
+                                                          child: const Align(
+                                                            alignment: AlignmentDirectional
+                                                                .centerEnd,
+                                                            child: Icon(Icons
+                                                                .cancel_outlined),
+                                                          )))
                                                 ],
                                               ),
                                             ),
@@ -264,11 +292,11 @@ class _HomePageState extends State<HomePage> {
                                                   Icon(Icons.tag),
                                                   Text(
                                                     dataQuestionFromServer[
-                                                                index]
-                                                            .tag ??
+                                                    index]
+                                                        .tag ??
                                                         '',
                                                     style:
-                                                        TextStyle(fontSize: 12),
+                                                    TextStyle(fontSize: 12),
                                                   ),
                                                 ],
                                               ),
@@ -278,73 +306,77 @@ class _HomePageState extends State<HomePage> {
                                                   top: 8, right: 8, left: 8),
                                               child: Text(
                                                   dataQuestionFromServer[index]
-                                                          .title ??
+                                                      .title ??
                                                       '',
                                                   style: const TextStyle(
                                                       fontSize: 15,
                                                       fontWeight:
-                                                          FontWeight.bold)),
+                                                      FontWeight.bold)),
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   top: 8, right: 8, left: 8),
                                               child: Text(
                                                   dataQuestionFromServer[index]
-                                                          .content ??
+                                                      .content ??
                                                       '',
                                                   style:
-                                                      TextStyle(fontSize: 12)),
+                                                  TextStyle(fontSize: 12)),
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   top: 8, right: 8, left: 8),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.end,
+                                                MainAxisAlignment.end,
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
+                                                    const EdgeInsets.all(
+                                                        8.0),
                                                     child: Container(
                                                         child: Row(
-                                                      children: [
-                                                        Text(
-                                                            '${dataQuestionFromServer[index].numberAnswer}'),
-                                                        Icon(Icons.message)
-                                                      ],
-                                                    )),
+                                                          children: [
+                                                            Text(
+                                                                '${dataQuestionFromServer[index]
+                                                                    .numberAnswer}'),
+                                                            Icon(Icons.message)
+                                                          ],
+                                                        )),
                                                   ),
                                                   InkWell(
                                                     onTap: () {
                                                       dataQuestionFromServer[
-                                                                  index]
-                                                              .favorite =
-                                                          !(dataQuestionFromServer[
-                                                                      index]
-                                                                  .favorite ??
-                                                              false);
+                                                      index]
+                                                          .favorite =
+                                                      !(dataQuestionFromServer[
+                                                      index]
+                                                          .favorite ??
+                                                          false);
 
                                                       setState(() {});
                                                     },
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
+                                                      const EdgeInsets.all(
+                                                          8.0),
                                                       child: Container(
                                                           child: Row(
-                                                        children: [
-                                                          Text(
-                                                              '${dataQuestionFromServer[index].numberLike}'),
-                                                          Icon((dataQuestionFromServer[
-                                                                          index]
+                                                            children: [
+                                                              Text(
+                                                                  '${dataQuestionFromServer[index]
+                                                                      .numberLike}'),
+                                                              Icon(
+                                                                  (dataQuestionFromServer[
+                                                                  index]
                                                                       .favorite ??
-                                                                  false)
-                                                              ? Icons.favorite
-                                                              : Icons
-                                                                  .favorite_border)
-                                                        ],
-                                                      )),
+                                                                      false)
+                                                                      ? Icons
+                                                                      .favorite
+                                                                      : Icons
+                                                                      .favorite_border)
+                                                            ],
+                                                          )),
                                                     ),
                                                   )
                                                 ],

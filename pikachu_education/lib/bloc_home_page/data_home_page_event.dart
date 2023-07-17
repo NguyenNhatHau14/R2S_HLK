@@ -9,4 +9,9 @@ class PostDataHomePage extends DataHomePageEvent{
 
   PostDataHomePage ( {required this.dataToPost});
 }
+class DeleteDataHomePage extends DataHomePageEvent{
+  final DataQuestionModal idToDelete;
+
+  DeleteDataHomePage ( {required this.idToDelete});
+}
 
