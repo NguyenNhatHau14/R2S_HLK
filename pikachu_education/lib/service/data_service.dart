@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:pikachu_education/data/data_questions.dart';
+import 'package:pikachu_education/data/data_questions_modal.dart';
 
 
 class DataSerVice{

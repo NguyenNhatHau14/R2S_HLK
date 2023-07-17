@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pikachu_education/pages/answer_page/detail_answer_page.dart';
 import 'package:pikachu_education/pages/authentication/profile_page.dart';
-import 'package:pikachu_education/pages/home_page_test.dart';
+
 import 'package:pikachu_education/pages/answer_page/list_answer_page.dart';
 import 'package:pikachu_education/pages/authentication/change_password_page.dart';
 import 'package:pikachu_education/routes/page_name.dart';
@@ -12,7 +12,7 @@ import '../pages/authentication/forgot_password_page/3_save_new_password_page.da
 import '../pages/authentication/forgot_password_page/4_success_change_password_page.dart';
 import '../pages/authentication/signup_page/signup_page.dart';
 import '../pages/authentication/signup_page/signup_success_page.dart';
-import '../pages/home_page.dart';
+import '../pages/home_page/home_page.dart';
 
 var generateRoute = (settings) {
   switch (settings.name) {
