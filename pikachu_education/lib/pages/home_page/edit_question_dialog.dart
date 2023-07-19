@@ -8,7 +8,9 @@ import '../../models/content_add_model.dart';
 import '../../service/add_question_service.dart';
 
 Widget editQuestion(
-    {required BuildContext context, required DataQuestionModal itemHomePage}) {
+    {required BuildContext context,
+    required DataQuestionModal itemHomePage,
+    required DataHomePageBloc dataHomePageBloc}) {
   TextEditingController titleController = TextEditingController();
   TextEditingController subjectController = TextEditingController();
   TextEditingController contentController = TextEditingController();
@@ -17,12 +19,10 @@ Widget editQuestion(
   subjectController.text = itemHomePage.tag ?? '';
   contentController.text = itemHomePage.content ?? '';
   final formAddQuestionKey = GlobalKey<FormBuilderState>();
-  return BlocProvider(
-    create: (context) => DataHomePageBloc(),
+  return BlocProvider.value(
+    value: dataHomePageBloc,
     child: BlocBuilder<DataHomePageBloc, DataHomePageState>(
       builder: (context, state) {
-        print(
-            'aospdasmzxc.mzx.,mc,.zxmc,.mzx,.cmzx,.mc,.zxmc.,mzx,.cmxz,.mc,zx.');
         return AlertDialog(
           backgroundColor: const Color(0xFFFDFFAE),
           insetPadding: EdgeInsets.zero,
@@ -36,7 +36,7 @@ Widget editQuestion(
               children: [
                 const Center(
                   child: Text(
-                    'N e w Q u e s t i o n',
+                    'EDIT QUESTION',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),

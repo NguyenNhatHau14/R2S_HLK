@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pikachu_education/pages/home_page/edit_question_dialog.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
 import '../../bloc_home_page/data_home_page_bloc.dart';
 import '../../data/data_image.dart';
-import '../../models/content_add_model.dart';
 import '../../routes/page_name.dart';
-import '../../service/add_question_service.dart';
 import 'create_question_dialog.dart';
 import 'delete_question_dialog.dart';
 
@@ -47,10 +43,13 @@ class _HomePageState extends State<HomePage> {
               print('check refreshController');
               _refreshController.refreshCompleted();
             }
+            if (state is DataPostSuccess) {
+              context.read<DataHomePageBloc>().add(FetchDataHomePage());
+            }
           },
           child: BlocBuilder<DataHomePageBloc, DataHomePageState>(
             builder: (context, state) {
-              if (state is DataChangedSuccess) {
+              if (state is DataChangedSuccess || state is DataPostSuccess) {
                 var dataQuestionFromServer = state.dataList;
                 return SafeArea(
                   child: Column(
@@ -115,20 +114,18 @@ class _HomePageState extends State<HomePage> {
                                 child: Container(
                                   width: MediaQuery.of(context).size.width / 2,
                                   decoration: BoxDecoration(
-                                      color: Color(0xFFFDCA15),
+                                      color: const Color(0xFFFDCA15),
                                       borderRadius: BorderRadius.circular(15)),
                                   child: InkWell(
                                     onTap: () async {
                                       await showDialog(
                                         context: context,
                                         builder: (context) =>
-                                            createQuestionPage(context),
+                                            createQuestionPage(
+                                                context: context,
+                                                dataHomePageBloc:
+                                                    _dataHomePageBloc),
                                       );
-                                      await Future.delayed(
-                                          Duration(seconds: 1));
-                                      context
-                                          .read<DataHomePageBloc>()
-                                          .add(FetchDataHomePage());
                                     },
                                     child: const Row(
                                       mainAxisAlignment:
@@ -170,8 +167,8 @@ class _HomePageState extends State<HomePage> {
                                         searchController.clear();
                                       });
                                     },
-                                    textFieldColor: Color(0xFFFDFFAE),
-                                    color: Color(0xFFFDCA15),
+                                    textFieldColor: const Color(0xFFFDFFAE),
+                                    color: const Color(0xFFFDCA15),
                                     onSubmitted: (p0) {},
                                     animationDurationInMilli: 2000,
                                   ),
@@ -281,12 +278,9 @@ class _HomePageState extends State<HomePage> {
                                                                             () async {
                                                                           await showDialog(
                                                                               context: context,
-                                                                              builder: (context) => editQuestion(context: context, itemHomePage: dataQuestionFromServer[index]));
-                                                                          await Future.delayed(
-                                                                              Duration(seconds: 1));
-                                                                          context
-                                                                              .read<DataHomePageBloc>()
-                                                                              .add(FetchDataHomePage());
+                                                                              builder: (context) => editQuestion(context: context, itemHomePage: dataQuestionFromServer[index], dataHomePageBloc: _dataHomePageBloc));
+                                                                          Navigator.pop(
+                                                                              context);
                                                                         },
                                                                         child:
                                                                             const Row(
@@ -301,31 +295,27 @@ class _HomePageState extends State<HomePage> {
                                                                     ),
                                                                     PopupMenuItem(
                                                                       child:
-                                                                          InkWell(onTap: () async {
-                                                                           await showDialog(
-                                                                                context:
-                                                                                context,
-                                                                                builder: (context) =>
-                                                                                    deleteQuestion(context: context, itemHomePage: dataQuestionFromServer[index]));
-                                                                           await Future.delayed(
-                                                                               Duration(seconds: 1));
-                                                                           context
-                                                                               .read<DataHomePageBloc>()
-                                                                               .add(FetchDataHomePage());
-                                                                          },
-                                                                            child: const Row(
-                                                                        mainAxisAlignment:
+                                                                          InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          await showDialog(
+                                                                              context: context,
+                                                                              builder: (context) => deleteQuestion(context: context, itemHomePage: dataQuestionFromServer[index], dataHomePageBloc: _dataHomePageBloc));
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                        child:
+                                                                            const Row(
+                                                                          mainAxisAlignment:
                                                                               MainAxisAlignment.start,
-                                                                        children: [
-                                                                            Icon(
-                                                                                Icons.delete,
+                                                                          children: [
+                                                                            Icon(Icons.delete,
                                                                                 color: Colors.red),
-                                                                            Text(
-                                                                                'Delete',
+                                                                            Text('Delete',
                                                                                 style: TextStyle(color: Colors.red)),
-                                                                        ],
+                                                                          ],
+                                                                        ),
                                                                       ),
-                                                                          ),
                                                                     ),
                                                                   ]),
                                                     ),
@@ -338,14 +328,14 @@ class _HomePageState extends State<HomePage> {
                                                   right: 8, left: 8),
                                               child: Row(
                                                 children: [
-                                                  Icon(Icons.tag),
+                                                  const Icon(Icons.tag),
                                                   Text(
                                                     dataQuestionFromServer[
                                                                 index]
                                                             .tag ??
                                                         '',
                                                     style:
-                                                        TextStyle(fontSize: 12),
+                                                        const TextStyle(fontSize: 12),
                                                   ),
                                                 ],
                                               ),
@@ -370,7 +360,7 @@ class _HomePageState extends State<HomePage> {
                                                           .content ??
                                                       '',
                                                   style:
-                                                      TextStyle(fontSize: 12)),
+                                                      const TextStyle(fontSize: 12)),
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
@@ -383,14 +373,13 @@ class _HomePageState extends State<HomePage> {
                                                     padding:
                                                         const EdgeInsets.all(
                                                             8.0),
-                                                    child: Container(
-                                                        child: Row(
+                                                    child: Row(
                                                       children: [
-                                                        Text(
-                                                            '${dataQuestionFromServer[index].numberAnswer}'),
-                                                        Icon(Icons.message)
+                                                    Text(
+                                                        '${dataQuestionFromServer[index].numberAnswer}'),
+                                                    const Icon(Icons.message)
                                                       ],
-                                                    )),
+                                                    ),
                                                   ),
                                                   InkWell(
                                                     onTap: () {
@@ -408,20 +397,19 @@ class _HomePageState extends State<HomePage> {
                                                       padding:
                                                           const EdgeInsets.all(
                                                               8.0),
-                                                      child: Container(
-                                                          child: Row(
+                                                      child: Row(
                                                         children: [
-                                                          Text(
-                                                              '${dataQuestionFromServer[index].numberLike}'),
-                                                          Icon((dataQuestionFromServer[
-                                                                          index]
-                                                                      .favorite ??
-                                                                  false)
-                                                              ? Icons.favorite
-                                                              : Icons
-                                                                  .favorite_border)
+                                                      Text(
+                                                          '${dataQuestionFromServer[index].numberLike}'),
+                                                      Icon((dataQuestionFromServer[
+                                                                      index]
+                                                                  .favorite ??
+                                                              false)
+                                                          ? Icons.favorite
+                                                          : Icons
+                                                              .favorite_border)
                                                         ],
-                                                      )),
+                                                      ),
                                                     ),
                                                   )
                                                 ],

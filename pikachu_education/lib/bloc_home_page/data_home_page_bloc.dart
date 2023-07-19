@@ -35,21 +35,21 @@ class DataHomePageBloc extends Bloc<DataHomePageEvent, DataHomePageState> {
   _onPostDataHomePage(PostDataHomePage event, Emitter<DataHomePageState> emit) async{
     await DataSerVice.postDataFromServer(event.dataToPost);
     var dataFromServer = await DataSerVice.getDataFromServer();
-    emit (DataChangedSuccess(dataFromServer));
+    emit (DataPostSuccess(dataFromServer));
     print('Check Bloc: POST data of home page SUCCESSFUL');
   }
 
   _onDeleteDataHomePage(DeleteDataHomePage event, Emitter<DataHomePageState> emit) async{
     await DataSerVice.DeleteDataFromServer(event.idToDelete);
     var dataFromServer = await DataSerVice.getDataFromServer();
-    emit (DataChangedSuccess(dataFromServer));
+    emit (DataPostSuccess(dataFromServer));
     print('Check Bloc: DELETE data of home page SUCCESSFUL');
   }
 
   _onUpdateDataHomePage(UpdateDataHomePage event, Emitter<DataHomePageState> emit) async{
     await DataSerVice.updateDataFromServer(event.dataToUpdate);
     var dataFromServer = await DataSerVice.getDataFromServer();
-    emit (DataChangedSuccess(dataFromServer));
+    emit (DataPostSuccess(dataFromServer));
     print('Check Bloc: UPDATE data of home page SUCCESSFUL');
   }
 }

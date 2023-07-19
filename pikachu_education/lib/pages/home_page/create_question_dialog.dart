@@ -7,13 +7,15 @@ import '../../bloc_home_page/data_home_page_bloc.dart';
 import '../../models/content_add_model.dart';
 import '../../service/add_question_service.dart';
 
-Widget createQuestionPage(BuildContext context) {
+Widget createQuestionPage(
+    {required BuildContext context, required DataHomePageBloc dataHomePageBloc}) {
   TextEditingController titleController = TextEditingController();
   TextEditingController subjectController = TextEditingController();
   TextEditingController contentController = TextEditingController();
   final formAddQuestionKey = GlobalKey<FormBuilderState>();
-  return BlocProvider(
-    create: (context) => DataHomePageBloc(),
+  final  _dataHomePageBloc = dataHomePageBloc;
+  return BlocProvider.value(
+    value: _dataHomePageBloc,
     child: BlocBuilder<DataHomePageBloc, DataHomePageState>(
       builder: (context, state) {
         return AlertDialog(

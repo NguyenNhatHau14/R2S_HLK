@@ -16,3 +16,6 @@ class DataLoading extends DataHomePageState{
 class DataChangedSuccess extends DataHomePageState{
   DataChangedSuccess(super.dataList);
 }
+class DataPostSuccess extends DataHomePageState{
+  DataPostSuccess(super.dataList);
+}

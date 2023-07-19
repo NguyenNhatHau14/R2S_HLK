@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pikachu_education/data/data_questions_modal.dart';
 import '../../bloc_home_page/data_home_page_bloc.dart';
-import '../../models/content_add_model.dart';
-import '../../service/add_question_service.dart';
 
 Widget deleteQuestion(
-    {required BuildContext context, required DataQuestionModal itemHomePage}) {
-  return BlocProvider(
-    create: (context) => DataHomePageBloc(),
+    {required BuildContext context,
+    required DataQuestionModal itemHomePage,
+    required DataHomePageBloc dataHomePageBloc}) {
+  return BlocProvider.value(
+    value: dataHomePageBloc,
     child: BlocBuilder<DataHomePageBloc, DataHomePageState>(
       builder: (context, state) {
         return AlertDialog(
@@ -27,7 +25,10 @@ Widget deleteQuestion(
                 const Center(
                   child: Text(
                     'DELETE QUESTION',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red),
                   ),
                 ),
                 Row(
@@ -54,9 +55,8 @@ Widget deleteQuestion(
                         )),
                     TextButton(
                         onPressed: () async {
-                          context
-                              .read<DataHomePageBloc>()
-                              .add(DeleteDataHomePage(idToDelete: itemHomePage));
+                          context.read<DataHomePageBloc>().add(
+                              DeleteDataHomePage(idToDelete: itemHomePage));
                           Navigator.pop(context);
                         },
                         child: Container(
