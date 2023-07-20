@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "249602528732",
+    "firebase_url": "https://pikachueducation-f7dae-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "pikachueducation-f7dae",
+    "storage_bucket": "pikachueducation-f7dae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249602528732:android:a44b67c5526ef16f66eb19",
+        "android_client_info": {
+          "package_name": "com.example.pikachu_education"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "249602528732-42uacrasalsblfub49788pa7tvp74jmf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClaOeXHSuQWa_fVF2brNJLArnvwFA_cEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "249602528732-42uacrasalsblfub49788pa7tvp74jmf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "249602528732-0j4nsn1rbg0dvv2epirepq3svo6lbkjh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.pikachuEducation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
