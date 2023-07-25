@@ -12,7 +12,6 @@ class Signup {
           .then((user) =>
               createUser(name: name, email: email, userId: user.user!.uid));
     } on FirebaseAuthException catch (e) {
-      print(e.code);
       if (e.code == 'email-already-in-use') {
         showDialog(
           context: context,
