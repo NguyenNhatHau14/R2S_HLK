@@ -34,7 +34,7 @@ class _SignupPageState extends State<SignupPage> {
           return BlocListener<SignupBloc, SignupState>(
             listener: (context, state) {
               if (state is SignupSuccess) {
-                Navigator.pushNamed(context, PageName.signupSuccessPage);
+               // Navigator.pushNamed(context, PageName.signupSuccessPage);
               }
             },
             child: Scaffold(
@@ -176,17 +176,19 @@ class _SignupPageState extends State<SignupPage> {
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    fillColor: Colors.white,suffixIcon: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        showConfirmPassword = !showConfirmPassword;
-                                        iconShowConfirmPassword =
-                                        !iconShowConfirmPassword;
-                                      });
-                                    },
-                                    icon: Icon(iconShowConfirmPassword
-                                        ? Icons.visibility_off
-                                        : Icons.visibility))),
+                                    fillColor: Colors.white,
+                                    suffixIcon: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            showConfirmPassword =
+                                                !showConfirmPassword;
+                                            iconShowConfirmPassword =
+                                                !iconShowConfirmPassword;
+                                          });
+                                        },
+                                        icon: Icon(iconShowConfirmPassword
+                                            ? Icons.visibility_off
+                                            : Icons.visibility))),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Password can not be empty';
@@ -223,7 +225,8 @@ class _SignupPageState extends State<SignupPage> {
                                                   user: userController.text,
                                                   email: emailController.text,
                                                   password:
-                                                      passwordController.text));
+                                                      passwordController.text,
+                                                  context: context));
                                         }
                                       },
                                       child: const Text(

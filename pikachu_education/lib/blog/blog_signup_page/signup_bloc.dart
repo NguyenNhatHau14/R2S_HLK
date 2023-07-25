@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 
 import '../../service/service_signup/firebase_create_account.dart';
@@ -14,7 +15,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       // TODO: implement event handler
     });
     on<SignupPress>((event, emit) async{
-      await CreateAccount.signup(event.user, event.email, event.password);
+      await CreateAccount.signup(event.user, event.email, event.password,event.context);
       emit(SignupSuccess());
     });
   }
