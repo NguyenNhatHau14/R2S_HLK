@@ -43,6 +43,7 @@ class DialogCustom {
   static dialogOfInvalidEmail(BuildContext context) {
     return AlertDialog(
       backgroundColor: Color(0xFFFFFFFF),
+      shape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(30)),
       title: const Text('The Email is Invalid',
           style: TextStyle(
               //fontWeight: FontWeight.bold,
@@ -74,7 +75,9 @@ class DialogCustom {
   static dialogOfWrongPassword(BuildContext context) {
     return AlertDialog(
       backgroundColor: Color(0xFFFFFFFF),
+      shape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(30)),
       title: const Text('The Password or Email is Invalid',
+
           style: TextStyle(
               //fontWeight: FontWeight.bold,
               fontSize: 25,
@@ -105,6 +108,7 @@ class DialogCustom {
   static dialogOfEmailUseAlready(BuildContext context) {
     return AlertDialog(
       backgroundColor: Color(0xFFFFFFFF),
+      shape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(30)),
       title: const Text('The Email is used already',
           style: TextStyle(
               //fontWeight: FontWeight.bold,

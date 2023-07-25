@@ -15,11 +15,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEvent>((event, emit) {
       // TODO: implement event handler
     });
-    on<LoginPress>((event, emit) {
-      var checkLogin =
-          LoginWithEmail.login(event.email, event.password, event.context);
-      print('checkLogin: $checkLogin');
-      emit(LoginSuccess());
+    on<LoginPress>((event, emit) async {
+      var checkLogin = await LoginWithEmail.login(
+              event.email, event.password, event.context);
+      if (checkLogin == true) {
+        emit(LoginSuccess());
+      }
+      if (checkLogin == false) {
+        emit(LoginUnSuccess());
+      }
     });
   }
 }

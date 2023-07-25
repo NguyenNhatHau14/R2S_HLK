@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import '../../components/dialog_custom.dart';
 
 class LoginWithEmail {
-  static Future<void> login(
+  static Future<bool> login(
       String email, String password, BuildContext context) async {
-    bool checkLogin;
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found' || e.code == 'wrong-password') {}
       if (e.code == 'user-not-found') {
         print(e.code);
         showDialog(
@@ -24,6 +22,8 @@ class LoginWithEmail {
           builder: (context) => DialogCustom.dialogOfWrongPassword(context),
         );
       }
+      return false;
     }
+    return true;
   }
 }

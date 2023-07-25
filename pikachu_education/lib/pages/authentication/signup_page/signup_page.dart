@@ -34,7 +34,7 @@ class _SignupPageState extends State<SignupPage> {
           return BlocListener<SignupBloc, SignupState>(
             listener: (context, state) {
               if (state is SignupSuccess) {
-               // Navigator.pushNamed(context, PageName.signupSuccessPage);
+                Navigator.pushNamed(context, PageName.signupSuccessPage);
               }
             },
             child: Scaffold(

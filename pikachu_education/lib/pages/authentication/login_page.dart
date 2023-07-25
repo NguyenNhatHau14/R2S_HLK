@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
           return BlocListener<LoginBloc, LoginState>(
             listener: (context, state) {
               if (state is LoginSuccess) {
-                //Navigator.pushNamed(context, PageName.homePage);
+                Navigator.pushNamed(context, PageName.homePage);
               }
             },
             child: Scaffold(
