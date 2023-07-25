@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pikachu_education/firebase/fire_base_auth.dart';
+import 'package:pikachu_education/service/service_signup/draft_fire_base_auth.dart';
 import '../../../blog/blog_signup_page/signup_bloc.dart';
 import '../../../data/data_image.dart';
-import '../../../firebase/fire_base_auth.dart';
-import '../../../firebase/fire_base_auth.dart';
+import '../../../service/service_signup/draft_fire_base_auth.dart';
+import '../../../service/service_signup/draft_fire_base_auth.dart';
 import '../../../routes/page_name.dart';
 
 class SignupPage extends StatefulWidget {
@@ -16,7 +16,7 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   final keyOfRegister = GlobalKey<FormState>();
-  final userController = TextEditingController();
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -67,10 +67,10 @@ class _SignupPageState extends State<SignupPage> {
                               padding: const EdgeInsets.only(
                                   top: 60, left: 10, right: 10),
                               child: TextFormField(
-                                controller: userController,
+                                controller: nameController,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
-                                    hintText: 'User',
+                                    hintText: 'Name',
                                     hintStyle: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.normal,
@@ -222,7 +222,7 @@ class _SignupPageState extends State<SignupPage> {
                                             true) {
                                           context.read<SignupBloc>().add(
                                               SignupPress(
-                                                  user: userController.text,
+                                                  name: nameController.text,
                                                   email: emailController.text,
                                                   password:
                                                       passwordController.text,

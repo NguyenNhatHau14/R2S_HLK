@@ -242,14 +242,14 @@ class _LoginPageState extends State<LoginPage> {
                               child: InkWell(
                                   onTap: () {
                                     Navigator.pushNamed(
-                                        context, PageName.listAnswerPage);
+                                        context, PageName.homePage);
                                     saveDataForLogin(
                                         context,
                                         emailController.text = '',
                                         passwordController.text = '');
                                   },
                                   child:
-                                      const Text('View Answer Without Login')),
+                                      const Text('Go to Home Without Login')),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(

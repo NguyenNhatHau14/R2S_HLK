@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pikachu_education/service/data_service.dart';
+import 'package:pikachu_education/service/service_home_page/data_service.dart';
 import '../../data/data_questions_modal.dart';
 part 'data_home_page_event.dart';
 part 'data_home_page_state.dart';

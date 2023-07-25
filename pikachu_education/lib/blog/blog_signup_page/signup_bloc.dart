@@ -17,7 +17,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     });
     on<SignupPress>((event, emit) async {
       var checkSignupSuccess = await Signup.signup(
-          event.user, event.email, event.password, event.context);
+          event.name, event.email, event.password, event.context);
       if (checkSignupSuccess == true) {
         emit(SignupSuccess());
       }
