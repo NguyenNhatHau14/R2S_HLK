@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../data/data_answer.dart';
 
 class LikeForm extends StatefulWidget {
   const LikeForm(

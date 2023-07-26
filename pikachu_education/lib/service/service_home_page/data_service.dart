@@ -57,7 +57,6 @@ class DataSerVice{
     dummyItem.title=item.title;
     dummyItem.tag=item.tag;
     dummyItem.content=item.content;
-print('user ID: ${item.userID}');
    await http.put(url,body: jsonEncode(dummyItem.toJson()),headers: {'Content-Type': 'application/json'});
     print('Check Service: UPDATE data of home page SUCCESSFUL');
 

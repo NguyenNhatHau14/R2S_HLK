@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../data/data_answer.dart';
 import 'like_form.dart';
 
 class CommentForm extends StatefulWidget {
