@@ -26,4 +26,8 @@ class LoginWithEmail {
     }
     return true;
   }
+  static Future<String> getUserId () async {
+    var currentUserId = await FirebaseAuth.instance.currentUser?.uid.toString()??'';
+    return currentUserId;
+  }
 }

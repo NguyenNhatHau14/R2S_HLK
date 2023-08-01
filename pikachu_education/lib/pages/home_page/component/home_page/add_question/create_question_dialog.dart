@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:pikachu_education/data/data_questions_modal.dart';
-import '../../blog/bloc_home_page/data_home_page_bloc.dart';
 
-
+import '../../../../../../blog/bloc_home_page_test/data_home_page_bloc.dart';
+import '../../../../../../service/service_home_page/service_data_question.dart';
 
 Widget createQuestionPage(
-    {required BuildContext context, required DataHomePageBloc dataHomePageBloc}) {
+    {required BuildContext context,
+    required DataHomePageBloc dataHomePageBloc,
+    required String userId}) {
   TextEditingController titleController = TextEditingController();
   TextEditingController subjectController = TextEditingController();
   TextEditingController contentController = TextEditingController();
   final formAddQuestionKey = GlobalKey<FormBuilderState>();
-  final  _dataHomePageBloc = dataHomePageBloc;
+  final _dataHomePageBloc = dataHomePageBloc;
   return BlocProvider.value(
     value: _dataHomePageBloc,
     child: BlocBuilder<DataHomePageBloc, DataHomePageState>(
@@ -49,7 +50,7 @@ Widget createQuestionPage(
                           decoration: const InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
+                                      BorderRadius.all(Radius.circular(10))),
                               filled: true,
                               fillColor: Colors.white,
                               labelText: 'Title'),
@@ -122,16 +123,14 @@ Widget createQuestionPage(
                           formAddQuestionKey.currentState!.validate();
                           if (formAddQuestionKey.currentState!.validate() ==
                               true) {
-                            var item = DataQuestionModal(
-                                title: titleController.text,
-                                tag: subjectController.text,
-                                content: contentController.text);
-                            context
-                                .read<DataHomePageBloc>()
-                                .add(PostDataHomePage(dataToPost: item));
+                            var item = QuestionModal(
+                                questionId: 'Question 1',
+                                questionTitle: titleController.text,
+                                questionSubject: subjectController.text,
+                                questionContent: contentController.text);
+                            ServiceDataQuestion.postDataQuestionToSever(itemToPost: item, userId: userId);
                             Navigator.pop(context);
                           }
-
                         },
                         child: Container(
                           alignment: Alignment.center,

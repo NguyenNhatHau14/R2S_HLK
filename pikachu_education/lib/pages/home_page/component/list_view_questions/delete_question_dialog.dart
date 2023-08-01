@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pikachu_education/data/data_questions_modal.dart';
 
-import '../../blog/bloc_home_page/data_home_page_bloc.dart';
+import '../../../../blog/bloc_home_page_test/data_home_page_bloc.dart';
+import '../../../../data/demo_data/test_data_questions_modal.dart';
+
+
 
 Widget deleteQuestion(
     {required BuildContext context,
-    required DataQuestionModal itemHomePage,
+    required DataQuestionModalTest itemHomePage,
     required DataHomePageBloc dataHomePageBloc}) {
   return BlocProvider.value(
     value: dataHomePageBloc,

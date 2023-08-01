@@ -1,4 +1,4 @@
-class DataQuestionModal {
+class DataQuestionModalTest {
   final String? userID;
   String? userName;
   num? timeAgo;
@@ -9,7 +9,7 @@ class DataQuestionModal {
   int? numberLike;
   bool? favorite;
 
-  DataQuestionModal({
+  DataQuestionModalTest({
     this.userID,
     this.userName,
     this.timeAgo,
@@ -21,7 +21,11 @@ class DataQuestionModal {
     this.favorite,
   });
 
-  static DataQuestionModal fromJson(Map<String, dynamic> json) => DataQuestionModal(
+
+
+
+
+  static DataQuestionModalTest fromJson(Map<String, dynamic> json) => DataQuestionModalTest(
       userID: json['userid'],
       userName: json['userName'],
       timeAgo: json['timeAgo'],
@@ -45,7 +49,7 @@ class DataQuestionModal {
       };
 }
 
-DataQuestionModal mockDataQuestionUser1 = DataQuestionModal(
+DataQuestionModalTest mockDataQuestionUser1 = DataQuestionModalTest(
     userID: '1',
     userName: 'Pikachu 1',
     timeAgo: 1,
@@ -55,7 +59,7 @@ DataQuestionModal mockDataQuestionUser1 = DataQuestionModal(
     numberAnswer: 3,
     numberLike: 12,
     favorite: false);
-DataQuestionModal nockDataQuestionUser2 = DataQuestionModal(
+DataQuestionModalTest nockDataQuestionUser2 = DataQuestionModalTest(
     userID: '1',
     userName: 'Pikachu 2',
     timeAgo: 3,
@@ -65,7 +69,7 @@ DataQuestionModal nockDataQuestionUser2 = DataQuestionModal(
     numberAnswer: 4,
     numberLike: 77,
     favorite: false);
-DataQuestionModal mockDataQuestionUser3 = DataQuestionModal(
+DataQuestionModalTest mockDataQuestionUser3 = DataQuestionModalTest(
     userID: '1',
     timeAgo: 6,
     userName: 'Pikachu 3',
@@ -75,7 +79,7 @@ DataQuestionModal mockDataQuestionUser3 = DataQuestionModal(
     numberAnswer: 5,
     numberLike: 38,
     favorite: false);
-DataQuestionModal mockDataQuestionUser4 = DataQuestionModal(
+DataQuestionModalTest mockDataQuestionUser4 = DataQuestionModalTest(
     userID: '1',
     userName: 'Pikachu 4',
     timeAgo: 1,
@@ -85,7 +89,7 @@ DataQuestionModal mockDataQuestionUser4 = DataQuestionModal(
     numberLike: 142,
     favorite: false);
 
-List<DataQuestionModal> mockListQuestion = [
+List<DataQuestionModalTest> mockListQuestion = [
   mockDataQuestionUser1,
   nockDataQuestionUser2,
   mockDataQuestionUser3,

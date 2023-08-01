@@ -33,7 +33,7 @@ class _SignupPageState extends State<SignupPage> {
         builder: (context, state) {
           return BlocListener<SignupBloc, SignupState>(
             listener: (context, state) {
-              if (state is SignupSuccess) {
+              if (state is SignupSuccessState) {
                 Navigator.pushNamed(context, PageName.signupSuccessPage);
               }
             },
@@ -221,7 +221,7 @@ class _SignupPageState extends State<SignupPage> {
                                                 .validate() ==
                                             true) {
                                           context.read<SignupBloc>().add(
-                                              SignupPress(
+                                              SignupPressEvent(
                                                   name: nameController.text,
                                                   email: emailController.text,
                                                   password:

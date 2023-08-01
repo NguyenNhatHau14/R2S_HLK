@@ -13,14 +13,14 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<SignupEvent>((event, emit) {
       // TODO: implement event handler
     });
-    on<SignupPress>((event, emit) async {
+    on<SignupPressEvent>((event, emit) async {
       var checkSignupSuccess = await Signup.signup(
           event.name, event.email, event.password, event.context);
       if (checkSignupSuccess == true) {
-        emit(SignupSuccess());
+        emit(SignupSuccessState());
       }
       if (checkSignupSuccess == false) {
-        emit(SignupUnSuccess());
+        emit(SignupUnSuccessState());
       }
     });
   }

@@ -1,7 +1,7 @@
 part of 'data_home_page_bloc.dart';
 
 abstract class DataHomePageState {
-  List<DataQuestionModal> dataList;
+  List<DataQuestionModalTest> dataList;
 
   DataHomePageState(this.dataList);
 }

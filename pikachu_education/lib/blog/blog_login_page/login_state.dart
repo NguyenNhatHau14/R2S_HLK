@@ -4,5 +4,8 @@ part of 'login_bloc.dart';
 abstract class LoginState {}
 
 class LoginInitial extends LoginState {}
-class LoginSuccess extends LoginState {}
-class LoginUnSuccess extends LoginState{}
+class LoginSuccessState extends LoginState {
+  late final String userId;
+  LoginSuccessState({required this.userId});
+}
+class LoginUnSuccessState extends LoginState{}

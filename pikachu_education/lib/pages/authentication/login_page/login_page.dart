@@ -5,8 +5,12 @@ import 'package:pikachu_education/components/text_form_field_widget.dart';
 import 'package:pikachu_education/data/data_image.dart';
 import 'package:pikachu_education/routes/page_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../components/save_data_login.dart';
+import '../../../data/data_modal/data_user_modal.dart';
+import '../../../service/database_service/database_service.dart';
+import '../../../service/service_home_page/service_data_question.dart';
+import '../../../service/service_local_storage/service_get_data_from_local_storage.dart';
+import '../../../service/service_local_storage/service_save_data_to_local_storage.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -53,8 +57,10 @@ class _LoginPageState extends State<LoginPage> {
         builder: (context, state) {
           return BlocListener<LoginBloc, LoginState>(
             listener: (context, state) {
-              if (state is LoginSuccess) {
-                Navigator.pushNamed(context, PageName.homePage);
+              if (state is LoginSuccessState) {
+                var userId = state.userId;
+                Navigator.pushNamed(context, PageName.homePage,
+                    arguments: userId);
               }
             },
             child: Scaffold(
@@ -173,6 +179,16 @@ class _LoginPageState extends State<LoginPage> {
                                 ],
                               ),
                             ),
+                            ElevatedButton(
+                                onPressed: () {
+                                },
+                                child: Text('Check service')),
+
+                            ElevatedButton(
+                                onPressed: () {
+                                  ServiceDataQuestion.fetchDataQuestionFromSever();
+                                },
+                                child: Text('Check Data')),
                             Padding(
                               padding: const EdgeInsets.only(
                                   top: 200, left: 10, right: 10),
@@ -193,15 +209,16 @@ class _LoginPageState extends State<LoginPage> {
                                         if (keyOfLogin.currentState!
                                                 .validate() ==
                                             true) {
-                                          saveDataForLogin(
+                                          SaveDataToLocal.saveDataForLogin(
                                               context,
                                               emailController.text,
                                               passwordController.text);
                                           context.read<LoginBloc>().add(
-                                              LoginPress(
+                                              LoginPressEvent(
                                                   email: emailController.text,
                                                   password:
-                                                      passwordController.text,context: context));
+                                                      passwordController.text,
+                                                  context: context));
                                         }
                                       },
                                       child: const Text(
@@ -243,7 +260,7 @@ class _LoginPageState extends State<LoginPage> {
                                   onTap: () {
                                     Navigator.pushNamed(
                                         context, PageName.homePage);
-                                    saveDataForLogin(
+                                    SaveDataToLocal.saveDataForLogin(
                                         context,
                                         emailController.text = '',
                                         passwordController.text = '');

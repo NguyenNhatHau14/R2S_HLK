@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pikachu_education/pages/answer_page/detail_answer_page.dart';
-import 'package:pikachu_education/pages/authentication/profile_page.dart';
+import 'package:pikachu_education/pages/answer_page/detail_answer_page/detail_answer_page.dart';
+import 'package:pikachu_education/pages/authentication/profile_page/profile_page.dart';
 
-import 'package:pikachu_education/pages/answer_page/list_answer_page.dart';
-import 'package:pikachu_education/pages/authentication/change_password_page.dart';
+import 'package:pikachu_education/pages/answer_page/list_answer_page/list_answer_page.dart';
+import 'package:pikachu_education/pages/authentication/change_password_page/change_password_page.dart';
 import 'package:pikachu_education/routes/page_name.dart';
-import 'package:pikachu_education/pages/authentication/login_page.dart';
+import 'package:pikachu_education/pages/authentication/login_page/login_page.dart';
 import '../pages/authentication/forgot_password_page/1_get_otp_page.dart';
 import '../pages/authentication/forgot_password_page/2_verify_page.dart';
 import '../pages/authentication/forgot_password_page/3_save_new_password_page.dart';

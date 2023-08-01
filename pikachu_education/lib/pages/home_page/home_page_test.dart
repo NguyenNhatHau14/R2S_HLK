@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pikachu_education/models/content_add_model.dart';
-import 'package:pikachu_education/pages/authentication/profile_page.dart';
+import 'package:pikachu_education/pages/authentication/profile_page/profile_page.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import '../../service/service_home_page/add_question_service.dart';

@@ -5,18 +5,18 @@ abstract class DataHomePageEvent {}
 class GetDataHomePage extends DataHomePageEvent{}
 class FetchDataHomePage extends DataHomePageEvent{}
 class PostDataHomePage extends DataHomePageEvent{
-  final DataQuestionModal dataToPost;
+  final DataQuestionModalTest dataToPost;
 
   PostDataHomePage ( {required this.dataToPost});
 }
 class DeleteDataHomePage extends DataHomePageEvent{
-  final DataQuestionModal idToDelete;
+  final DataQuestionModalTest idToDelete;
 
   DeleteDataHomePage ( {required this.idToDelete});
 }
 
 class UpdateDataHomePage extends DataHomePageEvent{
-  final DataQuestionModal dataToUpdate;
+  final DataQuestionModalTest dataToUpdate;
 
   UpdateDataHomePage ( {required this.dataToUpdate});
 }

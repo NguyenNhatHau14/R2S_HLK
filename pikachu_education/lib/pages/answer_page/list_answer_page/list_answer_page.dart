@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pikachu_education/components/dialog_custom.dart';
-import 'package:pikachu_education/data/data_answer.dart';
 import 'package:pikachu_education/routes/page_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'create_answer_page.dart';
+import '../../../data/demo_data/test_data_answer.dart';
+import '../post_answer/create_answer_page.dart';
+import 'list_view_answer_page/listview_answer_page.dart';
 
 class ListAnswerPage extends StatefulWidget {
   const ListAnswerPage({super.key});
@@ -174,98 +175,11 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 25, left: 8, right: 8),
-              child: ListView.builder(
-                itemBuilder: (context, index) =>
-                    item(mockListAnswers[index], index),
-                itemCount: mockListAnswers.length,
-              ),
-            ),
-          )
+        ListViewAnswerPage(mockListAnswers: mockListAnswers)
         ]),
       ),
     );
   }
 
-  Widget item(User user, index) {
-    return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: InkWell(
-          onTap: () {
-            Navigator.pushNamed(context, PageName.detailAnswerPage);
-          },
-          child: Container(
-            decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [Color(0xFFFDFFAE), Color(0xFFFFFFFF)]),
-                borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(mockListAnswers[index].answerTitle,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18)),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(mockListAnswers[index].answerContent),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          mockListAnswers[index].favorite =
-                              !mockListAnswers[index].favorite;
-                          setState(() {
 
-                          });
-                        },
-                        child: Row(
-                          children: [
-                            Icon(mockListAnswers[index].favorite
-                                ? Icons.favorite
-                                : Icons.favorite_border),
-                            Text('${mockListAnswers[index].numberOfLike}'),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          const Icon(Icons.comment_sharp),
-                          Text(
-                              '${mockListAnswers[index].numberOfComment} comment'),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: Container(
-                                width: 23,
-                                height: 23,
-                                child: Image.asset(
-                                  mockListAnswers[index].avatar,
-                                  fit: BoxFit.fill,
-                                )),
-                          ),
-                          Text(mockListAnswers[index].name),
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ));
-  }
 }

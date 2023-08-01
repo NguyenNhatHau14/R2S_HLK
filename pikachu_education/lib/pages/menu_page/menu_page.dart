@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:pikachu_education/pages/authentication/login_page.dart';
+import 'package:pikachu_education/pages/authentication/login_page/login_page.dart';
 
-import 'authentication/signup_page/profile_page.dart';
+import '../authentication/signup_page/profile_page.dart';
 
 
 class MenuApp extends StatefulWidget {
