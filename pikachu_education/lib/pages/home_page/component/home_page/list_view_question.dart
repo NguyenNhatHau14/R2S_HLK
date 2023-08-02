@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../../blog/bloc_home_page_test/data_home_page_bloc.dart';
-import '../../../../data/demo_data/test_data_questions_modal.dart';
+import '../../../../blog/blog_home_page/data_home_bloc.dart';
+import '../../../../data/data_modal/data_user_modal.dart';
 import '../../../../routes/page_name.dart';
-import '../list_view_questions/delete_question_dialog.dart';
-import '../list_view_questions/edit_question_dialog.dart';
 class ListViewQuestion extends StatefulWidget {
   const ListViewQuestion({super.key,required this.dataQuestionFromServer,required this.dataHomePageBloc});
 
-  final List<DataQuestionModalTest> dataQuestionFromServer;
-  final  DataHomePageBloc dataHomePageBloc;
+  final List<DataUserModal> dataQuestionFromServer;
+  final  DataHomeBloc dataHomePageBloc;
 
   @override
   State<ListViewQuestion> createState() => _ListViewQuestionState();
@@ -75,9 +73,10 @@ class _ListViewQuestionState extends State<ListViewQuestion> {
                                     const TextStyle(
                                         fontSize:
                                         15)),
-                                Text(
-                                    '${ widget.dataQuestionFromServer[index].timeAgo ?? 0} day ago',
-                                    style: const TextStyle(
+                                const Text(
+                                  //TODO
+                                    '3 day ago',
+                                    style: TextStyle(
                                         fontSize: 10,
                                         color: Color(
                                             0x4D000000))),
@@ -103,11 +102,11 @@ class _ListViewQuestionState extends State<ListViewQuestion> {
                                       InkWell(
                                         onTap:
                                             () async {
-                                          await showDialog(
-                                              context: context,
-                                              builder: (context) => editQuestion(context: context, itemHomePage:  widget.dataQuestionFromServer[index], dataHomePageBloc: widget.dataHomePageBloc));
-                                          Navigator.pop(
-                                              context);
+                                          // await showDialog(
+                                          //     context: context,
+                                          //     builder: (context) => editQuestion(context: context, itemHomePage:  widget.dataQuestionFromServer[index], dataHomePageBloc: widget.dataHomePageBloc));
+                                          // Navigator.pop(
+                                          //     context);
                                         },
                                         child:
                                         const Row(
@@ -125,11 +124,11 @@ class _ListViewQuestionState extends State<ListViewQuestion> {
                                       InkWell(
                                         onTap:
                                             () async {
-                                          await showDialog(
-                                              context: context,
-                                              builder: (context) => deleteQuestion(context: context, itemHomePage:  widget.dataQuestionFromServer[index], dataHomePageBloc: widget.dataHomePageBloc));
-                                          Navigator.pop(
-                                              context);
+                                          // await showDialog(
+                                          //     context: context,
+                                          //     builder: (context) => deleteQuestion(context: context, itemHomePage:  widget.dataQuestionFromServer[index], dataHomePageBloc: widget.dataHomePageBloc));
+                                          // Navigator.pop(
+                                          //     context);
                                         },
                                         child:
                                         const Row(
@@ -150,43 +149,39 @@ class _ListViewQuestionState extends State<ListViewQuestion> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
+                    const Padding(
+                      padding: EdgeInsets.only(
                           right: 8, left: 8),
                       child: Row(
                         children: [
-                          const Icon(Icons.tag),
+                          Icon(Icons.tag),
                           Text(
-                            widget.dataQuestionFromServer[
-                            index]
-                                .tag ??
-                                '',
-                            style: const TextStyle(
+                                'toan',
+                            //TODO
+                            style: TextStyle(
                                 fontSize: 12),
                           ),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
+                    const Padding(
+                      padding: EdgeInsets.only(
                           top: 8, right: 8, left: 8),
                       child: Text(
-                          widget.dataQuestionFromServer[index]
-                              .title ??
-                              '',
-                          style: const TextStyle(
+                              'title',
+                          //TODO
+                          style: TextStyle(
                               fontSize: 15,
                               fontWeight:
                               FontWeight.bold)),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
+                    const Padding(
+                      padding: EdgeInsets.only(
                           top: 8, right: 8, left: 8),
                       child: Text(
-                          widget.dataQuestionFromServer[index]
-                              .content ??
-                              '',
-                          style: const TextStyle(
+                          //ToDo
+                              'content',
+                          style: TextStyle(
                               fontSize: 12)),
                     ),
                     Padding(
@@ -196,48 +191,53 @@ class _ListViewQuestionState extends State<ListViewQuestion> {
                         mainAxisAlignment:
                         MainAxisAlignment.end,
                         children: [
-                          Padding(
+                          const Padding(
                             padding:
-                            const EdgeInsets.all(
+                            EdgeInsets.all(
                                 8.0),
                             child: Row(
                               children: [
-                                Text(
-                                    '${widget.dataQuestionFromServer[index].numberAnswer}'),
-                                const Icon(
+                                Text( 'number Answer'//ToDo
+                                    // '${widget.dataQuestionFromServer[index].numberAnswer}'
+                                ),
+                                Icon(
                                     Icons.message)
                               ],
                             ),
                           ),
                           InkWell(
                             onTap: () {
-                              widget.dataQuestionFromServer[
-                              index]
-                                  .favorite =
-                              !(widget.dataQuestionFromServer[
-                              index]
-                                  .favorite ??
-                                  false);
+                              // widget.dataQuestionFromServer[
+                              // index]
+                              //     .favorite =
+                              // !(widget.dataQuestionFromServer[
+                              // index]
+                              //     .favorite ??
+                              //     false);
                               // DatabaseReference ref = FirebaseDatabase.instance.ref();
                               // print(ref);
 
                               setState(() {});
                             },
-                            child: Padding(
+                            child: const Padding(
                               padding:
-                              const EdgeInsets.all(
+                              EdgeInsets.all(
                                   8.0),
                               child: Row(
                                 children: [
                                   Text(
-                                      '${widget.dataQuestionFromServer[index].numberLike}'),
-                                  Icon((widget.dataQuestionFromServer[
-                                  index]
-                                      .favorite ??
-                                      false)
-                                      ? Icons.favorite
-                                      : Icons
-                                      .favorite_border)
+                                    'numberLike'//ToDo
+                                      // '${widget.dataQuestionFromServer[index].numberLike}'
+                                  ),
+                                  Icon(Icons.favorite_border
+                                  //     (widget.dataQuestionFromServer[
+                                  // index]
+                                  //     .favorite ??
+                                  //     false)
+                                  //     ? Icons.favorite
+                                  //     : Icons
+                                  //     .favorite_border
+                                  )
                                 ],
                               ),
                             ),

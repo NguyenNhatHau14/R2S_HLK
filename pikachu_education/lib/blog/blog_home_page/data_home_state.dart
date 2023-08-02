@@ -1,9 +1,18 @@
 part of 'data_home_bloc.dart';
 
 @immutable
-abstract class DataHomeState {}
+abstract class DataHomeState {
+  List<DataUserModal> listDataUserModal;
 
-class DataHomeInitial extends DataHomeState {}
-class FetchDataQuestionLoadingState extends DataHomeState{}
-class FetchDataQuestionSuccessState extends DataHomeState{}
-class PostDataQuestionSuccessState extends DataHomeState{}
+  DataHomeState(this.listDataUserModal);
+}
+
+class DataHomeInitial extends DataHomeState {
+  DataHomeInitial (super.listDataUserModal);
+}
+class FetchDataQuestionLoadingState extends DataHomeState {
+  FetchDataQuestionLoadingState(super.listDataUserModal);
+}
+class FetchDataQuestionSuccessState extends DataHomeState {
+  FetchDataQuestionSuccessState(super.listDataUserModal);
+}

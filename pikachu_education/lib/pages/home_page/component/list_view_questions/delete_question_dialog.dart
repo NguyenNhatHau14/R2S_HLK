@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../blog/bloc_home_page_test/data_home_page_bloc.dart';
+import '../../../../blog/blog_home_page/data_home_bloc.dart';
 import '../../../../data/demo_data/test_data_questions_modal.dart';
 
 
@@ -9,10 +10,10 @@ import '../../../../data/demo_data/test_data_questions_modal.dart';
 Widget deleteQuestion(
     {required BuildContext context,
     required DataQuestionModalTest itemHomePage,
-    required DataHomePageBloc dataHomePageBloc}) {
+    required DataHomeBloc dataHomePageBloc}) {
   return BlocProvider.value(
     value: dataHomePageBloc,
-    child: BlocBuilder<DataHomePageBloc, DataHomePageState>(
+    child: BlocBuilder<DataHomeBloc, DataHomeState>(
       builder: (context, state) {
         return AlertDialog(
           backgroundColor: const Color(0xFFFDFFAE),
@@ -58,9 +59,9 @@ Widget deleteQuestion(
                         )),
                     TextButton(
                         onPressed: () async {
-                          context.read<DataHomePageBloc>().add(
-                              DeleteDataHomePage(idToDelete: itemHomePage));
-                          Navigator.pop(context);
+                          // context.read<DataHomeBloc>().add(
+                          //     DeleteDataHomePage(idToDelete: itemHomePage));
+                          // Navigator.pop(context);
                         },
                         child: Container(
                           alignment: Alignment.center,

@@ -5,10 +5,8 @@ import 'package:pikachu_education/components/text_form_field_widget.dart';
 import 'package:pikachu_education/data/data_image.dart';
 import 'package:pikachu_education/routes/page_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../data/data_modal/data_user_modal.dart';
 import '../../../service/database_service/database_service.dart';
 import '../../../service/service_home_page/service_data_question.dart';
-import '../../../service/service_local_storage/service_get_data_from_local_storage.dart';
 import '../../../service/service_local_storage/service_save_data_to_local_storage.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -179,10 +177,6 @@ class _LoginPageState extends State<LoginPage> {
                                 ],
                               ),
                             ),
-                            ElevatedButton(
-                                onPressed: () {
-                                },
-                                child: Text('Check service')),
 
                             ElevatedButton(
                                 onPressed: () {

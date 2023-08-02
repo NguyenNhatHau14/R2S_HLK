@@ -5,12 +5,14 @@ import 'package:pikachu_education/pages/authentication/login_page/login_page.dar
 import 'package:pikachu_education/pages/home_page/home_page.dart';
 import 'package:pikachu_education/routes/route_management.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pikachu_education/utils/observing_blog.dart';
 import 'blog/blog_login_page/login_bloc.dart';
 import 'firebase_options.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = MyBlocObserver();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -22,14 +24,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginBloc(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: LoginPage(),
-        localizationsDelegates: const [FormBuilderLocalizations.delegate],
-        onGenerateRoute: generateRoute,
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LoginPage(),
+      localizationsDelegates: const [FormBuilderLocalizations.delegate],
+      onGenerateRoute: generateRoute,
     );
   }
 }

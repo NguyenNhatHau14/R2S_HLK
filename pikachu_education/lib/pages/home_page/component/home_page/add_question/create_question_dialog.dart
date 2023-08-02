@@ -5,19 +5,20 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../../../../../../blog/bloc_home_page_test/data_home_page_bloc.dart';
 import '../../../../../../service/service_home_page/service_data_question.dart';
+import '../../../../../blog/blog_home_page/data_home_bloc.dart';
 
 Widget createQuestionPage(
     {required BuildContext context,
-    required DataHomePageBloc dataHomePageBloc,
+    required DataHomeBloc dataHomeBloc,
     required String userId}) {
   TextEditingController titleController = TextEditingController();
   TextEditingController subjectController = TextEditingController();
   TextEditingController contentController = TextEditingController();
   final formAddQuestionKey = GlobalKey<FormBuilderState>();
-  final _dataHomePageBloc = dataHomePageBloc;
+  final _dataHomePageBloc = dataHomeBloc;
   return BlocProvider.value(
     value: _dataHomePageBloc,
-    child: BlocBuilder<DataHomePageBloc, DataHomePageState>(
+    child: BlocBuilder<DataHomeBloc, DataHomeState>(
       builder: (context, state) {
         return AlertDialog(
           backgroundColor: const Color(0xFFFDFFAE),
@@ -128,7 +129,7 @@ Widget createQuestionPage(
                                 questionTitle: titleController.text,
                                 questionSubject: subjectController.text,
                                 questionContent: contentController.text);
-                            ServiceDataQuestion.postDataQuestionToSever(itemToPost: item, userId: userId);
+                            //ServiceDataQuestion.postDataQuestionToSever(itemToPost: item, userId: userId);
                             Navigator.pop(context);
                           }
                         },

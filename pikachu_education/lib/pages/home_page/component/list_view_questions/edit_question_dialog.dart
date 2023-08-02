@@ -3,13 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import '../../../../blog/bloc_home_page_test/data_home_page_bloc.dart';
+import '../../../../blog/blog_home_page/data_home_bloc.dart';
 import '../../../../data/demo_data/test_data_questions_modal.dart';
 
 
 Widget editQuestion(
     {required BuildContext context,
     required DataQuestionModalTest itemHomePage,
-    required DataHomePageBloc dataHomePageBloc}) {
+    required DataHomeBloc dataHomePageBloc}) {
   TextEditingController titleController = TextEditingController();
   TextEditingController subjectController = TextEditingController();
   TextEditingController contentController = TextEditingController();
@@ -20,7 +21,7 @@ Widget editQuestion(
   final formAddQuestionKey = GlobalKey<FormBuilderState>();
   return BlocProvider.value(
     value: dataHomePageBloc,
-    child: BlocBuilder<DataHomePageBloc, DataHomePageState>(
+    child: BlocBuilder<DataHomeBloc, DataHomeState>(
       builder: (context, state) {
         return AlertDialog(
           backgroundColor: const Color(0xFFFDFFAE),
@@ -136,10 +137,10 @@ Widget editQuestion(
                                 favorite: itemHomePage.favorite,
                                 numberLike: itemHomePage.numberLike,
                                 numberAnswer: itemHomePage.numberAnswer);
-                            context
-                                .read<DataHomePageBloc>()
-                                .add(UpdateDataHomePage(dataToUpdate: item));
-                            Navigator.pop(context);
+                            // context
+                            //     .read<DataHomeBloc>()
+                            //     .add(UpdateDataHomePage(dataToUpdate: item));
+                            // Navigator.pop(context);
                           }
                         },
                         child: Container(

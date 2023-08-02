@@ -33,16 +33,23 @@ class ServiceDataQuestion {
     });
   }
 
-    static Future<List<DataUserModal>> fetchDataQuestionFromSever() async {
-     final needSnapshot= await FirebaseDatabase.instance.ref('users').orderByKey().get();
-     print(needSnapshot.value);
-     List<DataUserModal> users=[];
-     Map<dynamic,dynamic> values =needSnapshot.value as Map;
-     print('type of value: ${values.runtimeType}');
-     print(values);
-      values.forEach((key, value) {users.add(DataUserModal.fromSnapshot(value));});
-      print('Result: $users');
-     return users;
+    static Future<void> fetchDataQuestionFromSever() async {
+       FirebaseDatabase.instance.ref("users").onValue.listen((event) {
+
+        final data =
+        Map<dynamic, dynamic>.from(event.snapshot.value as Map,);
+        List<DataUserModal> users =[];
+        data.forEach((key, value) {
+          print('okokookok');
+          users.add(DataUserModal.fromMap(key: key,map: value));
+        });
+        print('data: ${data}');
+         print('User id: ${users[1].userId}');
+         print('User Name: ${users[1].userName}');
+         print('Email: ${users[1].email}');
+         print('Questions ${users[1].listQuestion}');
+      });
+
     }
 
 
