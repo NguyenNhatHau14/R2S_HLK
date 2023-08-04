@@ -25,15 +25,23 @@ class _HomePageState extends State<HomePage> {
   final RefreshController _refreshController =
   RefreshController(initialRefresh: false);
 
-  String userId = '';
+  String currentUserId = '';
+  String currentUserName='';
 
-  Future<void> loadDataUserId() async {
+  Future<void> loadDataCurrentUserId() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var userIdFromLocal = prefs.getString('userId') ?? '';
 
-    // setState(() {
-    //   userId = userIdFromLocal;
-    // });
+    setState(() {
+      currentUserId = userIdFromLocal;
+    });
+  }
+  Future<void> loadDataCurrentUserName() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userNameFromLocal = prefs.getString('userName') ?? '';
+    setState(() {
+      currentUserName = userNameFromLocal;
+    });
   }
 
   @override
@@ -45,6 +53,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     _dataHomeBloc.add(FetchDataQuestionEvent());
+    loadDataCurrentUserId();
+    loadDataCurrentUserName();
     super.initState();
   }
 
@@ -57,7 +67,11 @@ class _HomePageState extends State<HomePage> {
           if(state is FetchDataQuestionSuccessState){
             _refreshController.refreshCompleted();
           }
+          if (state is PostDataQuestionSuccessState){
+            context.read<DataHomeBloc>().add(RefreshDataQuestion());
+          }
         },
+
         child: BlocBuilder<DataHomeBloc, DataHomeState>(
           builder: (context, state) {
             if (state is FetchDataQuestionSuccessState) {
@@ -77,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                         Stack(
                           children: [
                             const DrawPageForHomePage(),
-                            const AddQuestionButton(),
+                             AddQuestionButton(dataHomeBloc: _dataHomeBloc,userId:currentUserId ),
                             SearchButton(
                               searchController: searchController,
                             )
@@ -93,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                               },
                               child: ListViewQuestion(
                                 dataHomePageBloc: _dataHomeBloc,
-                                dataQuestionFromServer: dataQuestionFromServer,
+                                dataQuestionFromServer: dataQuestionFromServer,currentUserId: currentUserId,currentUserName: currentUserName,
                               )),
                         )
                       ]),

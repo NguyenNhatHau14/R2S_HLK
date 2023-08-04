@@ -6,6 +6,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import '../../../../../../blog/bloc_home_page_test/data_home_page_bloc.dart';
 import '../../../../../../service/service_home_page/service_data_question.dart';
 import '../../../../../blog/blog_home_page/data_home_bloc.dart';
+import '../../../../../data/data_modal/data_question_modal.dart';
 
 Widget createQuestionPage(
     {required BuildContext context,
@@ -124,12 +125,14 @@ Widget createQuestionPage(
                           formAddQuestionKey.currentState!.validate();
                           if (formAddQuestionKey.currentState!.validate() ==
                               true) {
-                            var item = QuestionModal(
-                                questionId: 'Question 1',
-                                questionTitle: titleController.text,
+                            var item = DataQuestionModal(
+                              questionContent: contentController.text,
                                 questionSubject: subjectController.text,
-                                questionContent: contentController.text);
-                            //ServiceDataQuestion.postDataQuestionToSever(itemToPost: item, userId: userId);
+                                questionTitle: titleController.text,
+                              questionId: '',userName: '',userId: ''
+
+                            );
+                            context.read<DataHomeBloc>().add(PostDataQuestionsEvent(dataToPost: item, userId: userId));
                             Navigator.pop(context);
                           }
                         },

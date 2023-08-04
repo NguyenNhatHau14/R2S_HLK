@@ -31,7 +31,17 @@ var generateRoute = (settings) {
       }
     case PageName.listAnswerPage:
       {
-        return MaterialPageRoute(builder: (context) => const ListAnswerPage());
+        var questionId = settings.arguments[0] as String;
+        var userIdOfQuestion = settings.arguments[1] as String;
+        var currentUserId = settings.arguments[2] as String;
+        var currentUserName = settings.arguments[3] as String;
+        return MaterialPageRoute(
+            builder: (context) => ListAnswerPage(
+                  questionId: questionId,
+                  userIdOfQuestion: userIdOfQuestion,
+              currentUserId: currentUserId,
+              currentUserName: currentUserName,
+                ));
       }
     case PageName.getOtpPage:
       {
@@ -63,13 +73,11 @@ var generateRoute = (settings) {
       }
     case PageName.homePage:
       {
-        return MaterialPageRoute(
-            builder: (context) => const HomePage());
+        return MaterialPageRoute(builder: (context) => const HomePage());
       }
     case PageName.profilePage:
       {
-        return MaterialPageRoute(
-            builder: (context) => const ProfilePage());
+        return MaterialPageRoute(builder: (context) => const ProfilePage());
       }
   }
 };

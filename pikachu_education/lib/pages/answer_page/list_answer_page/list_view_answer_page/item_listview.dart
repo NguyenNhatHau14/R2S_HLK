@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pikachu_education/data/data_modal/data_answer_modal.dart';
+import '../../../../blog/blog_list_answer_page/list_answer_page_bloc.dart';
 import '../../../../data/demo_data/test_data_answer.dart';
 import '../../../../routes/page_name.dart';
-class ItemListView extends StatefulWidget {
-  const ItemListView({super.key,required this.mockListAnswers,required this.index});
 
-  final List<User> mockListAnswers;
+class ItemListView extends StatefulWidget {
+  const ItemListView(
+      {super.key,
+      required this.index,
+      required this.listAnswerPageBloc,
+      required this.listDataFromSever});
+
+  final ListAnswerPageBloc listAnswerPageBloc;
+  final List<DataAnswerModal> listDataFromSever;
+
   final int index;
 
   @override
@@ -14,82 +24,81 @@ class ItemListView extends StatefulWidget {
 class _ItemListViewState extends State<ItemListView> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: InkWell(
-          onTap: () {
-            Navigator.pushNamed(context, PageName.detailAnswerPage);
-          },
-          child: Container(
-            decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [Color(0xFFFDFFAE), Color(0xFFFFFFFF)]),
-                borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(widget.mockListAnswers[widget.index].answerTitle,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18)),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(mockListAnswers[widget.index].answerContent),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          mockListAnswers[widget.index].favorite =
-                          !mockListAnswers[widget.index].favorite;
-                          setState(() {
-
-                          });
-                        },
-                        child: Row(
-                          children: [
-                            Icon(mockListAnswers[widget.index].favorite
-                                ? Icons.favorite
-                                : Icons.favorite_border),
-                            Text('${mockListAnswers[widget.index].numberOfLike}'),
-                          ],
-                        ),
+    return BlocProvider.value(
+        value: widget.listAnswerPageBloc,
+        child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, PageName.detailAnswerPage);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [Color(0xFFFDFFAE), Color(0xFFFFFFFF)]),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                          widget.listDataFromSever[widget.index].answerTitle,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18)),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        widget.listDataFromSever[widget.index].answerContent,
                       ),
-                      Row(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Icon(Icons.comment_sharp),
-                          Text(
-                              '${mockListAnswers[widget.index].numberOfComment} comment'),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: Container(
-                                width: 23,
-                                height: 23,
-                                child: Image.asset(
-                                  mockListAnswers[widget.index].avatar,
-                                  fit: BoxFit.fill,
-                                )),
+                          InkWell(
+                            onTap: () {},
+                            child: const Row(
+                              children: [
+                                Icon(
+                                  Icons.favorite_border,
+                                ),
+                                Text('number like'),
+                              ],
+                            ),
                           ),
-                          Text(mockListAnswers[widget.index].name),
+                          const Row(
+                            children: [
+                              Icon(Icons.comment_sharp),
+                              Text('number comment'),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Container(
+                                    width: 23,
+                                    height: 23,
+                                    child: Image.asset(
+                                      'assets/image/pikachu.png',
+                                      fit: BoxFit.fill,
+                                    )),
+                              ),
+                              Text(widget
+                                  .listDataFromSever[widget.index].userNamePost),
+                            ],
+                          )
                         ],
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ));
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )));
   }
 }

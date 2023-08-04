@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../blog/bloc_home_page_test/data_home_page_bloc.dart';
+import '../../../../../blog/blog_home_page/data_home_bloc.dart';
 import 'create_question_dialog.dart';
 
 class AddQuestionButton extends StatefulWidget {
-  const AddQuestionButton({super.key,});
+  const AddQuestionButton({super.key,required this.dataHomeBloc,required this.userId});
 
- //final DataHomePageBloc dataHomePageBloc;
- //final String userId;
+ final DataHomeBloc dataHomeBloc;
+ final String userId;
 
   @override
   State<AddQuestionButton> createState() => _AddQuestionButtonState();
@@ -27,15 +28,15 @@ class _AddQuestionButtonState extends State<AddQuestionButton> {
               borderRadius: BorderRadius.circular(15)),
           child: InkWell(
             onTap: () async {
-              // await showDialog(
-              //   context: context,
-              //   builder: (context) =>
-              //       createQuestionPage(
-              //           context: context,
-              //           dataHomePageBloc:
-              //           widget.dataHomePageBloc,
-              //           userId: widget.userId),
-              // );
+              await showDialog(
+                context: context,
+                builder: (context) =>
+                    createQuestionPage(
+                        context: context,
+                        dataHomeBloc:
+                        widget.dataHomeBloc,
+                        userId: widget.userId),
+              );
             },
             child: const Row(
               mainAxisAlignment:

@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:http/http.dart' as http;
-import '../../data/data_modal/data_modal.dart';
-import '../../data/data_modal/data_modal.dart';
 import '../../data/data_modal/data_user_modal.dart';
 import '../../data/demo_data/test_data_questions_modal.dart';
 

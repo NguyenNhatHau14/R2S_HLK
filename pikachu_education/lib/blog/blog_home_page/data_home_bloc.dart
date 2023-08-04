@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../data/data_modal/data_question_modal.dart';
 import '../../data/data_modal/data_user_modal.dart';
 import '../../service/database_service/database_service.dart';
 
@@ -10,7 +11,7 @@ part 'data_home_event.dart';
 part 'data_home_state.dart';
 
 class DataHomeBloc extends Bloc<DataHomeEvent, DataHomeState> {
-  DataHomeBloc() : super(DataHomeInitial(const <DataUserModal>[])) {
+  DataHomeBloc() : super(DataHomeInitial(const <DataQuestionModal>[])) {
 
 
     on<FetchDataQuestionEvent>((event, emit) async {
@@ -22,7 +23,12 @@ class DataHomeBloc extends Bloc<DataHomeEvent, DataHomeState> {
     on<RefreshDataQuestion>((event, emit) async {
       var listDataUsers = await DatabaseService.fetchDataQuestionFromSever();
       emit(FetchDataQuestionSuccessState(listDataUsers));
-      print(listDataUsers[1].userId);
+
+    });
+
+    on<PostDataQuestionsEvent>((event, emit) async {
+      await DatabaseService.postDataQuestionToSever(itemToPost: event.dataToPost, userId: event.userId);
+      emit(PostDataQuestionSuccessState());
     });
   }
 }

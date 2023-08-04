@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import '../../../../blog/blog_home_page/data_home_bloc.dart';
+import '../../../../data/data_modal/data_question_modal.dart';
 import '../../../../data/data_modal/data_user_modal.dart';
 import '../../../../routes/page_name.dart';
-class ListViewQuestion extends StatefulWidget {
-  const ListViewQuestion({super.key,required this.dataQuestionFromServer,required this.dataHomePageBloc});
 
-  final List<DataUserModal> dataQuestionFromServer;
-  final  DataHomeBloc dataHomePageBloc;
+class ListViewQuestion extends StatefulWidget {
+  const ListViewQuestion(
+      {super.key,
+      required this.dataQuestionFromServer,
+      required this.dataHomePageBloc,required this.currentUserId,required this.currentUserName});
+
+  final List<DataQuestionModal> dataQuestionFromServer;
+  final DataHomeBloc dataHomePageBloc;
+  final String currentUserId;
+  final String currentUserName;
+
 
   @override
   State<ListViewQuestion> createState() => _ListViewQuestionState();
@@ -17,9 +25,9 @@ class _ListViewQuestionState extends State<ListViewQuestion> {
   Widget build(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: widget.dataQuestionFromServer.length,
-      separatorBuilder: (context, index) =>
-      const Divider(
+      separatorBuilder: (context, index) => const Divider(
         color: Colors.transparent,
         thickness: 0,
       ),
@@ -28,180 +36,145 @@ class _ListViewQuestionState extends State<ListViewQuestion> {
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
               onTap: () {
-                Navigator.pushNamed(
-                    context, PageName.listAnswerPage);
+                Navigator.pushNamed(context, PageName.listAnswerPage,
+                    arguments: [
+                      widget.dataQuestionFromServer[index].questionId,
+                      widget.dataQuestionFromServer[index].userId,
+                      widget.currentUserId,
+                      widget.currentUserName,
+
+                    ]);
               },
               child: Container(
                 decoration: BoxDecoration(
                     gradient: const LinearGradient(
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,
-                        colors: [
-                          Color(0xFFFDFFAE),
-                          Color(0xFFFFFFFF)
-                        ]),
-                    borderRadius:
-                    BorderRadius.circular(10)),
+                        colors: [Color(0xFFFDFFAE), Color(0xFFFFFFFF)]),
+                    borderRadius: BorderRadius.circular(10)),
                 child: Column(
-                  crossAxisAlignment:
-                  CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(
-                          top: 8, right: 8, left: 8),
+                      padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
                       child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Image.asset(
-                              'assets/image/pikachu_itachi.png'),
+                          Image.asset('assets/image/pikachu_itachi.png'),
                           Padding(
-                            padding:
-                            const EdgeInsets.only(
-                                right: 8, left: 8),
+                            padding: const EdgeInsets.only(right: 8, left: 8),
                             child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment
-                                  .start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                    widget.dataQuestionFromServer[
-                                    index]
-                                        .userName ??
-                                        '',
-                                    style:
-                                    const TextStyle(
-                                        fontSize:
-                                        15)),
+                                    widget
+                                        .dataQuestionFromServer[index].userName,
+                                    style: const TextStyle(fontSize: 15)),
                                 const Text(
-                                  //TODO
+                                    //TODO
                                     '3 day ago',
                                     style: TextStyle(
                                         fontSize: 10,
-                                        color: Color(
-                                            0x4D000000))),
+                                        color: Color(0x4D000000))),
                               ],
                             ),
                           ),
                           Expanded(
                             child: Align(
-                              alignment:
-                              AlignmentDirectional
-                                  .centerEnd,
+                              alignment: AlignmentDirectional.centerEnd,
                               child: PopupMenuButton(
                                   shape: ContinuousRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius
-                                          .circular(
-                                          20)),
-                                  itemBuilder:
-                                      (context) =>
-                                  <PopupMenuEntry>[
-                                    PopupMenuItem(
-                                      child:
-                                      InkWell(
-                                        onTap:
-                                            () async {
-                                          // await showDialog(
-                                          //     context: context,
-                                          //     builder: (context) => editQuestion(context: context, itemHomePage:  widget.dataQuestionFromServer[index], dataHomePageBloc: widget.dataHomePageBloc));
-                                          // Navigator.pop(
-                                          //     context);
-                                        },
-                                        child:
-                                        const Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                          children: [
-                                            Icon(Icons.edit),
-                                            Text('Edit'),
-                                          ],
+                                      borderRadius: BorderRadius.circular(20)),
+                                  itemBuilder: (context) => <PopupMenuEntry>[
+                                        PopupMenuItem(
+                                          child: InkWell(
+                                            onTap: () async {
+                                              // await showDialog(
+                                              //     context: context,
+                                              //     builder: (context) => editQuestion(context: context, itemHomePage:  widget.dataQuestionFromServer[index], dataHomePageBloc: widget.dataHomePageBloc));
+                                              // Navigator.pop(
+                                              //     context);
+                                            },
+                                            child: const Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Icon(Icons.edit),
+                                                Text('Edit'),
+                                              ],
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    PopupMenuItem(
-                                      child:
-                                      InkWell(
-                                        onTap:
-                                            () async {
-                                          // await showDialog(
-                                          //     context: context,
-                                          //     builder: (context) => deleteQuestion(context: context, itemHomePage:  widget.dataQuestionFromServer[index], dataHomePageBloc: widget.dataHomePageBloc));
-                                          // Navigator.pop(
-                                          //     context);
-                                        },
-                                        child:
-                                        const Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                          children: [
-                                            Icon(Icons.delete,
-                                                color: Colors.red),
-                                            Text('Delete',
-                                                style: TextStyle(color: Colors.red)),
-                                          ],
+                                        PopupMenuItem(
+                                          child: InkWell(
+                                            onTap: () async {
+                                              // await showDialog(
+                                              //     context: context,
+                                              //     builder: (context) => deleteQuestion(context: context, itemHomePage:  widget.dataQuestionFromServer[index], dataHomePageBloc: widget.dataHomePageBloc));
+                                              // Navigator.pop(
+                                              //     context);
+                                            },
+                                            child: const Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Icon(Icons.delete,
+                                                    color: Colors.red),
+                                                Text('Delete',
+                                                    style: TextStyle(
+                                                        color: Colors.red)),
+                                              ],
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ]),
+                                      ]),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(
-                          right: 8, left: 8),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8, left: 8),
                       child: Row(
                         children: [
                           Icon(Icons.tag),
                           Text(
-                                'toan',
+                            widget
+                                .dataQuestionFromServer[index].questionSubject,
                             //TODO
-                            style: TextStyle(
-                                fontSize: 12),
+                            style: const TextStyle(fontSize: 12),
                           ),
                         ],
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(
-                          top: 8, right: 8, left: 8),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
                       child: Text(
-                              'title',
+                          widget.dataQuestionFromServer[index].questionTitle,
                           //TODO
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight:
-                              FontWeight.bold)),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(
-                          top: 8, right: 8, left: 8),
-                      child: Text(
-                          //ToDo
-                              'content',
-                          style: TextStyle(
-                              fontSize: 12)),
+                          style: const TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold)),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(
-                          top: 8, right: 8, left: 8),
+                      padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
+                      child: Text(
+                          //ToDo
+                          widget.dataQuestionFromServer[index].questionContent,
+                          style: const TextStyle(fontSize: 12)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
                       child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           const Padding(
-                            padding:
-                            EdgeInsets.all(
-                                8.0),
+                            padding: EdgeInsets.all(8.0),
                             child: Row(
                               children: [
-                                Text( 'number Answer'//ToDo
+                                Text('number Answer' //ToDo
                                     // '${widget.dataQuestionFromServer[index].numberAnswer}'
-                                ),
-                                Icon(
-                                    Icons.message)
+                                    ),
+                                Icon(Icons.message)
                               ],
                             ),
                           ),
@@ -220,24 +193,21 @@ class _ListViewQuestionState extends State<ListViewQuestion> {
                               setState(() {});
                             },
                             child: const Padding(
-                              padding:
-                              EdgeInsets.all(
-                                  8.0),
+                              padding: EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
-                                  Text(
-                                    'numberLike'//ToDo
+                                  Text('numberLike' //ToDo
                                       // '${widget.dataQuestionFromServer[index].numberLike}'
-                                  ),
+                                      ),
                                   Icon(Icons.favorite_border
-                                  //     (widget.dataQuestionFromServer[
-                                  // index]
-                                  //     .favorite ??
-                                  //     false)
-                                  //     ? Icons.favorite
-                                  //     : Icons
-                                  //     .favorite_border
-                                  )
+                                      //     (widget.dataQuestionFromServer[
+                                      // index]
+                                      //     .favorite ??
+                                      //     false)
+                                      //     ? Icons.favorite
+                                      //     : Icons
+                                      //     .favorite_border
+                                      )
                                 ],
                               ),
                             ),
