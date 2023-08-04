@@ -38,11 +38,9 @@ class _ListViewQuestionState extends State<ListViewQuestion> {
               onTap: () {
                 Navigator.pushNamed(context, PageName.listAnswerPage,
                     arguments: [
-                      widget.dataQuestionFromServer[index].questionId,
-                      widget.dataQuestionFromServer[index].userId,
+                      widget.dataQuestionFromServer[index],
                       widget.currentUserId,
                       widget.currentUserName,
-
                     ]);
               },
               child: Container(
@@ -167,11 +165,11 @@ class _ListViewQuestionState extends State<ListViewQuestion> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          const Padding(
+                           Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Row(
                               children: [
-                                Text('number Answer' //ToDo
+                                Text( '${widget.dataQuestionFromServer[index].numberAnswer} answer'//ToDo
                                     // '${widget.dataQuestionFromServer[index].numberAnswer}'
                                     ),
                                 Icon(Icons.message)

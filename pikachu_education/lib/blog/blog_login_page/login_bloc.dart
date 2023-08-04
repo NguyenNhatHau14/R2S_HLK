@@ -19,8 +19,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           event.email, event.password, event.context);
       if (checkLogin == true) {
         var userId = await LoginWithEmail.getUserId();
-        SaveDataToLocal.saveDataUserId(userId: userId);
-        SaveDataToLocal.saveDataUserName(userId: userId);
+        await SaveDataToLocal.saveDataUserId(userId: userId);
+        await SaveDataToLocal.saveDataUserName(userId: userId);
         emit(LoginSuccessState(userId: userId));
       }
       if (checkLogin == false) {

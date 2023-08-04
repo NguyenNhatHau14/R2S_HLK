@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pikachu_education/data/data_modal/data_answer_modal.dart';
-import '../../../../blog/blog_list_answer_page/list_answer_page_bloc.dart';
-import '../../../../data/demo_data/test_data_answer.dart';
-import '../../../../routes/page_name.dart';
+import '../../../../../blog/blog_list_answer_page/list_answer_page_bloc.dart';
+import '../../../../../routes/page_name.dart';
 
 class ItemListView extends StatefulWidget {
   const ItemListView(

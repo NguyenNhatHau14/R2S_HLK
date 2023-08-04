@@ -129,7 +129,7 @@ Widget createQuestionPage(
                               questionContent: contentController.text,
                                 questionSubject: subjectController.text,
                                 questionTitle: titleController.text,
-                              questionId: '',userName: '',userId: ''
+                              questionId: '',userName: '',userId: '',
 
                             );
                             context.read<DataHomeBloc>().add(PostDataQuestionsEvent(dataToPost: item, userId: userId));

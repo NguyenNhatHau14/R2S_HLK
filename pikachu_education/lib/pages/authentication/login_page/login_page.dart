@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pikachu_education/blog/blog_login_page/login_bloc.dart';
-import 'package:pikachu_education/components/text_form_field_widget.dart';
 import 'package:pikachu_education/data/data_image.dart';
 import 'package:pikachu_education/routes/page_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../service/database_service/database_service.dart';
-import '../../../service/service_home_page/service_data_question.dart';
 import '../../../service/service_local_storage/service_save_data_to_local_storage.dart';
-import 'package:firebase_database/firebase_database.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -178,11 +175,11 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
 
-                            ElevatedButton(
-                                onPressed: () {
-                                 // DatabaseService.fetchDataAnswerFromSever();
-                                },
-                                child: Text('Check Data')),
+                            // ElevatedButton(
+                            //     onPressed: () {
+                            //      // DatabaseService.fetchDataAnswerFromSever();
+                            //     },
+                            //     child: Text('Check Data')),
                             Padding(
                               padding: const EdgeInsets.only(
                                   top: 200, left: 10, right: 10),

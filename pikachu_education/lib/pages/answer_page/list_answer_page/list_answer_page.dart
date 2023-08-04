@@ -4,15 +4,16 @@ import 'package:pikachu_education/components/dialog_custom.dart';
 import 'package:pikachu_education/routes/page_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../blog/blog_list_answer_page/list_answer_page_bloc.dart';
+import '../../../data/data_modal/data_question_modal.dart';
 import '../post_answer/create_answer_page.dart';
-import 'list_view_answer_page/listview_answer_page.dart';
+import 'component/detail_question.dart';
+import 'component/list_view_answer_page/listview_answer_page.dart';
 
 class ListAnswerPage extends StatefulWidget {
   const ListAnswerPage(
-      {super.key, required this.questionId, required this.userIdOfQuestion,required this.currentUserId, required this.currentUserName});
+      {super.key, required this.currentUserId, required this.currentUserName, required this.questionInfo});
 
-  final String questionId;
-  final String userIdOfQuestion;
+  final DataQuestionModal questionInfo;
   final String currentUserName;
   final String currentUserId;
 
@@ -36,7 +37,6 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
   Future<void> loadDataUserId() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var userIdFromLocal = prefs.getString('userId') ?? '';
-
     setState(() {
       userId = userIdFromLocal;
     });
@@ -49,7 +49,6 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
     loadDataForAnswerListPage();
     loadDataUserId();
     super.initState();
-
   }
 
   @override
@@ -82,85 +81,29 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                         child: Text(
                             (userForPage?.length ?? 0) == 0
                                 ? 'Login'
-                                : '${userForPage ?? ''}',
+                                : widget.currentUserName,
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.normal)),
                       ),
                     )
                   ]),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
-              child: Container(
-                  decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [Color(0xFFFDFFAE), Color(0xFFFFFFFF)]),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text('How to calculate',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18)),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text('1+1=?'),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Row(
-                                children: [
-                                  Icon(Icons.favorite_border),
-                                  Text('123'),
-                                ],
-                              ),
-                              const Row(
-                                children: [
-                                  Icon(Icons.comment_sharp),
-                                  Text('3 Answers'),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                      width: 23,
-                                      height: 23,
-                                      child: Image.asset(
-                                        'assets/image/pikachu.png',
-                                        fit: BoxFit.fill,
-                                      )),
-                                  const Text(' Pikachu 1'),
-                                ],
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-            ),
+            DetailQuestion(dataQuestionModal: widget.questionInfo),
             Padding(
               padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
                   height: 60,
                   color: Colors.transparent,
                   child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(const Color(0xFFFDCA15)),
+                        MaterialStateProperty.all(const Color(0xFFFDCA15)),
                       ),
                       onPressed: () {
                         if ((userForPage?.length ?? 0) == 0) {
@@ -173,10 +116,14 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                         } else {
                           showDialog(
                               context: context,
-                              builder: (context) => createAnswerPage(
+                              builder: (context) =>
+                                  createAnswerPage(
                                     listAnswerPageBloc: _listAnswerPageBloc,
-                                    userIdOfQuestion: widget.userIdOfQuestion,
-                                    questionId: widget.questionId, currentUserId: widget.currentUserId, currentUserName: widget.currentUserName,
+                                    userIdOfQuestion: widget.questionInfo
+                                        .userId,
+                                    questionId: widget.questionInfo.questionId,
+                                    currentUserId: widget.currentUserId,
+                                    currentUserName: widget.currentUserName,
                                   ));
                           // showModalBottomSheet(
                           //     backgroundColor: const Color(0xFFFDFFAE),
@@ -199,16 +146,15 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 25, left: 10, right: 10),
-              child: Text('3 Answers',
+             Padding(
+              padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
+              child: Text('${widget.questionInfo.numberAnswer} Answers',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                  style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
             ),
             ListViewAnswerPage(
               listAnswerPageBloc: _listAnswerPageBloc,
-              questionId: widget.questionId,
-              useIdOfQuestion: widget.userIdOfQuestion,
+              questionInfo:widget.questionInfo,
             )
           ]),
         ),

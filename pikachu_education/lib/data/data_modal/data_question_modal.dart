@@ -1,5 +1,3 @@
-import 'data_answer_modal.dart';
-
 class DataQuestionModal {
   final String userId;
   final String userName;
@@ -7,7 +5,8 @@ class DataQuestionModal {
   final String questionSubject;
   final String questionTitle;
   final String questionContent;
-  final Map<dynamic,dynamic>? listDataAnswer;
+  final int? numberAnswer;
+  final Map<dynamic, dynamic>? listDataAnswer;
 
   DataQuestionModal(
       {required this.userId,
@@ -16,13 +15,15 @@ class DataQuestionModal {
       required this.questionSubject,
       required this.questionTitle,
       required this.questionContent,
+      this.numberAnswer,
       this.listDataAnswer});
 
   static DataQuestionModal fromMap(
           {required String key,
           required Map<dynamic, dynamic> map,
           required String userName,
-          required String userId}) =>
+          required String userId,
+          required int numberAnswer}) =>
       DataQuestionModal(
           userId: userId,
           userName: userName,
@@ -30,6 +31,7 @@ class DataQuestionModal {
           questionSubject: map['questionSubject'],
           questionTitle: map['questionTitle'],
           questionContent: map['questionContent'],
+          numberAnswer: numberAnswer ?? 0,
           listDataAnswer: map['answers']);
 
   Map<dynamic, dynamic> toMap() {

@@ -31,14 +31,12 @@ var generateRoute = (settings) {
       }
     case PageName.listAnswerPage:
       {
-        var questionId = settings.arguments[0] as String;
-        var userIdOfQuestion = settings.arguments[1] as String;
-        var currentUserId = settings.arguments[2] as String;
-        var currentUserName = settings.arguments[3] as String;
+        var questionInfo = settings.arguments[0];
+        var currentUserId = settings.arguments[1];
+        var currentUserName = settings.arguments[2];
         return MaterialPageRoute(
             builder: (context) => ListAnswerPage(
-                  questionId: questionId,
-                  userIdOfQuestion: userIdOfQuestion,
+                questionInfo: questionInfo,
               currentUserId: currentUserId,
               currentUserName: currentUserName,
                 ));

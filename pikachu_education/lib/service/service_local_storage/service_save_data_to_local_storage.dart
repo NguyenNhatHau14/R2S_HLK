@@ -19,6 +19,5 @@ class SaveDataToLocal {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var currentUserName = await DatabaseService.getCurrentUserName(currentUserID: userId);
     await prefs.setString('userName',currentUserName);
-
   }
 }

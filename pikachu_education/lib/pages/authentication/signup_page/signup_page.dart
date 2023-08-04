@@ -80,11 +80,12 @@ class _SignupPageState extends State<SignupPage> {
                                     ),
                                     fillColor: Colors.white),
                                 validator: (value) {
+
                                   if (value == null || value.isEmpty) {
                                     return 'User can not be empty';
                                   }
                                   RegExp userExp = RegExp(
-                                      '^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}\$');
+                                  '^(?=.{1,20}\$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])\$');
                                   if (!userExp!.hasMatch(value)) {
                                     return 'Your User is invalid';
                                   }

@@ -10,25 +10,26 @@ class DatabaseService {
     List<DataUserModal> listDataUsers = [];
     var needSnapShotUser =
         await FirebaseDatabase.instance.ref("users").orderByKey().get();
-    var dataUsers = needSnapShotUser.value as Map;
+    var dataUsers = (needSnapShotUser.value ?? {}) as Map;
     dataUsers.forEach((key, value) {
+      var keyUser = key;
       listDataUsers.add(DataUserModal.fromMap(key: key, map: value));
       for (int index = 0; index < listDataUsers.length; index++) {
-        if (listDataUsers[index].listQuestion == null) {
-          return;
-        } else {
-          var questions = listDataUsers[index].listQuestion as Map;
-          questions.forEach((key, value) {
-            listDataQuestions.add(DataQuestionModal.fromMap(
-                key: key,
-                map: value,
-                userName: listDataUsers[index].userName,
-                userId: listDataUsers[index].userId));
-          });
-        }
+        var questions = (listDataUsers[index].listQuestion ?? {});
+
+        questions.forEach((key, value) async {
+          var question = (questions[key] ?? {}) as Map;
+          var answers = (question['answers'] ?? {}) as Map;
+          listDataQuestions.add(DataQuestionModal.fromMap(
+              key: key,
+              map: value,
+              userName: listDataUsers[index].userName,
+              userId: listDataUsers[index].userId,
+              numberAnswer: answers.length));
+        });
       }
     });
-
+//print('okokokokokokokokokok: ${listDataQuestions[2].numberAnswer}');
     //print('Questions ID: ${listDataQuestions[0].questionId}');
     // print('User id: ${listDataUsers[0].userId}');
     // print('User Name: ${listDataUsers[0].userName}');
@@ -54,13 +55,11 @@ class DatabaseService {
   static Future<List<DataAnswerModal>> fetchDataAnswerFromSever(
       String userIdOfQuestion, String questionId) async {
     List<DataAnswerModal> listDataAnswer = [];
-    List<DataQuestionModal> listDataQuestions = [];
-    List<DataUserModal> listDataUsers = [];
     var needSnapShotUser = await FirebaseDatabase.instance
         .ref("/users/$userIdOfQuestion/questions/$questionId/answers")
         .orderByKey()
         .get();
-    var dataAnswers = needSnapShotUser.value as Map;
+    var dataAnswers = (needSnapShotUser.value??{}) as Map;
     dataAnswers.forEach((key, value) {
       listDataAnswer.add(DataAnswerModal.fromMap(
         key: key,
@@ -116,9 +115,12 @@ class DatabaseService {
     });
   }
 
-  static Future<String> getCurrentUserName({required String currentUserID}) async{
-    var currentUserNameSnapshot = await   FirebaseDatabase.instance
-        .ref("/users/$currentUserID").child('name').get();
+  static Future<String> getCurrentUserName(
+      {required String currentUserID}) async {
+    var currentUserNameSnapshot = await FirebaseDatabase.instance
+        .ref("/users/$currentUserID")
+        .child('name')
+        .get();
     var currentUserName = currentUserNameSnapshot.value as String;
 
     return currentUserName;
