@@ -129,6 +129,7 @@ Widget createQuestionPage(
                               questionContent: contentController.text,
                                 questionSubject: subjectController.text,
                                 questionTitle: titleController.text,
+                              numberLike: 0,
                               questionId: '',userName: '',userId: '',
 
                             );

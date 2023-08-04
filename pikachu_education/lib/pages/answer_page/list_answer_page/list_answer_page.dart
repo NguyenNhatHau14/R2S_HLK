@@ -88,7 +88,7 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                     )
                   ]),
             ),
-            DetailQuestion(dataQuestionModal: widget.questionInfo),
+            DetailQuestion(dataQuestionInfo: widget.questionInfo),
             Padding(
               padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
               child: ClipRRect(

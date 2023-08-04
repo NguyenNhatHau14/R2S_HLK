@@ -9,27 +9,36 @@ class DatabaseService {
     List<DataQuestionModal> listDataQuestions = [];
     List<DataUserModal> listDataUsers = [];
     var needSnapShotUser =
-        await FirebaseDatabase.instance.ref("users").orderByKey().get();
+    await FirebaseDatabase.instance.ref("users").orderByKey().get();
     var dataUsers = (needSnapShotUser.value ?? {}) as Map;
-    dataUsers.forEach((key, value) {
-      var keyUser = key;
-      listDataUsers.add(DataUserModal.fromMap(key: key, map: value));
-      for (int index = 0; index < listDataUsers.length; index++) {
-        var questions = (listDataUsers[index].listQuestion ?? {});
-
-        questions.forEach((key, value) async {
-          var question = (questions[key] ?? {}) as Map;
-          var answers = (question['answers'] ?? {}) as Map;
-          listDataQuestions.add(DataQuestionModal.fromMap(
-              key: key,
-              map: value,
-              userName: listDataUsers[index].userName,
-              userId: listDataUsers[index].userId,
-              numberAnswer: answers.length));
-        });
-      }
+    dataUsers.forEach((keyUser, value) {
+      var user = (dataUsers[keyUser] ?? {}) as Map;
+      listDataUsers.add(DataUserModal.fromMap(key: keyUser, map: value));
+      var questionList = (user['questions'] ?? {}) as Map;
+      questionList.forEach((key, value) {
+        var question = (questionList[key]??{}) as Map;
+        var answers = (question['answers'] ?? {}) as Map;
+        listDataQuestions.add(DataQuestionModal.fromMap(key: key,
+            map: value,
+            userName: user['name'],
+            userId: keyUser,
+            numberAnswer: answers.length)); });
+      // for (int index = 0; index < listDataUsers.length; index++) {
+      //   var questions = (listDataUsers[index].listQuestion ?? {});
+      //
+      //   questions.forEach((key, value) async {
+      //     var question = (questions[key] ?? {}) as Map;
+      //     var answers = (question['answers'] ?? {}) as Map;
+      //     listDataQuestions.add(DataQuestionModal.fromMap(
+      //         key: key,
+      //         map: value,
+      //         userName: listDataUsers[index].userName,
+      //         userId: listDataUsers[index].userId,
+      //         numberAnswer: answers.length));
+      //   });
+      // }
     });
-//print('okokokokokokokokokok: ${listDataQuestions[2].numberAnswer}');
+    // print('okokokokokokokokokok: ${listDataQuestions.length}');
     //print('Questions ID: ${listDataQuestions[0].questionId}');
     // print('User id: ${listDataUsers[0].userId}');
     // print('User Name: ${listDataUsers[0].userName}');
@@ -48,7 +57,8 @@ class DatabaseService {
     await ref.update({
       'questionTitle': itemToPost.questionTitle,
       'questionSubject': itemToPost.questionSubject,
-      'questionContent': itemToPost.questionContent
+      'questionContent': itemToPost.questionContent,
+      'numberLike': itemToPost.numberLike
     });
   }
 
@@ -59,7 +69,7 @@ class DatabaseService {
         .ref("/users/$userIdOfQuestion/questions/$questionId/answers")
         .orderByKey()
         .get();
-    var dataAnswers = (needSnapShotUser.value??{}) as Map;
+    var dataAnswers = (needSnapShotUser.value ?? {}) as Map;
     dataAnswers.forEach((key, value) {
       listDataAnswer.add(DataAnswerModal.fromMap(
         key: key,
@@ -101,8 +111,8 @@ class DatabaseService {
 
   static Future<void> postDataAnswerToSever(
       {required DataAnswerModal itemToPost,
-      required String userIdOfQuestion,
-      required String questionId}) async {
+        required String userIdOfQuestion,
+        required String questionId}) async {
     DatabaseReference ref = FirebaseDatabase.instance
         .ref("users/$userIdOfQuestion/questions/$questionId")
         .child('answers')
@@ -122,7 +132,6 @@ class DatabaseService {
         .child('name')
         .get();
     var currentUserName = currentUserNameSnapshot.value as String;
-
     return currentUserName;
   }
 }

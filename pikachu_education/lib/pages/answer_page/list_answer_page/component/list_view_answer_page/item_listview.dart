@@ -9,10 +9,10 @@ class ItemListView extends StatefulWidget {
       {super.key,
       required this.index,
       required this.listAnswerPageBloc,
-      required this.listDataFromSever});
+      required this.listDataAnswerFromSever});
 
   final ListAnswerPageBloc listAnswerPageBloc;
-  final List<DataAnswerModal> listDataFromSever;
+  final List<DataAnswerModal> listDataAnswerFromSever;
 
   final int index;
 
@@ -29,7 +29,7 @@ class _ItemListViewState extends State<ItemListView> {
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
               onTap: () {
-                Navigator.pushNamed(context, PageName.detailAnswerPage);
+                Navigator.pushNamed(context, PageName.detailAnswerPage,arguments:widget.listDataAnswerFromSever[widget.index] );
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -44,14 +44,14 @@ class _ItemListViewState extends State<ItemListView> {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                          widget.listDataFromSever[widget.index].answerTitle,
+                          widget.listDataAnswerFromSever[widget.index].answerTitle,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18)),
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        widget.listDataFromSever[widget.index].answerContent,
+                        widget.listDataAnswerFromSever[widget.index].answerContent,
                       ),
                     ),
                     Padding(
@@ -89,7 +89,7 @@ class _ItemListViewState extends State<ItemListView> {
                                     )),
                               ),
                               Text(widget
-                                  .listDataFromSever[widget.index].userNamePost),
+                                  .listDataAnswerFromSever[widget.index].userNamePost),
                             ],
                           )
                         ],

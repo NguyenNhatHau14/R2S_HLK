@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pikachu_education/data/data_modal/data_answer_modal.dart';
 import 'package:pikachu_education/pages/answer_page/detail_answer_page/detail_answer_page.dart';
 import 'package:pikachu_education/pages/authentication/profile_page/profile_page.dart';
 
@@ -66,8 +67,9 @@ var generateRoute = (settings) {
       }
     case PageName.detailAnswerPage:
       {
+        var answerInfo = settings.arguments;
         return MaterialPageRoute(
-            builder: (context) => const DetailAnswerPage());
+            builder: (context) =>  DetailAnswerPage(answerInfo:answerInfo,));
       }
     case PageName.homePage:
       {

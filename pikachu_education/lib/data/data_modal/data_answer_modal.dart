@@ -4,20 +4,23 @@ class DataAnswerModal {
   final String answerId;
   final String answerTitle;
   final String answerContent;
+  final int? numberLike;
 
   DataAnswerModal(
       {required this.userNamePost,
       required this.userIdPost,
       required this.answerId,
       required this.answerTitle,
-      required this.answerContent});
+      required this.answerContent,
+      this.numberLike});
 
   static DataAnswerModal fromMap(
           {required String key, required Map<dynamic, dynamic> map}) =>
       DataAnswerModal(
-          userNamePost: map['userNamePost']??'admin',
+          userNamePost: map['userNamePost'] ?? 'admin',
           answerId: key,
           answerTitle: map['answerTitle'] ?? '',
           answerContent: map['questionContent'] ?? '',
-          userIdPost: map['userIdPost']??'admin');
+          userIdPost: map['userIdPost'] ?? 'admin',
+          numberLike: map['numberLike']);
 }

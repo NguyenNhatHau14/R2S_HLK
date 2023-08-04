@@ -7,6 +7,8 @@ class DataQuestionModal {
   final String questionContent;
   final int? numberAnswer;
   final Map<dynamic, dynamic>? listDataAnswer;
+  final int? numberLike;
+
 
   DataQuestionModal(
       {required this.userId,
@@ -16,7 +18,7 @@ class DataQuestionModal {
       required this.questionTitle,
       required this.questionContent,
       this.numberAnswer,
-      this.listDataAnswer});
+      this.listDataAnswer,this.numberLike});
 
   static DataQuestionModal fromMap(
           {required String key,
@@ -32,7 +34,7 @@ class DataQuestionModal {
           questionTitle: map['questionTitle'],
           questionContent: map['questionContent'],
           numberAnswer: numberAnswer ?? 0,
-          listDataAnswer: map['answers']);
+          listDataAnswer: map['answers'],numberLike: map['numberLike']??0);
 
   Map<dynamic, dynamic> toMap() {
     return {

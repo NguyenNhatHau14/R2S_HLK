@@ -35,8 +35,8 @@ class _ListViewAnswerPageState extends State<ListViewAnswerPage> {
       child: BlocBuilder<ListAnswerPageBloc, ListAnswerPageState>(
         builder: (context, state) {
           if (state is FetchListAnswerPageSuccessState) {
-            var listDataFromSever = state.listAnswers;
-            if (listDataFromSever.isNotEmpty) {
+            var listDataAnswerFromSever = state.listAnswers;
+            if (listDataAnswerFromSever.isNotEmpty) {
               return Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 25, left: 8, right: 8),
@@ -44,9 +44,9 @@ class _ListViewAnswerPageState extends State<ListViewAnswerPage> {
                     itemBuilder: (context, index) => ItemListView(
                       listAnswerPageBloc: widget.listAnswerPageBloc,
                       index: index,
-                      listDataFromSever: listDataFromSever,
+                      listDataAnswerFromSever: listDataAnswerFromSever,
                     ),
-                    itemCount: listDataFromSever.length,
+                    itemCount: listDataAnswerFromSever.length,
                   ),
                 ),
               );

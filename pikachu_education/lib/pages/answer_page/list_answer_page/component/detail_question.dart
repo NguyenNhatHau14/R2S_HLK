@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pikachu_education/data/data_modal/data_question_modal.dart';
 
 class DetailQuestion extends StatefulWidget {
-  const DetailQuestion({super.key,required this.dataQuestionModal});
+  const DetailQuestion({super.key,required this.dataQuestionInfo});
 
-  final DataQuestionModal dataQuestionModal;
+  final DataQuestionModal dataQuestionInfo;
   @override
   State<DetailQuestion> createState() => _DetailQuestionState();
 }
@@ -28,29 +28,29 @@ class _DetailQuestionState extends State<DetailQuestion> {
               children: [
                  Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(widget.dataQuestionModal.questionTitle,
+                  child: Text(widget.dataQuestionInfo.questionTitle,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 18)),
                 ),
                  Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(widget.dataQuestionModal.questionContent),
+                  child: Text(widget.dataQuestionInfo.questionContent),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Row(
+                       Row(
                         children: [
-                          Icon(Icons.favorite_border),
-                          Text('123'),
+                          const Icon(Icons.favorite_border),
+                          Text('${widget.dataQuestionInfo.numberLike}'),
                         ],
                       ),
                        Row(
                         children: [
                           const Icon(Icons.comment_sharp),
-                          Text('${widget.dataQuestionModal.numberAnswer} Answers'),
+                          Text('${widget.dataQuestionInfo.numberAnswer} Answers'),
                         ],
                       ),
                       Row(
@@ -62,7 +62,7 @@ class _DetailQuestionState extends State<DetailQuestion> {
                                 'assets/image/pikachu.png',
                                 fit: BoxFit.fill,
                               )),
-                           Text(widget.dataQuestionModal.userName),
+                           Text(widget.dataQuestionInfo.userName),
                         ],
                       )
                     ],

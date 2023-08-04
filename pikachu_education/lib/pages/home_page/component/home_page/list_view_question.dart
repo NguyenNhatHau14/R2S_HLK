@@ -190,14 +190,14 @@ class _ListViewQuestionState extends State<ListViewQuestion> {
 
                               setState(() {});
                             },
-                            child: const Padding(
-                              padding: EdgeInsets.all(8.0),
+                            child:  Padding(
+                              padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
-                                  Text('numberLike' //ToDo
+                                  Text('${widget.dataQuestionFromServer[index].numberLike} Like'
                                       // '${widget.dataQuestionFromServer[index].numberLike}'
                                       ),
-                                  Icon(Icons.favorite_border
+                                  const Icon(Icons.favorite_border
                                       //     (widget.dataQuestionFromServer[
                                       // index]
                                       //     .favorite ??
