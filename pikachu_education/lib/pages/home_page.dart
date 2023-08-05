@@ -7,7 +7,6 @@ import '../data/data_image.dart';
 import '../models/content_add_model.dart';
 import '../routes/page_name.dart';
 import '../service/add_question_service.dart';
-import 'answer_page/create_answer_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -39,7 +38,7 @@ class _HomePageState extends State<HomePage> {
                 boxShadow: true,
                 width: MediaQuery.of(context).size.width,
                 helpText: 'Search Question',
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Icons.search,
                   size: 35,
                 ),
@@ -49,8 +48,8 @@ class _HomePageState extends State<HomePage> {
                     searchController.clear();
                   });
                 },
-                textFieldColor: Color(0xFFFDFFAE),
-                color: Color(0xFFFDCA15),
+                textFieldColor: const Color(0xFFFDFFAE),
+                color: const Color(0xFFFDCA15),
                 onSubmitted: (p0) {},
                 animationDurationInMilli: 2000,
               ),
@@ -61,7 +60,7 @@ class _HomePageState extends State<HomePage> {
             child: Container(
               width: MediaQuery.of(context).size.width / 2,
               decoration: BoxDecoration(
-                  color: Color(0xFFFDCA15),
+                  color: const Color(0xFFFDCA15),
                   borderRadius: BorderRadius.circular(15)),
               child: InkWell(
                 onTap: () {
@@ -254,7 +253,8 @@ class _HomePageState extends State<HomePage> {
                                         Text(
                                             mockListQuestion[index].userName ??
                                                 '',
-                                            style: TextStyle(fontSize: 15)),
+                                            style:
+                                                const TextStyle(fontSize: 15)),
                                         Text(
                                             mockListQuestion[index].timeAgo ??
                                                 '',
@@ -271,10 +271,10 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.only(right: 8, left: 8),
                               child: Row(
                                 children: [
-                                  Icon(Icons.tag),
+                                  const Icon(Icons.tag),
                                   Text(
                                     mockListQuestion[index].tag ?? '',
-                                    style: TextStyle(fontSize: 12),
+                                    style: const TextStyle(fontSize: 12),
                                   ),
                                 ],
                               ),
@@ -291,7 +291,7 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.only(
                                   top: 8, right: 8, left: 8),
                               child: Text(mockListQuestion[index].content ?? '',
-                                  style: TextStyle(fontSize: 12)),
+                                  style: const TextStyle(fontSize: 12)),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
@@ -306,7 +306,7 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         Text(
                                             '${mockListQuestion[index].numberAnswer}'),
-                                        Icon(Icons.message)
+                                        const Icon(Icons.message)
                                       ],
                                     )),
                                   ),
@@ -339,7 +339,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ));
               },
-
             ),
           ),
         ]),
