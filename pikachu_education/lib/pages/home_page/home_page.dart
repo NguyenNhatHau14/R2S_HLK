@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pikachu_education/blog/blog_home_page/data_home_bloc.dart';
+import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../data/data_image.dart';
-import 'component/home_page/add_question/add_question_button.dart';
-import 'component/home_page/draw_page.dart';
-import 'component/home_page/list_view_question.dart';
-import 'component/home_page/search_button.dart';
+import '../../service/database_service/database_service.dart';
+import '../../utils/management_image.dart';
+import 'component/add_question/add_question_button.dart';
+import 'component/draw_page.dart';
+import 'component/list_view_question/list_view_question.dart';
+import 'component/search_button.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, required this.userId});
+
+  final String userId;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -23,38 +26,29 @@ class _HomePageState extends State<HomePage> {
   final DataHomeBloc _dataHomeBloc = DataHomeBloc();
 
   final RefreshController _refreshController =
-  RefreshController(initialRefresh: false);
+      RefreshController(initialRefresh: false);
+  DataUserModal currentUserInfo =
+      DataUserModal(userId: 'userId', userName: 'userName', email: 'email');
 
-  String currentUserId = '';
-  String currentUserName='';
-
-  Future<void> loadDataCurrentUserId() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var userIdFromLocal = prefs.getString('userId') ?? '';
-
+  getCurrentUserInfo(String userID) async {
+    var currentUserFromDataBase =
+        await DatabaseService.getCurrentUserInfo(userID: userID);
     setState(() {
-      currentUserId = userIdFromLocal;
-    });
-  }
-  Future<void> loadDataCurrentUserName() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var userNameFromLocal = prefs.getString('userName') ?? '';
-    setState(() {
-      currentUserName = userNameFromLocal;
+      currentUserInfo = currentUserFromDataBase;
     });
   }
 
   @override
   void dispose() {
     searchController.dispose();
+    _refreshController.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
     _dataHomeBloc.add(FetchDataQuestionEvent());
-    loadDataCurrentUserId();
-    loadDataCurrentUserName();
+    getCurrentUserInfo(widget.userId);
     super.initState();
   }
 
@@ -62,63 +56,63 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: _dataHomeBloc,
-      child: BlocListener<DataHomeBloc, DataHomeState>(
-        listener: (context, state) {
-          if(state is FetchDataQuestionSuccessState){
-            _refreshController.refreshCompleted();
-          }
-          if (state is PostDataQuestionSuccessState){
-            context.read<DataHomeBloc>().add(RefreshDataQuestion());
+      child:
+          BlocListener<DataHomeBloc, DataHomeState>(listener: (context, state) {
+        if (state is FetchDataQuestionSuccessState) {
+          _refreshController.refreshCompleted();
+        }
+        if (state is PostDataQuestionSuccessState) {
+          context.read<DataHomeBloc>().add(RefreshDataQuestion());
+        }
+      }, child: BlocBuilder<DataHomeBloc, DataHomeState>(
+        builder: (context, state) {
+          if (state is FetchDataQuestionSuccessState) {
+            var dataQuestionFromServer = state.listDataUserModal;
+            return Scaffold(
+              backgroundColor: Colors.white,
+              body: SafeArea(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(ImageManagement.logo),
+                        ],
+                      ),
+                      Stack(
+                        children: [
+                          const DrawPageForHomePage(),
+                          AddQuestionButton(
+                              dataHomeBloc: _dataHomeBloc,
+                              userId: currentUserInfo.userId),
+                          SearchButton(
+                            searchController: searchController,
+                          )
+                        ],
+                      ),
+                      Expanded(
+                        child: SmartRefresher(
+                            controller: _refreshController,
+                            onRefresh: () {
+                              context
+                                  .read<DataHomeBloc>()
+                                  .add(RefreshDataQuestion());
+                            },
+                            child: ListViewQuestion(
+                              dataHomePageBloc: _dataHomeBloc,
+                              dataQuestionFromServer: dataQuestionFromServer,
+                              currentUserInfo: currentUserInfo,
+                            )),
+                      )
+                    ]),
+              ),
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
           }
         },
-
-        child: BlocBuilder<DataHomeBloc, DataHomeState>(
-          builder: (context, state) {
-            if (state is FetchDataQuestionSuccessState) {
-              var dataQuestionFromServer = state.listDataUserModal;
-              return Scaffold(
-                backgroundColor: Colors.white,
-                body: SafeArea(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(logoImage.image),
-                          ],
-                        ),
-                        Stack(
-                          children: [
-                            const DrawPageForHomePage(),
-                             AddQuestionButton(dataHomeBloc: _dataHomeBloc,userId:currentUserId ),
-                            SearchButton(
-                              searchController: searchController,
-                            )
-                          ],
-                        ),
-                        Expanded(
-                          child: SmartRefresher(
-                              controller: _refreshController,
-                              onRefresh: () {
-                                context
-                                    .read<DataHomeBloc>()
-                                    .add(RefreshDataQuestion());
-                              },
-                              child: ListViewQuestion(
-                                dataHomePageBloc: _dataHomeBloc,
-                                dataQuestionFromServer: dataQuestionFromServer,currentUserId: currentUserId,currentUserName: currentUserName,
-                              )),
-                        )
-                      ]),
-                ),
-              );
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          },
-        ),
-      ),
+      )),
     );
   }
 }

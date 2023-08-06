@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pikachu_education/components/text_form_field_widget.dart';
-import 'package:pikachu_education/data/data_image.dart';
 import 'package:pikachu_education/routes/page_name.dart';
+
+import '../../../utils/management_image.dart';
 
 class GetOTPPage extends StatefulWidget {
   const GetOTPPage({super.key});
@@ -40,7 +40,7 @@ class _GetOTPPageState extends State<GetOTPPage> {
                     ),
                 Padding(
                   padding: const EdgeInsets.all(0),
-                  child: Image.asset(logoImage.image),
+                  child: Image.asset(ImageManagement.logo),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 65, left: 10, right: 10),

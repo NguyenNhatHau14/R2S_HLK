@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pikachu_education/data/data_image.dart';
 import 'package:pikachu_education/routes/page_name.dart';
 import '../../../components/snack_bar_custom.dart';
+import '../../../utils/management_image.dart';
 
 class SignupSuccessPage extends StatefulWidget {
   const SignupSuccessPage({super.key});
@@ -26,7 +26,7 @@ class _SignupSuccessPageState extends State<SignupSuccessPage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(0),
-                      child: Image.asset(logoImage.image),
+                      child: Image.asset(ImageManagement.logo),
                     ),
                     Padding(
                       padding:

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pikachu_education/service/service_signup/draft_fire_base_auth.dart';
 import '../../../blog/blog_signup_page/signup_bloc.dart';
-import '../../../data/data_image.dart';
-import '../../../service/service_signup/draft_fire_base_auth.dart';
-import '../../../service/service_signup/draft_fire_base_auth.dart';
 import '../../../routes/page_name.dart';
+import '../../../utils/management_image.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -24,6 +21,13 @@ class _SignupPageState extends State<SignupPage> {
   bool iconShowPassword = true;
   bool showConfirmPassword = true;
   bool iconShowConfirmPassword = true;
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +66,7 @@ class _SignupPageState extends State<SignupPage> {
                                 ],
                               ),
                             ),
-                            Image.asset(logoImage.image),
+                            Image.asset(ImageManagement.logo),
                             Padding(
                               padding: const EdgeInsets.only(
                                   top: 60, left: 10, right: 10),

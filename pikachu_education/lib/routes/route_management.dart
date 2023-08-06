@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pikachu_education/data/data_modal/data_answer_modal.dart';
-import 'package:pikachu_education/pages/answer_page/detail_answer_page/detail_answer_page.dart';
+
 import 'package:pikachu_education/pages/authentication/profile_page/profile_page.dart';
 
-import 'package:pikachu_education/pages/answer_page/list_answer_page/list_answer_page.dart';
+import 'package:pikachu_education/pages/answer_page/list_answer_page.dart';
 import 'package:pikachu_education/pages/authentication/change_password_page/change_password_page.dart';
 import 'package:pikachu_education/routes/page_name.dart';
 import 'package:pikachu_education/pages/authentication/login_page/login_page.dart';
+import '../pages/answer_page/component/detail_answer_page/detail_answer_page.dart';
 import '../pages/authentication/forgot_password_page/1_get_otp_page.dart';
 import '../pages/authentication/forgot_password_page/2_verify_page.dart';
 import '../pages/authentication/forgot_password_page/3_save_new_password_page.dart';
@@ -33,13 +33,11 @@ var generateRoute = (settings) {
     case PageName.listAnswerPage:
       {
         var questionInfo = settings.arguments[0];
-        var currentUserId = settings.arguments[1];
-        var currentUserName = settings.arguments[2];
+        var currentUserInfo = settings.arguments[1];
         return MaterialPageRoute(
             builder: (context) => ListAnswerPage(
                 questionInfo: questionInfo,
-              currentUserId: currentUserId,
-              currentUserName: currentUserName,
+              currentUserInfo: currentUserInfo,
                 ));
       }
     case PageName.getOtpPage:
@@ -67,13 +65,17 @@ var generateRoute = (settings) {
       }
     case PageName.detailAnswerPage:
       {
-        var answerInfo = settings.arguments;
+        var currentUserInfo=settings.arguments[1];
+        var answerInfo = settings.arguments[0];
+        var questionInfo = settings.arguments[2];
+
         return MaterialPageRoute(
-            builder: (context) =>  DetailAnswerPage(answerInfo:answerInfo,));
+            builder: (context) =>  DetailAnswerPage(answerInfo:answerInfo,currentUserInfo: currentUserInfo,questionInfo: questionInfo,));
       }
     case PageName.homePage:
       {
-        return MaterialPageRoute(builder: (context) => const HomePage());
+        String userId=settings.arguments;
+        return MaterialPageRoute(builder: (context) =>  HomePage(userId: userId,));
       }
     case PageName.profilePage:
       {

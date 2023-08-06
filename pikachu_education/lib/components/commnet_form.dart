@@ -14,7 +14,7 @@ class CommentForm extends StatefulWidget {
   final String? commentContent;
   final String? avatar;
   final String? name;
-  final int? dayAgo;
+  final String? dayAgo;
 
   @override
   State<CommentForm> createState() => _CommentFormState();

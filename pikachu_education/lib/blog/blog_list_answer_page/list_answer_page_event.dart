@@ -4,12 +4,16 @@ part of 'list_answer_page_bloc.dart';
 abstract class ListAnswerPageEvent {}
 
 
-class FetchDataAnswerList extends ListAnswerPageEvent {
+class FetchDataAnswerListEvent extends ListAnswerPageEvent {
   String userIdOfQuestion;
   String questionId;
-  FetchDataAnswerList({required this.userIdOfQuestion, required this.questionId});
+  FetchDataAnswerListEvent({required this.userIdOfQuestion, required this.questionId});
 }
-
+class RefreshDataAnswerListEvent extends ListAnswerPageEvent {
+  String userIdOfQuestion;
+  String questionId;
+  RefreshDataAnswerListEvent({required this.userIdOfQuestion, required this.questionId});
+}
 class PostAnswerEvent extends ListAnswerPageEvent {
   String userIdOfQuestion;
   String questionId;
@@ -20,3 +24,5 @@ class PostAnswerEvent extends ListAnswerPageEvent {
       required this.questionId,
       required this.itemToPost});
 }
+
+

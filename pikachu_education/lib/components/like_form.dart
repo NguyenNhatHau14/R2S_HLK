@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/management_image.dart';
+
 
 class LikeForm extends StatefulWidget {
   const LikeForm(
@@ -9,7 +11,7 @@ class LikeForm extends StatefulWidget {
       required this.dayAgo});
   final String? avatar;
   final String? name;
-  final int? dayAgo;
+  final String? dayAgo;
 
   @override
   State<LikeForm> createState() => _LikeFormState();
@@ -21,7 +23,7 @@ class _LikeFormState extends State<LikeForm> {
     return Row(children: [
       SizedBox(
           width: MediaQuery.of(context).size.width / 6,
-          child: Image.asset(widget.avatar ?? 'assets/image/bottom_bar_me.png',
+          child: Image.asset(widget.avatar ?? ImageManagement.defaultAvatar,
               fit: BoxFit.fill)),
       Padding(
         padding: const EdgeInsets.only(left: 10),
@@ -33,7 +35,7 @@ class _LikeFormState extends State<LikeForm> {
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             Text(
-              '${widget.dayAgo ?? 'Unknown'} day ago',
+              '${widget.dayAgo ?? 'Unknown'}',
               style: const TextStyle(fontSize: 15),
             )
           ],

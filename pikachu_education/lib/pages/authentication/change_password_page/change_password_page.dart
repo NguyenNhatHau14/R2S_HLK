@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pikachu_education/components/snack_bar_custom.dart';
-import 'package:pikachu_education/data/data_image.dart';
 import 'package:pikachu_education/routes/page_name.dart';
+
+import '../../../utils/management_image.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({super.key});
@@ -50,7 +51,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(0),
-                      child: Image.asset(logoImage.image),
+                      child: Image.asset(ImageManagement.logo),
                     ),
                     const Padding(
                       padding: EdgeInsets.only(top: 60, left: 10, right: 10),

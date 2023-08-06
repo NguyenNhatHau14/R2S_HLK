@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:pikachu_education/blog/blog_home_page/data_home_bloc.dart';
+import 'package:pikachu_education/data/data_modal/data_comment_modal.dart';
 
 import '../../data/data_modal/data_answer_modal.dart';
 import '../../service/database_service/database_service.dart';
@@ -14,16 +16,25 @@ class ListAnswerPageBloc
     extends Bloc<ListAnswerPageEvent, ListAnswerPageState> {
   ListAnswerPageBloc() : super(ListAnswerPageInitial()) {
     on<PostAnswerEvent>((event, emit) async {
-     await DatabaseService.postDataAnswerToSever(
+      await DatabaseService.postDataAnswerToSever(
           itemToPost: event.itemToPost,
           userIdOfQuestion: event.userIdOfQuestion,
           questionId: event.questionId);
-     emit (PostAnswerSuccessState());
+      emit(PostAnswerSuccessState());
     });
 
-    on<FetchDataAnswerList>((event, emit) async {
-     var listDataAnswer = await DatabaseService.fetchDataAnswerFromSever(event.userIdOfQuestion,event.questionId);
-     emit (FetchListAnswerPageSuccessState(listAnswers: listDataAnswer));
+    on<RefreshDataAnswerListEvent>((event, emit) async {
+      var listDataAnswer = await DatabaseService.fetchDataAnswerFromSever(
+          event.userIdOfQuestion, event.questionId);
+      emit(FetchListAnswerPageSuccessState(listAnswers: listDataAnswer));
     });
+
+    on<FetchDataAnswerListEvent>((event, emit) async {
+      emit(ListAnswerPageLoadingState());
+      var listDataAnswer = await DatabaseService.fetchDataAnswerFromSever(
+          event.userIdOfQuestion, event.questionId);
+      emit(FetchListAnswerPageSuccessState(listAnswers: listDataAnswer));
+    });
+
   }
 }

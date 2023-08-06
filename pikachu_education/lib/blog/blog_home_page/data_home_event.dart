@@ -9,5 +9,10 @@ class PostDataQuestionsEvent extends DataHomeEvent{
   String userId;
   PostDataQuestionsEvent({required this.dataToPost,required this.userId});
 }
+class GetCurrentUserInfoEvent extends DataHomeEvent{
+  String userId;
+  GetCurrentUserInfoEvent({required this.userId});
+}
+
 
 

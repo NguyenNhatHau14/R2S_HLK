@@ -18,3 +18,7 @@ class FetchDataQuestionSuccessState extends DataHomeState {
 }
 class PostDataQuestionSuccessState extends DataHomeState {
 }
+class GetCurrentUserSuccessState extends DataHomeState{
+  DataUserModal currentUserInfo;
+  GetCurrentUserSuccessState({required this.currentUserInfo});
+}

@@ -20,6 +20,11 @@ class DataHomeBloc extends Bloc<DataHomeEvent, DataHomeState> {
       emit(FetchDataQuestionSuccessState(listDataUsers));
     });
 
+    on<GetCurrentUserInfoEvent>((event, emit) async {
+      var  currentUserInfo = await DatabaseService.getCurrentUserInfo(userID: event.userId);
+      emit(GetCurrentUserSuccessState(currentUserInfo: currentUserInfo));
+    });
+
     on<RefreshDataQuestion>((event, emit) async {
       var listDataUsers = await DatabaseService.fetchDataQuestionFromSever();
       emit(FetchDataQuestionSuccessState(listDataUsers));
