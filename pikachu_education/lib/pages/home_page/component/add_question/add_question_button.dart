@@ -5,7 +5,7 @@ import 'create_question_dialog.dart';
 class AddQuestionButton extends StatefulWidget {
   const AddQuestionButton({super.key,required this.dataHomeBloc,required this.userId});
 
- final DataHomeBloc dataHomeBloc;
+ final DataHomePageBloc dataHomeBloc;
  final String userId;
 
   @override

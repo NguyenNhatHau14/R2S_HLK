@@ -37,27 +37,8 @@ class DatabaseService {
             userId: keyUser,
             numberAnswer: answers.length));
       });
-      // for (int index = 0; index < listDataUsers.length; index++) {
-      //   var questions = (listDataUsers[index].listQuestion ?? {});
-      //
-      //   questions.forEach((key, value) async {
-      //     var question = (questions[key] ?? {}) as Map;
-      //     var answers = (question['answers'] ?? {}) as Map;
-      //     listDataQuestions.add(DataQuestionModal.fromMap(
-      //         key: key,
-      //         map: value,
-      //         userName: listDataUsers[index].userName,
-      //         userId: listDataUsers[index].userId,
-      //         numberAnswer: answers.length));
-      //   });
-      // }
+
     });
-    // print('okokokokokokokokokok: ${listDataQuestions.length}');
-    //print('Questions ID: ${listDataQuestions[0].questionId}');
-    // print('User id: ${listDataUsers[0].userId}');
-    // print('User Name: ${listDataUsers[0].userName}');
-    // print('Email: ${listDataUsers[0].email}');
-    // print('Questions ${listDataUsers[0].listQuestion}');
 
     return listDataQuestions;
   }
@@ -68,12 +49,25 @@ class DatabaseService {
         .ref("users/$userId")
         .child('questions')
         .push();
-    await ref.update({
+    await ref.set({
       'timePost': itemToPost.timePost,
       'questionTitle': itemToPost.questionTitle,
       'questionSubject': itemToPost.questionSubject,
       'questionContent': itemToPost.questionContent,
       'numberLike': itemToPost.numberLike
+    });
+  }
+
+
+  static Future<void> editDataQuestion(
+      {required DataQuestionModal itemToPost, required String userId,required String questionId}) async {
+    DatabaseReference ref = FirebaseDatabase.instance
+        .ref("users/$userId/questions/$questionId");
+    await ref.update({
+      'timePost': itemToPost.timePost,
+      'questionTitle': itemToPost.questionTitle,
+      'questionSubject': itemToPost.questionSubject,
+      'questionContent': itemToPost.questionContent,
     });
   }
 
@@ -95,34 +89,6 @@ class DatabaseService {
       ));
     });
 
-    // dataUsers.forEach((key, value) {
-    //   listDataUsers.add(DataUserModal.fromMap(key: key, map: value));
-    //   for (int indexListUser = 0; indexListUser < listDataUsers.length; indexListUser++) {
-    //     var questions = listDataUsers[indexListUser].listQuestion as Map;
-    //     questions.forEach((key, value) {
-    //       listDataQuestions.add(DataQuestionModal.fromMap(
-    //           key: key,
-    //           map: value,
-    //           userName: listDataUsers[indexListUser].userName,
-    //           userId: listDataUsers[indexListUser].userId));
-    //       for (int index = 0; index < listDataQuestions.length; index++) {
-    //         var answers = listDataQuestions[index].listDataAnswer as Map;
-    //         answers.forEach((key, value) {
-    //           listDataAnswer.add(DataAnswerModal.fromMap(
-    //               key: key,
-    //               map: answers,
-    //               userName: listDataUsers[indexListUser].userName)) ;
-    //         });
-    //       }
-    //     });
-    //   }
-    // });
-    //print('okokokokokokokokokokokok: ${listDataAnswer[80].userName}');
-    //print('Questions ID: ${listDataQuestions[0].questionId}');
-    // print('User id: ${listDataUsers[0].userId}');
-    // print('User Name: ${listDataUsers[0].userName}');
-    // print('Email: ${listDataUsers[0].email}');
-    // print('Questions ${listDataUsers[0].listQuestion}');
 
     return listDataAnswer;
   }

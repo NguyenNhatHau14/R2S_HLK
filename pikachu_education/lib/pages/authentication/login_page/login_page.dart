@@ -3,10 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pikachu_education/blog/blog_login_page/login_bloc.dart';
 import 'package:pikachu_education/routes/page_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../service/database_service/database_service.dart';
 import '../../../service/service_local_storage/service_save_data_to_local_storage.dart';
 import '../../../utils/management_image.dart';
-import '../../../utils/management_time.dart';
+
 
 
 class LoginPage extends StatefulWidget {
@@ -177,11 +176,11 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
 
-                            ElevatedButton(
-                                onPressed: () {
-
-                                },
-                                child: Text('Check Data')),
+                            // ElevatedButton(
+                            //     onPressed: () {
+                            //
+                            //     },
+                            //     child: Text('Check Data')),
                             Padding(
                               padding: const EdgeInsets.only(
                                   top: 200, left: 10, right: 10),

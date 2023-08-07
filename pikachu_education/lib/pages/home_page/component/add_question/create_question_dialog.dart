@@ -8,7 +8,7 @@ import '../../../../utils/management_time.dart';
 
 Widget createQuestionPage(
     {required BuildContext context,
-    required DataHomeBloc dataHomeBloc,
+    required DataHomePageBloc dataHomeBloc,
     required String userId}) {
   TextEditingController titleController = TextEditingController();
   TextEditingController subjectController = TextEditingController();
@@ -17,7 +17,7 @@ Widget createQuestionPage(
   final _dataHomePageBloc = dataHomeBloc;
   return BlocProvider.value(
     value: _dataHomePageBloc,
-    child: BlocBuilder<DataHomeBloc, DataHomeState>(
+    child: BlocBuilder<DataHomePageBloc, DataHomePageState>(
       builder: (context, state) {
         return AlertDialog(
           backgroundColor: const Color(0xFFFDFFAE),
@@ -132,7 +132,7 @@ Widget createQuestionPage(
                               questionId: '',userName: '',userId: '',
 
                             );
-                            context.read<DataHomeBloc>().add(PostDataQuestionsEvent(dataToPost: item, userId: userId));
+                            context.read<DataHomePageBloc>().add(PostDataQuestionsEvent(dataToPost: item, userId: userId));
                             Navigator.pop(context);
                           }
                         },

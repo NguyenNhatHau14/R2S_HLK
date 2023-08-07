@@ -10,11 +10,19 @@ class ListViewQuestion extends StatefulWidget {
       {super.key,
       required this.dataQuestionFromServer,
       required this.dataHomePageBloc,
-      required this.currentUserInfo});
+      required this.currentUserInfo,
+      required this.contentController,
+      required this.editQuestionFormFieldKey,
+      required this.titleController,
+      required this.subjectController});
 
   final List<DataQuestionModal> dataQuestionFromServer;
-  final DataHomeBloc dataHomePageBloc;
+  final DataHomePageBloc dataHomePageBloc;
   final DataUserModal currentUserInfo;
+  final GlobalKey<FormState> editQuestionFormFieldKey;
+  final TextEditingController titleController;
+  final TextEditingController subjectController;
+  final TextEditingController contentController;
 
   @override
   State<ListViewQuestion> createState() => _ListViewQuestionState();
@@ -33,7 +41,12 @@ class _ListViewQuestionState extends State<ListViewQuestion> {
       ),
       itemBuilder: (context, index) {
         return ItemListviewQuestion(
-         currentUserInfo: widget.currentUserInfo,
+          subjectController: widget.subjectController,
+          contentController: widget.contentController,
+          editQuestionFormFieldKey: widget.editQuestionFormFieldKey,
+          dataHomePageBloc: widget.dataHomePageBloc,
+          titleController: widget.titleController,
+          currentUserInfo: widget.currentUserInfo,
           dataQuestionFromServer: widget.dataQuestionFromServer,
           index: index,
         );

@@ -6,10 +6,10 @@ import '../../../../blog/blog_home_page/data_home_bloc.dart';
 
 Widget deleteQuestion(
     {required BuildContext context,
-    required DataHomeBloc dataHomePageBloc}) {
+    required DataHomePageBloc dataHomePageBloc}) {
   return BlocProvider.value(
     value: dataHomePageBloc,
-    child: BlocBuilder<DataHomeBloc, DataHomeState>(
+    child: BlocBuilder<DataHomePageBloc, DataHomePageState>(
       builder: (context, state) {
         return AlertDialog(
           backgroundColor: const Color(0xFFFDFFAE),

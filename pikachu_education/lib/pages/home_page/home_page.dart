@@ -18,12 +18,15 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
-
 class _HomePageState extends State<HomePage> {
   final TextEditingController searchController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController subjectController = TextEditingController();
+  final TextEditingController contentController = TextEditingController();
+  final GlobalKey<FormState> editQuestionFormFieldKey = GlobalKey<FormState>();
   bool showAddQuestionButton = true;
 
-  final DataHomeBloc _dataHomeBloc = DataHomeBloc();
+  final DataHomePageBloc _dataHomeBloc = DataHomePageBloc();
 
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -41,6 +44,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     searchController.dispose();
+    titleController.dispose();
+    subjectController.dispose();
+    contentController.dispose();
     _refreshController.dispose();
     super.dispose();
   }
@@ -56,15 +62,18 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: _dataHomeBloc,
-      child:
-          BlocListener<DataHomeBloc, DataHomeState>(listener: (context, state) {
+      child: BlocListener<DataHomePageBloc, DataHomePageState>(
+          listener: (context, state) {
         if (state is FetchDataQuestionSuccessState) {
           _refreshController.refreshCompleted();
         }
         if (state is PostDataQuestionSuccessState) {
-          context.read<DataHomeBloc>().add(RefreshDataQuestion());
+          context.read<DataHomePageBloc>().add(RefreshDataQuestion());
         }
-      }, child: BlocBuilder<DataHomeBloc, DataHomeState>(
+        if (state is EditQuestionSuccessState){
+          context.read<DataHomePageBloc>().add(RefreshDataQuestion());
+        }
+      }, child: BlocBuilder<DataHomePageBloc, DataHomePageState>(
         builder: (context, state) {
           if (state is FetchDataQuestionSuccessState) {
             var dataQuestionFromServer = state.listDataUserModal;
@@ -96,10 +105,15 @@ class _HomePageState extends State<HomePage> {
                             controller: _refreshController,
                             onRefresh: () {
                               context
-                                  .read<DataHomeBloc>()
+                                  .read<DataHomePageBloc>()
                                   .add(RefreshDataQuestion());
                             },
                             child: ListViewQuestion(
+                              titleController: titleController,
+                              editQuestionFormFieldKey:
+                                  editQuestionFormFieldKey,
+                              subjectController: subjectController,
+                              contentController: contentController,
                               dataHomePageBloc: _dataHomeBloc,
                               dataQuestionFromServer: dataQuestionFromServer,
                               currentUserInfo: currentUserInfo,

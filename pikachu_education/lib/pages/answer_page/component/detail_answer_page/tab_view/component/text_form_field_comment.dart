@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pikachu_education/data/data_modal/data_answer_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_question_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
-
-import '../../../../../../blog/blog_detail_answe_page/detail_answer_page_bloc.dart';
+import '../../../../../../blog/blog_detail_answer_page/detail_answer_page_bloc.dart';
 import '../../../../../../data/data_modal/data_comment_modal.dart';
 import '../../../../../../utils/management_time.dart';
 

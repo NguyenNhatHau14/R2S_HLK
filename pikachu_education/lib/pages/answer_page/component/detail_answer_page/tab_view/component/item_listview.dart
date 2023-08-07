@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pikachu_education/blog/blog_detail_answe_page/detail_answer_page_bloc.dart';
+import '../../../../../../blog/blog_detail_answer_page/detail_answer_page_bloc.dart';
 import '../../../../../../components/commnet_form.dart';
 import '../../../../../../data/data_modal/data_comment_modal.dart';
 import '../../../../../../utils/management_image.dart';
