@@ -71,6 +71,13 @@ class DatabaseService {
     });
   }
 
+  static Future<void> deleteQuestion(
+      { required String userIdOfQuestion,required String questionId}) async {
+    DatabaseReference ref = FirebaseDatabase.instance
+        .ref("users/$userIdOfQuestion/questions/$questionId");
+    await ref.remove();
+  }
+
   static Future<List<DataAnswerModal>> fetchDataAnswerFromSever(
       String userIdOfQuestion, String questionId) async {
     List<DataAnswerModal> listDataAnswer = [];

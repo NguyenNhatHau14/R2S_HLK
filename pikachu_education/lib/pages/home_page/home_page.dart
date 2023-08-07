@@ -73,6 +73,9 @@ class _HomePageState extends State<HomePage> {
         if (state is EditQuestionSuccessState){
           context.read<DataHomePageBloc>().add(RefreshDataQuestion());
         }
+        if (state is DeleteQuestionSuccessState){
+          context.read<DataHomePageBloc>().add(RefreshDataQuestion());
+        }
       }, child: BlocBuilder<DataHomePageBloc, DataHomePageState>(
         builder: (context, state) {
           if (state is FetchDataQuestionSuccessState) {

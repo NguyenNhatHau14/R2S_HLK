@@ -30,3 +30,4 @@ class GetCurrentUserSuccessState extends DataHomePageState {
 }
 
 class EditQuestionSuccessState extends DataHomePageState {}
+class DeleteQuestionSuccessState extends DataHomePageState {}

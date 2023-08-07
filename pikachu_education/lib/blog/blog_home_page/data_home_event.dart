@@ -16,9 +16,15 @@ class GetCurrentUserInfoEvent extends DataHomePageEvent{
 
 class EditQuestionsEvent extends DataHomePageEvent{
   DataQuestionModal dataToPost;
-  String userId;
+  String userIdOfQuestion;
   String questionId;
-  EditQuestionsEvent({required this.dataToPost,required this.userId,required this.questionId});
+  EditQuestionsEvent({required this.dataToPost,required this.userIdOfQuestion,required this.questionId});
+}
+
+class DeleteQuestionsEvent extends DataHomePageEvent{
+  String userIdOfQuestion;
+  String questionId;
+  DeleteQuestionsEvent({required this.userIdOfQuestion,required this.questionId});
 }
 
 

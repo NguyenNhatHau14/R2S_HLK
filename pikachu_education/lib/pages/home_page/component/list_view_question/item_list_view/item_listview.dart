@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pikachu_education/blog/blog_home_page/data_home_bloc.dart';
 import 'package:pikachu_education/data/data_modal/data_question_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
-
-import '../../../../routes/page_name.dart';
-import '../../../../utils/management_image.dart';
-import '../edit_questions/decline_dialog.dart';
-import '../edit_questions/edit_question_dialog.dart';
+import '../../../../../routes/page_name.dart';
+import '../../../../../utils/management_image.dart';
+import 'component/pop_up_menu_item/component/decline_dialog.dart';
+import 'component/pop_up_menu_item/component/delete_question/delete_question_dialog.dart';
+import 'component/pop_up_menu_item/component/edit_questions/edit_question_dialog.dart';
 
 class ItemListviewQuestion extends StatefulWidget {
   const ItemListviewQuestion(
@@ -94,7 +94,7 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                                         child: InkWell(
                                           onTap: () async {
                                             if (checkOwner) {
-                                              showDialog(
+                                             await showDialog(
                                                   context: context,
                                                   builder: (context) =>
                                                       EditQuestionDialog(
@@ -113,11 +113,13 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                                                         titleController: widget
                                                             .titleController,
                                                       ));
-                                            } else {
-                                              showDialog(
+                                             Navigator.pop(context);
+                                            } else  {
+                                             await showDialog(
                                                   context: context,
                                                   builder: (context) =>
                                                       const DeclineDialog());
+                                             Navigator.pop(context);
                                             }
                                           },
                                           child: const Row(
@@ -132,7 +134,26 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                                       ),
                                       PopupMenuItem(
                                         child: InkWell(
-                                          onTap: () async {},
+                                          onTap: () async {
+                                            if (checkOwner) {
+                                             await showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      DeleteQuestionDialog(
+                                                        dataHomePageBloc: widget
+                                                            .dataHomePageBloc,
+                                                        questionInfo: widget
+                                                                .dataQuestionFromServer[
+                                                            widget.index],
+                                                      ));
+                                              Navigator.pop(context);
+                                            } else {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      const DeclineDialog());
+                                            }
+                                          },
                                           child: const Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,

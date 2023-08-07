@@ -39,9 +39,15 @@ class DataHomePageBloc extends Bloc<DataHomePageEvent, DataHomePageState> {
     on<EditQuestionsEvent>((event, emit) async {
       await DatabaseService.editDataQuestion(
           itemToPost: event.dataToPost,
-          userId: event.userId,
+          userId: event.userIdOfQuestion,
           questionId: event.questionId);
       emit(EditQuestionSuccessState());
+    });
+    on<DeleteQuestionsEvent>((event, emit) async {
+      await DatabaseService.deleteQuestion(
+          userIdOfQuestion: event.userIdOfQuestion,
+          questionId: event.questionId);
+      emit(DeleteQuestionSuccessState());
     });
   }
 }

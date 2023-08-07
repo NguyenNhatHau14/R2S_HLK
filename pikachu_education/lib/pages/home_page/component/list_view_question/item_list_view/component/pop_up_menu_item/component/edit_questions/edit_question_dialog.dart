@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:pikachu_education/blog/blog_home_page/data_home_bloc.dart';
 import 'package:pikachu_education/utils/management_time.dart';
-import '../../../../blog/blog_home_page/data_home_bloc.dart';
-import '../../../../data/data_modal/data_question_modal.dart';
+
+import '../../../../../../../../../data/data_modal/data_question_modal.dart';
+
 
 class EditQuestionDialog extends StatefulWidget {
   const EditQuestionDialog(
@@ -172,7 +173,7 @@ class _EditQuestionDialogState extends State<EditQuestionDialog> {
                                 context.read<DataHomePageBloc>().add(
                                     EditQuestionsEvent(
                                         dataToPost: item,
-                                        userId: widget.questionInfo.userId,
+                                        userIdOfQuestion: widget.questionInfo.userId,
                                         questionId:
                                             widget.questionInfo.questionId));
 
