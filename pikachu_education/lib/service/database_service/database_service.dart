@@ -37,7 +37,6 @@ class DatabaseService {
             userId: keyUser,
             numberAnswer: answers.length));
       });
-
     });
 
     return listDataQuestions;
@@ -58,11 +57,12 @@ class DatabaseService {
     });
   }
 
-
   static Future<void> editDataQuestion(
-      {required DataQuestionModal itemToPost, required String userId,required String questionId}) async {
-    DatabaseReference ref = FirebaseDatabase.instance
-        .ref("users/$userId/questions/$questionId");
+      {required DataQuestionModal itemToPost,
+      required String userId,
+      required String questionId}) async {
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref("users/$userId/questions/$questionId");
     await ref.update({
       'timePost': itemToPost.timePost,
       'questionTitle': itemToPost.questionTitle,
@@ -72,7 +72,7 @@ class DatabaseService {
   }
 
   static Future<void> deleteQuestion(
-      { required String userIdOfQuestion,required String questionId}) async {
+      {required String userIdOfQuestion, required String questionId}) async {
     DatabaseReference ref = FirebaseDatabase.instance
         .ref("users/$userIdOfQuestion/questions/$questionId");
     await ref.remove();
@@ -87,15 +87,11 @@ class DatabaseService {
         .get();
     var dataAnswers = (needSnapShotUser.value ?? {}) as Map;
     dataAnswers.forEach((key, value) {
-      var answer = (dataAnswers['$key']??{}) as Map;
-      var comments = (answer['comments']??{}) as Map;
+      var answer = (dataAnswers['$key'] ?? {}) as Map;
+      var comments = (answer['comments'] ?? {}) as Map;
       listDataAnswer.add(DataAnswerModal.fromMap(
-        key: key,
-        map: value,
-        numberComment:comments.length
-      ));
+          key: key, map: value, numberComment: comments.length));
     });
-
 
     return listDataAnswer;
   }
@@ -108,14 +104,35 @@ class DatabaseService {
         .ref("users/$userIdOfQuestion/questions/$questionId")
         .child('answers')
         .push();
-    await ref.update({
+    await ref.set({
       'userIdPost': itemToPost.userIdPost,
       'userNamePost': itemToPost.userNamePost,
       'timePost': itemToPost.timePost,
       'answerTitle': itemToPost.answerTitle,
-      'questionContent': itemToPost.answerContent,
+      'answerContent': itemToPost.answerContent,
       'numberLike': itemToPost.numberLike
     });
+  }
+
+  static Future<void> editAnswer(
+      {required DataAnswerModal itemToPost,
+        required String userIdOfQuestion,
+        required String questionId,required String answerId}) async {
+    DatabaseReference ref = FirebaseDatabase.instance
+        .ref("users/$userIdOfQuestion/questions/$questionId/answers/$answerId");
+    await ref.update({
+      'timePost': itemToPost.timePost,
+      'answerTitle': itemToPost.answerTitle,
+      'answerContent': itemToPost.answerContent,
+    });
+    print('{users/$userIdOfQuestion/questions/$questionId/answers/$answerId}');
+  }
+
+  static Future<void> deleteAnswer(
+      {required String userIdOfQuestion, required String questionId,required String answerId}) async {
+    DatabaseReference ref = FirebaseDatabase.instance
+        .ref("users/$userIdOfQuestion/questions/$questionId/answers/$answerId");
+    await ref.remove();
   }
 
   static Future<String> getCurrentUserName(
@@ -135,8 +152,7 @@ class DatabaseService {
       required String questionId,
       required String answerId}) async {
     DatabaseReference ref = FirebaseDatabase.instance
-        .ref(
-            "/users/$userIdOfQuestion/questions/$questionId/answers/$answerId")
+        .ref("/users/$userIdOfQuestion/questions/$questionId/answers/$answerId")
         .child('comments')
         .push();
     await ref.update({
@@ -148,7 +164,9 @@ class DatabaseService {
   }
 
   static Future<List<DataCommentModal>> fetchDataCommentFromSever(
-      {required String userIdOfQuestion, required String questionId, required String answerId}) async {
+      {required String userIdOfQuestion,
+      required String questionId,
+      required String answerId}) async {
     List<DataCommentModal> listDataComment = [];
     var needSnapShotComment = await FirebaseDatabase.instance
         .ref(

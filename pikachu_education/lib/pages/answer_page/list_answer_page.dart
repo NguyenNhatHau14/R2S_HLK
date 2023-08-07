@@ -24,6 +24,9 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
   final ListAnswerPageBloc _listAnswerPageBloc = ListAnswerPageBloc();
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
+  final TextEditingController contentController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
+  final GlobalKey<FormState> editAnswerFormFieldKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -46,6 +49,18 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
             listener: (context, state) {
               if (state is FetchListAnswerPageSuccessState) {
                 _refreshController.refreshCompleted();
+              }
+              if (state is DeleteAnswerSuccessState) {
+                context.read<ListAnswerPageBloc>().add(
+                    RefreshDataAnswerListEvent(
+                        userIdOfQuestion: widget.questionInfo.userId,
+                        questionId: widget.questionInfo.questionId));
+              }
+              if (state is EditAnswerSuccessState) {
+                context.read<ListAnswerPageBloc>().add(
+                    RefreshDataAnswerListEvent(
+                        userIdOfQuestion: widget.questionInfo.userId,
+                        questionId: widget.questionInfo.questionId));
               }
             },
             child: BlocBuilder<ListAnswerPageBloc, ListAnswerPageState>(
@@ -115,6 +130,9 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                                         widget.questionInfo.questionId));
                           },
                           child: ListViewAnswerPage(
+                            editAnswerFormFieldKey: editAnswerFormFieldKey,
+                            contentController: contentController,
+                            titleController: titleController,
                             listAnswerPageBloc: _listAnswerPageBloc,
                             questionInfo: widget.questionInfo,
                             currentUserInfo: widget.currentUserInfo,

@@ -3,23 +3,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pikachu_education/data/data_modal/data_answer_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_question_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
-import '../../../../../blog/blog_list_answer_page/list_answer_page_bloc.dart';
-import '../../../../../routes/page_name.dart';
-import '../../../../utils/management_image.dart';
+import '../../../../../../blog/blog_list_answer_page/list_answer_page_bloc.dart';
+import '../../../../../../routes/page_name.dart';
+import '../../../../../utils/management_image.dart';
+import 'component/pop_up_menu_button.dart';
 
 class ItemListView extends StatefulWidget {
-  const ItemListView(
-      {super.key,
-      required this.index,
-      required this.listAnswerPageBloc,
-      required this.listDataAnswerFromSever,
-      required this.currentUserInfo,required this.questionInfo});
+  const ItemListView({
+    super.key,
+    required this.index,
+    required this.listAnswerPageBloc,
+    required this.listDataAnswerFromSever,
+    required this.currentUserInfo,
+    required this.questionInfo,
+    required this.contentController,
+    required this.titleController,
+    required this.editAnswerFormFieldKey,
+  });
 
   final ListAnswerPageBloc listAnswerPageBloc;
   final List<DataAnswerModal> listDataAnswerFromSever;
   final DataUserModal currentUserInfo;
   final DataQuestionModal questionInfo;
-
+  final GlobalKey<FormState> editAnswerFormFieldKey;
+  final TextEditingController titleController;
+  final TextEditingController contentController;
   final int index;
 
   @override
@@ -29,6 +37,8 @@ class ItemListView extends StatefulWidget {
 class _ItemListViewState extends State<ItemListView> {
   @override
   Widget build(BuildContext context) {
+    var checkOwner = widget.currentUserInfo.userId ==
+        widget.listDataAnswerFromSever[widget.index].userIdPost;
     return BlocProvider.value(
         value: widget.listAnswerPageBloc,
         child: Padding(
@@ -55,11 +65,30 @@ class _ItemListViewState extends State<ItemListView> {
                   children: [
                     Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text(
-                          widget.listDataAnswerFromSever[widget.index]
-                              .answerTitle,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                              widget.listDataAnswerFromSever[widget.index]
+                                  .answerTitle,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18)),
+                          PopUpMenuButtonAnswerPage(
+                            listAnswerPageBloc: widget.listAnswerPageBloc,
+                            questionInfo: widget.questionInfo,
+                            answerInfo:
+                                widget.listDataAnswerFromSever[widget.index],
+                            editAnswerFormFieldKey:
+                                widget.editAnswerFormFieldKey,
+                            titleController: widget.titleController,
+                            contentController: widget.contentController,
+                            index: widget.index,
+                            checkOwner: checkOwner,
+                            dataAnswerFromServer:
+                                widget.listDataAnswerFromSever,
+                          )
+                        ],
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
@@ -85,17 +114,18 @@ class _ItemListViewState extends State<ItemListView> {
                               ],
                             ),
                           ),
-                           Row(
+                          Row(
                             children: [
                               const Icon(Icons.comment_sharp),
-                              Text('${widget.listDataAnswerFromSever[widget.index].numberComment} comment'),
+                              Text(
+                                  '${widget.listDataAnswerFromSever[widget.index].numberComment} comment'),
                             ],
                           ),
                           Row(
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(2.0),
-                                child: Container(
+                                child: SizedBox(
                                     width: 23,
                                     height: 23,
                                     child: Image.asset(

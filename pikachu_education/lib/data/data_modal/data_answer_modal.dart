@@ -26,7 +26,7 @@ class DataAnswerModal {
           answerId: key,
           timePost: map['timePost'] ?? '01/01/2023 at 00:00',
           answerTitle: map['answerTitle'] ?? '',
-          answerContent: map['questionContent'] ?? '',
+          answerContent: map['answerContent'] ?? '',
           userIdPost: map['userIdPost'] ?? 'admin',
           numberLike: map['numberLike'] ?? 0,
           listComment: map['listComment'],numberComment: numberComment);

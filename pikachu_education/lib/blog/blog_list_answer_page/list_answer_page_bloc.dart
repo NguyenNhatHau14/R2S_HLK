@@ -36,5 +36,22 @@ class ListAnswerPageBloc
       emit(FetchListAnswerPageSuccessState(listAnswers: listDataAnswer));
     });
 
+    on<EditAnswerEvent>((event, emit) async {
+      await DatabaseService.editAnswer(
+          questionId: event.questionId,
+          userIdOfQuestion: event.userIdOfQuestion,
+          answerId: event.answerId,
+          itemToPost: event.itemToPost);
+      emit(EditAnswerSuccessState());
+    });
+
+    on<DeleteAnswerEvent>((event, emit) async {
+      await DatabaseService.deleteAnswer(
+        questionId: event.questionId,
+        userIdOfQuestion: event.userIdOfQuestion,
+        answerId: event.answerId,
+      );
+      emit(DeleteAnswerSuccessState());
+    });
   }
 }

@@ -10,4 +10,6 @@ class FetchListAnswerPageSuccessState extends ListAnswerPageState {
   FetchListAnswerPageSuccessState({required this.listAnswers});
 }
 class  PostAnswerSuccessState extends ListAnswerPageState {}
+class  EditAnswerSuccessState extends ListAnswerPageState {}
+class  DeleteAnswerSuccessState extends ListAnswerPageState {}
 

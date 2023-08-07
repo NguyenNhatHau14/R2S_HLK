@@ -5,18 +5,23 @@ import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
 import '../../../../../blog/blog_list_answer_page/list_answer_page_bloc.dart';
 
 import '../../../../../data/data_modal/data_question_modal.dart';
-import 'item_listview.dart';
+import 'item_listview/item_listview.dart';
+
 
 class ListViewAnswerPage extends StatefulWidget {
   const ListViewAnswerPage(
       {super.key,
       required this.listAnswerPageBloc,
       required this.questionInfo,
-      required this.currentUserInfo});
+      required this.currentUserInfo,required this.contentController,required this.editAnswerFormFieldKey,required this.titleController});
 
   final ListAnswerPageBloc listAnswerPageBloc;
   final DataQuestionModal questionInfo;
   final DataUserModal currentUserInfo;
+  final GlobalKey<FormState> editAnswerFormFieldKey;
+  final TextEditingController titleController;
+  final TextEditingController contentController;
+
 
   @override
   State<ListViewAnswerPage> createState() => _ListViewAnswerPageState();
@@ -42,6 +47,7 @@ class _ListViewAnswerPageState extends State<ListViewAnswerPage> {
                 userIdOfQuestion: widget.questionInfo.userId,
                 questionId: widget.questionInfo.questionId));
           }
+
         },
         child: BlocBuilder<ListAnswerPageBloc, ListAnswerPageState>(
           builder: (context, state) {
@@ -54,6 +60,10 @@ class _ListViewAnswerPageState extends State<ListViewAnswerPage> {
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) => ItemListView(
+
+                      titleController: widget.titleController,
+                      contentController: widget.contentController,
+                      editAnswerFormFieldKey: widget.editAnswerFormFieldKey,
                       listAnswerPageBloc: widget.listAnswerPageBloc,
                       index: index,
                       listDataAnswerFromSever: listDataAnswerFromSever,
