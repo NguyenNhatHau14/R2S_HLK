@@ -6,9 +6,9 @@ import 'package:pikachu_education/data/data_modal/data_question_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
 import 'package:pikachu_education/pages/answer_page/component/detail_answer_page/tab_view/component/text_form_field_comment.dart';
 import '../../../../../../blog/blog_detail_answer_page/detail_answer_page_bloc.dart';
-import '../../../../../../components/like_form.dart';
+import 'Item_list_view/component/like_form.dart';
 import '../../../../../../utils/management_image.dart';
-import 'item_listview.dart';
+import 'Item_list_view/item_listview.dart';
 
 class TabViewDetailAnswerNoComment extends StatefulWidget {
   const TabViewDetailAnswerNoComment({super.key,
@@ -81,40 +81,30 @@ class _TabViewDetailAnswerNoCommentState extends State<TabViewDetailAnswerNoComm
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 25),
-                        child: LikeForm(
-                            avatar: ImageManagement.defaultAvatar,
-                            name: 'khanh1',
-                            dayAgo: '3'),
-                      ),
+                          padding: const EdgeInsets.only(top: 25),
+                          child: Container(
+                            color: Colors.yellow,
+                          )),
                       Padding(
-                        padding: const EdgeInsets.only(top: 25),
-                        child: LikeForm(
-                            avatar: ImageManagement.defaultAvatar,
-                            name: 'khanh1',
-                            dayAgo: '3'),
-                      ),
+                          padding: const EdgeInsets.only(top: 25),
+                          child: Container(
+                            color: Colors.yellow,
+                          )),
                       Padding(
-                        padding: const EdgeInsets.only(top: 25),
-                        child: LikeForm(
-                            avatar: ImageManagement.defaultAvatar,
-                            name: 'khanh1',
-                            dayAgo: '3'),
-                      ),
+                          padding: const EdgeInsets.only(top: 25),
+                          child: Container(
+                            color: Colors.yellow,
+                          )),
                       Padding(
-                        padding: const EdgeInsets.only(top: 25),
-                        child: LikeForm(
-                            avatar: ImageManagement.defaultAvatar,
-                            name: 'khanh1',
-                            dayAgo: '3'),
-                      ),
+                          padding: const EdgeInsets.only(top: 25),
+                          child: Container(
+                            color: Colors.yellow,
+                          )),
                       Padding(
-                        padding: const EdgeInsets.only(top: 25),
-                        child: LikeForm(
-                            avatar: ImageManagement.defaultAvatar,
-                            name: 'khanh1',
-                            dayAgo: '3'),
-                      ),
+                          padding: const EdgeInsets.only(top: 25),
+                          child: Container(
+                            color: Colors.yellow,
+                          )),
                     ],
                   ),
                 ),

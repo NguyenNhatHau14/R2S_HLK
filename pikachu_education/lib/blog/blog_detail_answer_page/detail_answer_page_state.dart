@@ -14,3 +14,6 @@ class RefreshDataCommentSuccessState extends DetailAnswerPageState{
   List<DataCommentModal> listComment;
   RefreshDataCommentSuccessState({required this.listComment});
 }
+
+class EditCommentSuccessState extends DetailAnswerPageState{}
+class DeleteCommentSuccessState extends DetailAnswerPageState{}

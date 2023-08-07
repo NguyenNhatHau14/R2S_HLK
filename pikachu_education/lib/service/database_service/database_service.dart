@@ -116,8 +116,9 @@ class DatabaseService {
 
   static Future<void> editAnswer(
       {required DataAnswerModal itemToPost,
-        required String userIdOfQuestion,
-        required String questionId,required String answerId}) async {
+      required String userIdOfQuestion,
+      required String questionId,
+      required String answerId}) async {
     DatabaseReference ref = FirebaseDatabase.instance
         .ref("users/$userIdOfQuestion/questions/$questionId/answers/$answerId");
     await ref.update({
@@ -129,7 +130,9 @@ class DatabaseService {
   }
 
   static Future<void> deleteAnswer(
-      {required String userIdOfQuestion, required String questionId,required String answerId}) async {
+      {required String userIdOfQuestion,
+      required String questionId,
+      required String answerId}) async {
     DatabaseReference ref = FirebaseDatabase.instance
         .ref("users/$userIdOfQuestion/questions/$questionId/answers/$answerId");
     await ref.remove();
@@ -155,7 +158,7 @@ class DatabaseService {
         .ref("/users/$userIdOfQuestion/questions/$questionId/answers/$answerId")
         .child('comments')
         .push();
-    await ref.update({
+    await ref.set({
       'userIdPostComment': itemToPost.userIdPostComment,
       'userNamePostComment': itemToPost.userNamePostComment,
       'contentComment': itemToPost.contentComment,
@@ -180,5 +183,29 @@ class DatabaseService {
     });
 
     return listDataComment;
+  }
+
+  static Future<void> editComment(
+      {required DataCommentModal itemToPost,
+      required String userIdOfQuestion,
+      required String questionId,
+      required String answerId,
+      required String commentId}) async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref(
+        "/users/$userIdOfQuestion/questions/$questionId/answers/$answerId/comments/$commentId");
+    await ref.update({
+      'contentComment': itemToPost.contentComment,
+      'timePost': itemToPost.timePost,
+    });
+  }
+
+  static Future<void> deleteComment(
+      {required String userIdOfQuestion,
+        required String questionId,
+        required String answerId,
+        required String commentId}) async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref(
+        "/users/$userIdOfQuestion/questions/$questionId/answers/$answerId/comments/$commentId");
+    await ref.remove();
   }
 }

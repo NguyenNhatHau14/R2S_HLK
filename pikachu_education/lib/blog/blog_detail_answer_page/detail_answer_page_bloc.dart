@@ -7,9 +7,11 @@ import '../../data/data_modal/data_comment_modal.dart';
 import '../../service/database_service/database_service.dart';
 
 part 'detail_answer_page_event.dart';
+
 part 'detail_answer_page_state.dart';
 
-class DetailAnswerPageBloc extends Bloc<DetailAnswerPageEvent, DetailAnswerPageState> {
+class DetailAnswerPageBloc
+    extends Bloc<DetailAnswerPageEvent, DetailAnswerPageState> {
   DetailAnswerPageBloc() : super(DetailAnswerPageInitial()) {
     on<DetailAnswerPageEvent>((event, emit) {
       // TODO: implement event handler
@@ -38,6 +40,25 @@ class DetailAnswerPageBloc extends Bloc<DetailAnswerPageEvent, DetailAnswerPageS
           questionId: event.questionId,
           answerId: event.answerId);
       emit(FetchDataCommentSuccessState(listComment: listDataComment));
+    });
+
+    on<EditCommentEvent>((event, emit) async {
+      await DatabaseService.editComment(
+          itemToPost: event.itemToPost,
+          userIdOfQuestion: event.userIdOfQuestion,
+          questionId: event.questionId,
+          answerId: event.answerId,
+          commentId: event.commentId);
+      emit(EditCommentSuccessState());
+    });
+
+    on<DeleteCommentEvent>((event, emit) async {
+      await DatabaseService.deleteComment(
+          userIdOfQuestion: event.userIdOfQuestion,
+          questionId: event.questionId,
+          answerId: event.answerId,
+          commentId: event.commentId);
+      emit(DeleteCommentSuccessState());
     });
   }
 }

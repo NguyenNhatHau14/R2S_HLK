@@ -8,9 +8,7 @@ import 'package:pikachu_education/pages/answer_page/component/detail_answer_page
 import 'package:pikachu_education/pages/answer_page/component/detail_answer_page/tab_view/component/tab_bar_show_number_like_comment.dart';
 import 'package:pikachu_education/pages/answer_page/component/detail_answer_page/tab_view/component/tab_view_detail_answer.dart';
 import 'package:pikachu_education/pages/answer_page/component/detail_answer_page/tab_view/component/tab_view_detail_answer_no_comment.dart';
-
 import '../../../../blog/blog_detail_answer_page/detail_answer_page_bloc.dart';
-
 
 class DetailAnswerPage extends StatefulWidget {
   const DetailAnswerPage(
@@ -32,10 +30,13 @@ class _DetailAnswerPageState extends State<DetailAnswerPage>
   TextEditingController commentController = TextEditingController();
   DetailAnswerPageBloc detailAnswerPageBloc = DetailAnswerPageBloc();
   final commentFormFieldKey = GlobalKey<FormState>();
+  final editCommentFormFieldKey = GlobalKey<FormState>();
+  TextEditingController editCommentController = TextEditingController();
 
   @override
   void dispose() {
     commentController.dispose();
+    editCommentController.dispose();
     super.dispose();
   }
 
@@ -52,11 +53,24 @@ class _DetailAnswerPageState extends State<DetailAnswerPage>
   Widget build(BuildContext context) {
     final TabController tabController = TabController(
         length: 2, vsync: this, animationDuration: const Duration(seconds: 1));
+
     return BlocProvider.value(
       value: detailAnswerPageBloc,
       child: BlocListener<DetailAnswerPageBloc, DetailAnswerPageState>(
         listener: (context, state) {
           if (state is PostCommentSuccessState) {
+            context.read<DetailAnswerPageBloc>().add(RefreshDataCommentEvent(
+                answerId: widget.answerInfo.answerId,
+                questionId: widget.questionInfo.questionId,
+                userIdOfQuestion: widget.questionInfo.userId));
+          }
+          if (state is EditCommentSuccessState) {
+            context.read<DetailAnswerPageBloc>().add(RefreshDataCommentEvent(
+                answerId: widget.answerInfo.answerId,
+                questionId: widget.questionInfo.questionId,
+                userIdOfQuestion: widget.questionInfo.userId));
+          }
+          if (state is DeleteCommentSuccessState) {
             context.read<DetailAnswerPageBloc>().add(RefreshDataCommentEvent(
                 answerId: widget.answerInfo.answerId,
                 questionId: widget.questionInfo.questionId,
@@ -107,6 +121,9 @@ class _DetailAnswerPageState extends State<DetailAnswerPage>
                                   detailAnswerPageBloc: detailAnswerPageBloc,
                                   listDataComment: listDataComment,
                                   commentFormFieldKey: commentFormFieldKey,
+                                  editCommentFormFieldKey:
+                                      editCommentFormFieldKey,
+                                  editComment: editCommentController,
                                 ),
                               );
                             }

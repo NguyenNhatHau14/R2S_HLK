@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../routes/page_name.dart';
+import '../../../routes/page_name.dart';
 
 class DialogCustom {
   static dialogOfPostAnswer(BuildContext context) {

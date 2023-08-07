@@ -34,6 +34,34 @@ class RefreshDataCommentEvent extends DetailAnswerPageEvent {
 
   RefreshDataCommentEvent(
       {required this.answerId,
+      required this.questionId,
+      required this.userIdOfQuestion});
+}
+
+class EditCommentEvent extends DetailAnswerPageEvent {
+  String userIdOfQuestion;
+  String questionId;
+  String answerId;
+  String commentId;
+  DataCommentModal itemToPost;
+
+  EditCommentEvent(
+      {required this.userIdOfQuestion,
+      required this.questionId,
+      required this.itemToPost,
+      required this.answerId,
+      required this.commentId});
+}
+
+class DeleteCommentEvent extends DetailAnswerPageEvent {
+  String userIdOfQuestion;
+  String questionId;
+  String answerId;
+  String commentId;
+
+  DeleteCommentEvent(
+      {required this.userIdOfQuestion,
         required this.questionId,
-        required this.userIdOfQuestion});
+        required this.answerId,
+        required this.commentId});
 }

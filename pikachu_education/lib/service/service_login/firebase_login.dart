@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../components/dialog_custom.dart';
+import '../../pages/authentication/component/dialog_custom.dart';
 
 class LoginWithEmail {
   static Future<bool> login(
