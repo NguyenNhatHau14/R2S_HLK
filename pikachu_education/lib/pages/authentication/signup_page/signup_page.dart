@@ -54,7 +54,7 @@ class _SignupPageState extends State<SignupPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(left: 10, top: 8),
+                              padding: const EdgeInsets.only(left: 10, top: 8),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -62,7 +62,7 @@ class _SignupPageState extends State<SignupPage> {
                                       onTap: () {
                                         Navigator.pop(context);
                                       },
-                                      child: Icon(Icons.arrow_back, size: 30)),
+                                      child: const Icon(Icons.arrow_back, size: 30)),
                                 ],
                               ),
                             ),
@@ -88,11 +88,7 @@ class _SignupPageState extends State<SignupPage> {
                                   if (value == null || value.isEmpty) {
                                     return 'User can not be empty';
                                   }
-                                  RegExp userExp = RegExp(
-                                  '^(?=.{1,20}\$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])\$');
-                                  if (!userExp!.hasMatch(value)) {
-                                    return 'Your User is invalid';
-                                  }
+                                  return null;
                                 },
                               ),
                             ),
@@ -121,6 +117,7 @@ class _SignupPageState extends State<SignupPage> {
                                   if (!emailExp!.hasMatch(value)) {
                                     return 'Your Email is invalid';
                                   }
+                                  return null;
                                 },
                               ),
                             ),
@@ -159,9 +156,10 @@ class _SignupPageState extends State<SignupPage> {
                                   }
                                   RegExp passwordExp = RegExp(
                                       '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@\$%^&*-]).{8,18}\$');
-                                  if (!passwordExp!.hasMatch(value)) {
+                                  if (!passwordExp.hasMatch(value)) {
                                     return 'Your Password is invalid';
                                   }
+                                  return null;
                                 },
                               ),
                             ),
@@ -201,6 +199,7 @@ class _SignupPageState extends State<SignupPage> {
                                   if (value != passwordController.text) {
                                     return 'Password and Confirm Password are\'nt same';
                                   }
+                                  return null;
                                 },
                               ),
                             ),

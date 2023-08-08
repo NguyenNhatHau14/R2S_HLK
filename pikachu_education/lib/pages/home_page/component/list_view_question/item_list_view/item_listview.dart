@@ -99,7 +99,10 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                     padding: const EdgeInsets.only(right: 8, left: 8),
                     child: Row(
                       children: [
-                        const Icon(Icons.tag),
+                         Padding(
+                           padding: const EdgeInsets.only(right: 5),
+                           child: SizedBox(width: 15,height: 15,child: Image.asset(ManagementImage.iconTag,fit: BoxFit.fill,)),
+                         ),
                         Text(
                           widget.dataQuestionFromServer[widget.index]
                               .questionSubject,

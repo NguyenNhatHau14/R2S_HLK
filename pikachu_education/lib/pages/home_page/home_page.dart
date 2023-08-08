@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pikachu_education/blog/blog_detail_answer_page/detail_answer_page_bloc.dart';
 import 'package:pikachu_education/blog/blog_home_page/data_home_bloc.dart';
 import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -105,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                               dataHomePageBloc: _dataHomeBloc),
                           AddQuestionButton(
                               dataHomeBloc: _dataHomeBloc,
-                              userId: currentUserInfo.userId),
+                              currentUserInfo: currentUserInfo),
                           SearchButton(
                             searchController: searchController,
                           )

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
 import '../../../../../blog/blog_home_page/data_home_bloc.dart';
 import 'create_question_dialog.dart';
 
 class AddQuestionButton extends StatefulWidget {
-  const AddQuestionButton({super.key,required this.dataHomeBloc,required this.userId});
+  const AddQuestionButton({super.key,required this.dataHomeBloc,required this.currentUserInfo});
 
  final DataHomePageBloc dataHomeBloc;
- final String userId;
+ final DataUserModal currentUserInfo;
 
   @override
   State<AddQuestionButton> createState() => _AddQuestionButtonState();
@@ -30,10 +31,7 @@ class _AddQuestionButtonState extends State<AddQuestionButton> {
                 context: context,
                 builder: (context) =>
                     createQuestionPage(
-                        context: context,
-                        dataHomeBloc:
-                        widget.dataHomeBloc,
-                        userId: widget.userId),
+                       dataHomeBloc: widget.dataHomeBloc,userCurrentInfo:widget.currentUserInfo ),
               );
             },
             child: const Row(
