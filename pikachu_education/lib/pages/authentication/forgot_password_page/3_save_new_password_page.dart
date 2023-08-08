@@ -45,7 +45,7 @@ class _SaveNewPasswordPageState extends State<SaveNewPasswordPage> {
                     ),
                 Padding(
                   padding: const EdgeInsets.all(0),
-                  child: Image.asset(ImageManagement.logo),
+                  child: Image.asset(ManagementImage.logo),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 65, left: 10, right: 10),

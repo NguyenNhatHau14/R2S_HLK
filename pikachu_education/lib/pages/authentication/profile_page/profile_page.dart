@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
+
+import '../../../utils/management_image.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
-
+  const ProfilePage({super.key,required this.currentUserInfo});
+ final DataUserModal currentUserInfo;
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -49,9 +52,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   color: Colors.black.withOpacity(0.1))
                             ],
                             shape: BoxShape.circle,
-                            image: const DecorationImage(
+                            image:  DecorationImage(
                                 fit: BoxFit.cover,
-                                image: AssetImage('assets/image/logo.png'))),
+                                image: AssetImage(ManagementImage.defaultAvatar))),
                       ),
                       Positioned(
                           bottom: 0,
@@ -75,10 +78,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   height: 30,
                 ),
-                buildTextField('full name', 'demon', false),
-                buildTextField('Email', 'demon@gmail,com', false),
-                buildTextField('Password', '*******', true),
-                buildTextField('quan 12', 'Ho chi minh', false),
+                buildTextField('User Name', widget.currentUserInfo.userName),
+                buildTextField('Email', widget.currentUserInfo.email),
                 const SizedBox(
                   height: 30,
                 ),
@@ -123,20 +124,11 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget buildTextField(
-      String labelText, String placeholder, bool isPasswordTextField) {
+      String labelText, String placeholder) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
       child: TextField(
-        obscureText: isPasswordTextField ? isPassOb : false,
         decoration: InputDecoration(
-            suffix: isPasswordTextField
-                ? IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.remove_red_eye,
-                      color: Colors.grey,
-                    ))
-                : null,
             contentPadding: const EdgeInsets.only(bottom: 5),
             labelText: labelText,
             floatingLabelBehavior: FloatingLabelBehavior.always,

@@ -26,7 +26,7 @@ class _SignupSuccessPageState extends State<SignupSuccessPage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(0),
-                      child: Image.asset(ImageManagement.logo),
+                      child: Image.asset(ManagementImage.logo),
                     ),
                     Padding(
                       padding:

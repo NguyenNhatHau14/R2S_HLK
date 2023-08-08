@@ -27,5 +27,5 @@ class DeleteQuestionsEvent extends DataHomePageEvent{
   DeleteQuestionsEvent({required this.userIdOfQuestion,required this.questionId});
 }
 
-
+class LogoutEvent extends DataHomePageEvent {}
 

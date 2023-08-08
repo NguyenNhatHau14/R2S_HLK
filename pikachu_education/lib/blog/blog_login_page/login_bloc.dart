@@ -15,17 +15,32 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       // TODO: implement event handler
     });
     on<LoginPressEvent>((event, emit) async {
-      var checkLogin = await LoginWithEmail.login(
+      var checkLogin = await LoginService.login(
           event.email, event.password, event.context);
       if (checkLogin == true) {
-        var userId = await LoginWithEmail.getUserId();
+        var userId = await LoginService.getUserId();
         await SaveDataToLocal.saveDataUserId(userId: userId);
         await SaveDataToLocal.saveDataUserName(userId: userId);
         emit(LoginSuccessState(userId: userId));
+
       }
       if (checkLogin == false) {
         emit(LoginUnSuccessState());
       }
     });
+    on<AutoLogin>((event, emit) async {
+      var checkLogin = await LoginService.checkAlreadyLogin();
+      if( checkLogin){
+        var userId = await LoginService.getUserId();
+        await SaveDataToLocal.saveDataUserId(userId: userId);
+        await SaveDataToLocal.saveDataUserName(userId: userId);
+        emit(AutoLoginSuccessState(userId: userId));
+      }
+      else{
+        emit(LoginUnSuccessState());
+      }
+    });
+
+
   }
 }

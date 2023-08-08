@@ -27,7 +27,7 @@ class _SuccessChangePasswordPageState extends State<SuccessChangePasswordPage> {
                   Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Padding(
                   padding: const EdgeInsets.all(0),
-                  child: Image.asset(ImageManagement.logo),
+                  child: Image.asset(ManagementImage.logo),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 25, left: 10, right: 10),

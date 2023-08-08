@@ -5,7 +5,11 @@ abstract class LoginState {}
 
 class LoginInitial extends LoginState {}
 class LoginSuccessState extends LoginState {
-  late final String userId;
+   final String userId;
   LoginSuccessState({required this.userId});
 }
 class LoginUnSuccessState extends LoginState{}
+class AutoLoginSuccessState extends LoginState{
+   final String userId;
+   AutoLoginSuccessState({required this.userId});
+}

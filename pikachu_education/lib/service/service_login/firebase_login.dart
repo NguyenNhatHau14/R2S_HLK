@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../pages/authentication/component/dialog_custom.dart';
 
-class LoginWithEmail {
+class LoginService {
+
+
   static Future<bool> login(
       String email, String password, BuildContext context) async {
     try {
@@ -26,8 +28,29 @@ class LoginWithEmail {
     }
     return true;
   }
-  static Future<String> getUserId () async {
-    var currentUserId = await FirebaseAuth.instance.currentUser?.uid.toString()??'';
+
+  static Future<void> logout() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
+
+  static Future<bool> checkAlreadyLogin() async {
+    var userId = FirebaseAuth.instance.currentUser;
+    if(userId==null){
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+
+  static Future<String> getUserId() async {
+    var currentUserId =
+        await FirebaseAuth.instance.currentUser?.uid.toString() ?? '';
     return currentUserId;
   }
+
+
+
+
 }

@@ -66,7 +66,7 @@ class _SignupPageState extends State<SignupPage> {
                                 ],
                               ),
                             ),
-                            Image.asset(ImageManagement.logo),
+                            Image.asset(ManagementImage.logo),
                             Padding(
                               padding: const EdgeInsets.only(
                                   top: 60, left: 10, right: 10),

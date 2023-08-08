@@ -62,7 +62,7 @@ class _DetailQuestionState extends State<DetailQuestion> {
                               width: 23,
                               height: 23,
                               child: Image.asset(
-                                ImageManagement.defaultAvatar,
+                                ManagementImage.defaultAvatar,
                                 fit: BoxFit.fill,
                               )),
                           Column(

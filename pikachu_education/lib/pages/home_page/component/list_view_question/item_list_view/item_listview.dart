@@ -63,7 +63,7 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.asset(ImageManagement.defaultAvatar2),
+                        Image.asset(ManagementImage.defaultAvatar2),
                         Padding(
                           padding: const EdgeInsets.only(right: 8, left: 8),
                           child: Column(

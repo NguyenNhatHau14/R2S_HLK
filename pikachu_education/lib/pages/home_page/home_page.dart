@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pikachu_education/blog/blog_detail_answer_page/detail_answer_page_bloc.dart';
 import 'package:pikachu_education/blog/blog_home_page/data_home_bloc.dart';
 import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../routes/page_name.dart';
 import '../../service/database_service/database_service.dart';
 import '../../utils/management_image.dart';
 import 'component/add_question/add_question_button.dart';
@@ -18,6 +20,7 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
+
 class _HomePageState extends State<HomePage> {
   final TextEditingController searchController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
@@ -70,11 +73,14 @@ class _HomePageState extends State<HomePage> {
         if (state is PostDataQuestionSuccessState) {
           context.read<DataHomePageBloc>().add(RefreshDataQuestion());
         }
-        if (state is EditQuestionSuccessState){
+        if (state is EditQuestionSuccessState) {
           context.read<DataHomePageBloc>().add(RefreshDataQuestion());
         }
-        if (state is DeleteQuestionSuccessState){
+        if (state is DeleteQuestionSuccessState) {
           context.read<DataHomePageBloc>().add(RefreshDataQuestion());
+        }
+        if (state is LogoutSuccessState) {
+          Navigator.pushNamed(context, PageName.loginPage);
         }
       }, child: BlocBuilder<DataHomePageBloc, DataHomePageState>(
         builder: (context, state) {
@@ -89,12 +95,14 @@ class _HomePageState extends State<HomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset(ImageManagement.logo),
+                          Image.asset(ManagementImage.logo),
                         ],
                       ),
                       Stack(
                         children: [
-                          const DrawPageForHomePage(),
+                          DrawPageForHomePage(
+                              currentUserInfo: currentUserInfo,
+                              dataHomePageBloc: _dataHomeBloc),
                           AddQuestionButton(
                               dataHomeBloc: _dataHomeBloc,
                               userId: currentUserInfo.userId),

@@ -65,3 +65,4 @@ class DeleteCommentEvent extends DetailAnswerPageEvent {
         required this.answerId,
         required this.commentId});
 }
+

@@ -4,9 +4,9 @@ import 'package:pikachu_education/blog/blog_login_page/login_bloc.dart';
 import 'package:pikachu_education/routes/page_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../service/service_local_storage/service_save_data_to_local_storage.dart';
+import '../../../service/service_login/firebase_login.dart';
 import '../../../utils/management_image.dart';
-
-
+import '../../../utils/management_key.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -21,6 +21,8 @@ class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
   bool showPassword = true;
   bool showPasswordIcon = true;
+  final LoginBloc loginBloc = LoginBloc();
+
 
   @override
   void dispose() {
@@ -31,29 +33,37 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> loadDataForLogin() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user = prefs.getString('user') ?? '';
-    var password = prefs.getString('password') ?? '';
+    var user = prefs.getString(ManagementKey.user) ?? '';
+    var password = prefs.getString(ManagementKey.password) ?? '';
     setState(() {
       emailController.text = user;
       passwordController.text = password;
+
     });
   }
 
   @override
   void initState() {
+    loginBloc.add(AutoLogin());
     loadDataForLogin();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginBloc(),
+    return BlocProvider.value(
+      value: loginBloc,
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
           return BlocListener<LoginBloc, LoginState>(
             listener: (context, state) {
               if (state is LoginSuccessState) {
+                var userId = state.userId;
+                Navigator.pushNamed(context, PageName.homePage,
+                    arguments: userId);
+              }
+              if (state is AutoLoginSuccessState) {
                 var userId = state.userId;
                 Navigator.pushNamed(context, PageName.homePage,
                     arguments: userId);
@@ -84,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ],
                               ),
                             ),
-                            Image.asset(ImageManagement.logo),
+                            Image.asset(ManagementImage.logo),
                             Padding(
                               padding: const EdgeInsets.only(
                                   top: 60, left: 10, right: 10),

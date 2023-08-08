@@ -79,7 +79,8 @@ var generateRoute = (settings) {
       }
     case PageName.profilePage:
       {
-        return MaterialPageRoute(builder: (context) => const ProfilePage());
+        var  currentUserInfo= settings.arguments;
+        return MaterialPageRoute(builder: (context) =>  ProfilePage(currentUserInfo: currentUserInfo));
       }
   }
 };

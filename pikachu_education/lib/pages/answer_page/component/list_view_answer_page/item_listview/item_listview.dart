@@ -129,7 +129,7 @@ class _ItemListViewState extends State<ItemListView> {
                                     width: 23,
                                     height: 23,
                                     child: Image.asset(
-                                      ImageManagement.defaultAvatar,
+                                      ManagementImage.defaultAvatar,
                                       fit: BoxFit.fill,
                                     )),
                               ),

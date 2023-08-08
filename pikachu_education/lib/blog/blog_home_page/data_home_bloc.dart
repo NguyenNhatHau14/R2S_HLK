@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 import '../../data/data_modal/data_question_modal.dart';
 import '../../data/data_modal/data_user_modal.dart';
 import '../../service/database_service/database_service.dart';
+import '../../service/service_login/firebase_login.dart';
 
 part 'data_home_event.dart';
 
@@ -48,6 +49,11 @@ class DataHomePageBloc extends Bloc<DataHomePageEvent, DataHomePageState> {
           userIdOfQuestion: event.userIdOfQuestion,
           questionId: event.questionId);
       emit(DeleteQuestionSuccessState());
+    });
+
+    on<LogoutEvent>((event, emit) async {
+      await LoginService.logout();
+      emit(LogoutSuccessState());
     });
   }
 }

@@ -32,7 +32,7 @@ class _AnswerDetailState extends State<AnswerDetail> {
               SizedBox(
                   width: MediaQuery.of(context).size.width / 6,
                   child: Image.asset(
-                      ImageManagement.defaultAvatar,
+                      ManagementImage.defaultAvatar,
                       fit: BoxFit.fill)),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

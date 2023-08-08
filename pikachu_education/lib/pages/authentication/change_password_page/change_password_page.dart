@@ -51,7 +51,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(0),
-                      child: Image.asset(ImageManagement.logo),
+                      child: Image.asset(ManagementImage.logo),
                     ),
                     const Padding(
                       padding: EdgeInsets.only(top: 60, left: 10, right: 10),

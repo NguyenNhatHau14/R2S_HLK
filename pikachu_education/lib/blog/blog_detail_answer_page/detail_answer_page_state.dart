@@ -17,3 +17,4 @@ class RefreshDataCommentSuccessState extends DetailAnswerPageState{
 
 class EditCommentSuccessState extends DetailAnswerPageState{}
 class DeleteCommentSuccessState extends DetailAnswerPageState{}
+

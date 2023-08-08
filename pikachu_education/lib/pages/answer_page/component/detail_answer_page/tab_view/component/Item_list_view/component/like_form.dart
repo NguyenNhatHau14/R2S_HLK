@@ -36,7 +36,7 @@ class _CommentModalState extends State<CommentModal> {
     return Row(children: [
       SizedBox(
           width: MediaQuery.of(context).size.width / 6,
-          child: Image.asset(ImageManagement.defaultAvatar, fit: BoxFit.fill)),
+          child: Image.asset(ManagementImage.defaultAvatar, fit: BoxFit.fill)),
       Padding(
         padding: const EdgeInsets.only(left: 10),
         child: Column(
