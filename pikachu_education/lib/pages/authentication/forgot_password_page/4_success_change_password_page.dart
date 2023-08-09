@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pikachu_education/components/snack_bar_custom.dart';
-import 'package:pikachu_education/components/text_form_field_widget.dart';
-import 'package:pikachu_education/data/data_image.dart';
 import 'package:pikachu_education/routes/page_name.dart';
+
+import '../../../utils/management_image.dart';
 
 class SuccessChangePasswordPage extends StatefulWidget {
   const SuccessChangePasswordPage({super.key});
@@ -27,7 +27,7 @@ class _SuccessChangePasswordPageState extends State<SuccessChangePasswordPage> {
                   Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Padding(
                   padding: const EdgeInsets.all(0),
-                  child: Image.asset(logoImage.image),
+                  child: Image.asset(ManagementImage.logo),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 25, left: 10, right: 10),

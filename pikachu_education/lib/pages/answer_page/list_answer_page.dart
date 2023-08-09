@@ -1,272 +1,150 @@
 import 'package:flutter/material.dart';
-import 'package:pikachu_education/components/dialog_custom.dart';
-import 'package:pikachu_education/data/data_answer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
 import 'package:pikachu_education/routes/page_name.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'create_answer_page.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../blog/blog_list_answer_page/list_answer_page_bloc.dart';
+import '../../data/data_modal/data_question_modal.dart';
+import 'component/detail_question.dart';
+import 'component/list_view_answer_page/listview_answer_page.dart';
+import 'component/post_answer_button.dart';
 
 class ListAnswerPage extends StatefulWidget {
-  const ListAnswerPage({super.key});
+  const ListAnswerPage(
+      {super.key, required this.questionInfo, required this.currentUserInfo});
+
+  final DataQuestionModal questionInfo;
+  final DataUserModal currentUserInfo;
 
   @override
   State<ListAnswerPage> createState() => _ListAnswerPageState();
 }
 
 class _ListAnswerPageState extends State<ListAnswerPage> {
-  String? userForPage;
+  final ListAnswerPageBloc _listAnswerPageBloc = ListAnswerPageBloc();
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+  final TextEditingController contentController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
+  final GlobalKey<FormState> editAnswerFormFieldKey = GlobalKey<FormState>();
 
-  Future<void> loadDataForAnswerListPage() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user = prefs.getString('user') ?? '';
-    setState(() {
-      userForPage = user;
-    });
+  @override
+  void dispose() {
+    _refreshController.dispose();
+    super.dispose();
   }
 
   @override
   void initState() {
-    loadDataForAnswerListPage();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.arrow_back, size: 25),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, PageName.loginPage);
-                      },
-                      child: Text(
-                          (userForPage?.length ?? 0) == 0
-                              ? 'Login'
-                              : '${userForPage ?? ''}',
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.normal)),
-                    ),
-                  )
-                ]),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
-            child: Container(
-                decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [Color(0xFFFDFFAE), Color(0xFFFFFFFF)]),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    return BlocProvider.value(
+      value: _listAnswerPageBloc,
+      child: Scaffold(
+        body: SafeArea(
+          child: BlocListener<ListAnswerPageBloc, ListAnswerPageState>(
+            listener: (context, state) {
+              if (state is FetchListAnswerPageSuccessState) {
+                _refreshController.refreshCompleted();
+              }
+              if (state is DeleteAnswerSuccessState) {
+                context.read<ListAnswerPageBloc>().add(
+                    RefreshDataAnswerListEvent(
+                        userIdOfQuestion: widget.questionInfo.userId,
+                        questionId: widget.questionInfo.questionId));
+              }
+              if (state is EditAnswerSuccessState) {
+                context.read<ListAnswerPageBloc>().add(
+                    RefreshDataAnswerListEvent(
+                        userIdOfQuestion: widget.questionInfo.userId,
+                        questionId: widget.questionInfo.questionId));
+              }
+            },
+            child: BlocBuilder<ListAnswerPageBloc, ListAnswerPageState>(
+              builder: (context, state) {
+                return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('How to calculate',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18)),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 10, left: 10, right: 10),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(Icons.arrow_back, size: 25),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, PageName.loginPage);
+                                  },
+                                  child: Text(
+                                      (widget.currentUserInfo.userName.length ??
+                                                  0) ==
+                                              0
+                                          ? 'Login'
+                                          : widget.currentUserInfo.userName,
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.normal)),
+                                ),
+                              )
+                            ]),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('1+1=?'),
+                      DetailQuestion(dataQuestionInfo: widget.questionInfo),
+                      PostAnswerButton(
+                        listAnswerPageBloc: _listAnswerPageBloc,
+                        currentUserInfo: widget.currentUserInfo,
+                        questionInfo: widget.questionInfo,
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Row(
-                              children: [
-                                Icon(Icons.favorite_border),
-                                Text('123'),
-                              ],
-                            ),
-                            const Row(
-                              children: [
-                                Icon(Icons.comment_sharp),
-                                Text('3 Answers'),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                    width: 23,
-                                    height: 23,
-                                    child: Image.asset(
-                                      'assets/image/pikachu.png',
-                                      fit: BoxFit.fill,
-                                    )),
-                                const Text(' Pikachu 1'),
-                              ],
-                            )
-                          ],
+                        padding:
+                            const EdgeInsets.only(top: 8, left: 10, right: 10),
+                        child: Text(
+                            '${widget.questionInfo.numberAnswer} Answers',
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold)),
+                      ),
+                      Expanded(
+                        child: SmartRefresher(
+                          controller: _refreshController,
+                          onRefresh: () {
+                            context.read<ListAnswerPageBloc>().add(
+                                RefreshDataAnswerListEvent(
+                                    userIdOfQuestion:
+                                        widget.questionInfo.userId,
+                                    questionId:
+                                        widget.questionInfo.questionId));
+                          },
+                          child: ListViewAnswerPage(
+                            editAnswerFormFieldKey: editAnswerFormFieldKey,
+                            contentController: contentController,
+                            titleController: titleController,
+                            listAnswerPageBloc: _listAnswerPageBloc,
+                            questionInfo: widget.questionInfo,
+                            currentUserInfo: widget.currentUserInfo,
+                          ),
                         ),
                       )
-                    ],
-                  ),
-                )),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 60,
-                color: Colors.transparent,
-                child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(const Color(0xFFFDCA15)),
-                    ),
-                    onPressed: () {
-                      if ((userForPage?.length ?? 0) == 0) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return DialogCustom.dialogOfPostAnswer(context);
-                          },
-                        );
-                      } else {
-                        showModalBottomSheet(
-                            backgroundColor: const Color(0xFFFDFFAE),
-                            shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(20))),
-                            context: context,
-                            builder: (context) {
-                              print(
-                                  'aaaaaaaaaaaaaaaaaaammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
-                              return createAnswerPage(context);
-                            });
-                      }
-                    },
-                    child: const Text(
-                      'Post Answer',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 25),
-                    )),
-              ),
+                    ]);
+              },
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(top: 25, left: 10, right: 10),
-            child: Text('3 Answers',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 25, left: 8, right: 8),
-              child: ListView.builder(
-                itemBuilder: (context, index) =>
-                    item(mockListAnswers[index], index),
-                itemCount: mockListAnswers.length,
-              ),
-            ),
-          )
-        ]),
+        ),
       ),
     );
-  }
-
-  Widget item(User user, index) {
-    return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: InkWell(
-          onTap: () {
-            Navigator.pushNamed(context, PageName.detailAnswerPage);
-          },
-          child: Container(
-            decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [Color(0xFFFDFFAE), Color(0xFFFFFFFF)]),
-                borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(mockListAnswers[index].answerTitle,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18)),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(mockListAnswers[index].answerContent),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          mockListAnswers[index].favorite =
-                              !mockListAnswers[index].favorite;
-                          setState(() {
-
-                          });
-                        },
-                        child: Row(
-                          children: [
-                            Icon(mockListAnswers[index].favorite
-                                ? Icons.favorite
-                                : Icons.favorite_border),
-                            Text('${mockListAnswers[index].numberOfLike}'),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          const Icon(Icons.comment_sharp),
-                          Text(
-                              '${mockListAnswers[index].numberOfComment} comment'),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: Container(
-                                width: 23,
-                                height: 23,
-                                child: Image.asset(
-                                  mockListAnswers[index].avatar,
-                                  fit: BoxFit.fill,
-                                )),
-                          ),
-                          Text(mockListAnswers[index].name),
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ));
   }
 }
