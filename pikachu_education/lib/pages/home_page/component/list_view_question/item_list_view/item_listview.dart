@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pikachu_education/blog/blog_home_page/data_home_bloc.dart';
 import 'package:pikachu_education/data/data_modal/data_question_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
+import 'package:pikachu_education/service/database_service/database_service.dart';
+import '../../../../../bloc/bloc_home_page/data_home_bloc.dart';
 import '../../../../../routes/page_name.dart';
 import '../../../../../utils/management_image.dart';
 import 'component/pop_up_menu_item/pop_up_menu_button.dart';
 
 class ItemListviewQuestion extends StatefulWidget {
-  const ItemListviewQuestion(
-      {super.key,
-      required this.index,
-      required this.dataQuestionFromServer,
-      required this.currentUserInfo,
-      required this.dataHomePageBloc,
-      required this.subjectController,
-      required this.contentController,
-      required this.titleController,
-      required this.editQuestionFormFieldKey});
+  const ItemListviewQuestion({super.key,
+    required this.index,
+    required this.dataQuestionFromServer,
+    required this.currentUserInfo,
+    required this.dataHomePageBloc,
+    required this.subjectController,
+    required this.contentController,
+    required this.titleController,
+    required this.editQuestionFormFieldKey,
+    required this.listQuestionIdLiked});
 
   final GlobalKey<FormState> editQuestionFormFieldKey;
   final TextEditingController titleController;
@@ -27,6 +28,7 @@ class ItemListviewQuestion extends StatefulWidget {
   final DataUserModal currentUserInfo;
   final DataHomePageBloc dataHomePageBloc;
   final int index;
+  final List<String> listQuestionIdLiked;
 
   @override
   State<ItemListviewQuestion> createState() => _ItemListviewQuestionState();
@@ -35,6 +37,8 @@ class ItemListviewQuestion extends StatefulWidget {
 class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
   @override
   Widget build(BuildContext context) {
+    bool checkLiked = widget.listQuestionIdLiked
+        .contains(widget.dataQuestionFromServer[widget.index].questionId);
     bool checkOwner = widget.dataQuestionFromServer[widget.index].userId ==
         widget.currentUserInfo.userId;
     return BlocProvider.value(
@@ -83,7 +87,7 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                         ),
                         PopUpMenuButtonHomePage(
                           editQuestionFormFieldKey:
-                              widget.editQuestionFormFieldKey,
+                          widget.editQuestionFormFieldKey,
                           dataQuestionFromServer: widget.dataQuestionFromServer,
                           checkOwner: checkOwner,
                           dataHomePageBloc: widget.dataHomePageBloc,
@@ -99,10 +103,16 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                     padding: const EdgeInsets.only(right: 8, left: 8),
                     child: Row(
                       children: [
-                         Padding(
-                           padding: const EdgeInsets.only(right: 5),
-                           child: SizedBox(width: 15,height: 15,child: Image.asset(ManagementImage.iconTag,fit: BoxFit.fill,)),
-                         ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: SizedBox(
+                              width: 15,
+                              height: 15,
+                              child: Image.asset(
+                                ManagementImage.iconTag,
+                                fit: BoxFit.fill,
+                              )),
+                        ),
                         Text(
                           widget.dataQuestionFromServer[widget.index]
                               .questionSubject,
@@ -124,7 +134,7 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
                     child: Text(
-                        //ToDo
+                      //ToDo
                         widget.dataQuestionFromServer[widget.index]
                             .questionContent,
                         style: const TextStyle(fontSize: 12)),
@@ -139,47 +149,75 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                           child: Row(
                             children: [
                               Text(
-                                  '${widget.dataQuestionFromServer[widget.index].numberAnswer} answer' //ToDo
-                                  // '${widget.dataQuestionFromServer[index].numberAnswer}'
-                                  ),
+                                  '${widget.dataQuestionFromServer[widget.index]
+                                      .numberAnswer} answer' //ToDo
+                                // '${widget.dataQuestionFromServer[index].numberAnswer}'
+                              ),
                               const Icon(Icons.message)
                             ],
                           ),
                         ),
-                        InkWell(
-                          onTap: () {
-                            // widget.dataQuestionFromServer[
-                            // index]
-                            //     .favorite =
-                            // !(widget.dataQuestionFromServer[
-                            // index]
-                            //     .favorite ??
-                            //     false);
-                            // DatabaseReference ref = FirebaseDatabase.instance.ref();
-                            // print(ref);
-
-                            setState(() {});
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                    '${widget.dataQuestionFromServer[widget.index].numberLike} Like'
-                                    // '${widget.dataQuestionFromServer[index].numberLike}'
+                        // InkWell(
+                        //   onTap: () {
+                        //     DatabaseService.getListQuestionIdLiked(currentUserId: widget.currentUserInfo.userId);
+                        //   },
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.all(8.0),
+                        //     child: Container(height: 50, color: Colors.blue,child: Text('Check Data'),)
+                        //   ),
+                        // ),
+                        BlocBuilder<DataHomePageBloc, DataHomePageState>(
+                          builder: (context, state) {
+                            return InkWell(
+                              onTap: () {
+                                if (checkLiked) {
+                                  context.read<DataHomePageBloc>().add(
+                                      RemoveLikeQuestionsEvent(
+                                          userIdOfQuestion: widget
+                                              .dataQuestionFromServer[
+                                          widget.index]
+                                              .userId,
+                                          questionId: widget
+                                              .dataQuestionFromServer[
+                                          widget.index]
+                                              .questionId,
+                                          currentUserId:
+                                          widget.currentUserInfo.userId));
+                                } else {
+                                  context.read<DataHomePageBloc>().add(
+                                      LikeQuestionsEvent(
+                                          userIdOfQuestion: widget
+                                              .dataQuestionFromServer[
+                                          widget.index]
+                                              .userId,
+                                          questionId: widget
+                                              .dataQuestionFromServer[
+                                          widget.index]
+                                              .questionId,
+                                          currentUserId: widget.currentUserInfo
+                                              .userId));
+                                }
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                        '${widget.dataQuestionFromServer[widget
+                                            .index].numberLike} Like'
+                                      // '${widget.dataQuestionFromServer[index].numberLike}'
                                     ),
-                                const Icon(Icons.favorite_border
-                                    //     (widget.dataQuestionFromServer[
-                                    // index]
-                                    //     .favorite ??
-                                    //     false)
-                                    //     ? Icons.favorite
-                                    //     : Icons
-                                    //     .favorite_border
+                                    Icon(
+                                      checkLiked
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
+                                      color: Colors.red,
                                     )
-                              ],
-                            ),
-                          ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
                         )
                       ],
                     ),

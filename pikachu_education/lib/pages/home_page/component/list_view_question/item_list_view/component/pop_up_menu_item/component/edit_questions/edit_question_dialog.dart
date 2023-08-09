@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:pikachu_education/blog/blog_home_page/data_home_bloc.dart';
 import 'package:pikachu_education/utils/management_time.dart';
 
+import '../../../../../../../../../bloc/bloc_home_page/data_home_bloc.dart';
 import '../../../../../../../../../data/data_modal/data_question_modal.dart';
 
 

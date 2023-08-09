@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:pikachu_education/blog/blog_detail_answer_page/detail_answer_page_bloc.dart';
 
 import 'package:pikachu_education/data/data_modal/data_answer_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_comment_modal.dart';
-import 'package:pikachu_education/pages/answer_page/component/detail_answer_page/detail_answer_page.dart';
 import 'package:pikachu_education/utils/management_time.dart';
+import '../../../../../../../../../../bloc/bloc_detail_answer_page/detail_answer_page_bloc.dart';
 import '../../../../../../../../../../data/data_modal/data_question_modal.dart';
 
 class EditCommentDialog extends StatefulWidget {

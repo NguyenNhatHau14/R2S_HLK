@@ -5,9 +5,7 @@ import 'package:pikachu_education/data/data_modal/data_comment_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_question_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
 import 'package:pikachu_education/pages/answer_page/component/detail_answer_page/tab_view/component/text_form_field_comment.dart';
-import '../../../../../../blog/blog_detail_answer_page/detail_answer_page_bloc.dart';
-import 'Item_list_view/component/like_form.dart';
-import '../../../../../../utils/management_image.dart';
+import '../../../../../../bloc/bloc_detail_answer_page/detail_answer_page_bloc.dart';
 import 'Item_list_view/item_listview.dart';
 
 class TabViewDetailAnswer extends StatefulWidget {

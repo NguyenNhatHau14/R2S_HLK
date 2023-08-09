@@ -8,7 +8,8 @@ import 'package:pikachu_education/pages/answer_page/component/detail_answer_page
 import 'package:pikachu_education/pages/answer_page/component/detail_answer_page/tab_view/component/tab_bar_show_number_like_comment.dart';
 import 'package:pikachu_education/pages/answer_page/component/detail_answer_page/tab_view/component/tab_view_detail_answer.dart';
 import 'package:pikachu_education/pages/answer_page/component/detail_answer_page/tab_view/component/tab_view_detail_answer_no_comment.dart';
-import '../../../../blog/blog_detail_answer_page/detail_answer_page_bloc.dart';
+
+import '../../../../bloc/bloc_detail_answer_page/detail_answer_page_bloc.dart';
 
 class DetailAnswerPage extends StatefulWidget {
   const DetailAnswerPage(

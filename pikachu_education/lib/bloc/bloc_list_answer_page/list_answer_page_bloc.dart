@@ -1,10 +1,6 @@
-import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:pikachu_education/blog/blog_home_page/data_home_bloc.dart';
-import 'package:pikachu_education/data/data_modal/data_comment_modal.dart';
-
 import '../../data/data_modal/data_answer_modal.dart';
 import '../../service/database_service/database_service.dart';
 

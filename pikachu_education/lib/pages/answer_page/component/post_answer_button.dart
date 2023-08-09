@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pikachu_education/blog/blog_list_answer_page/list_answer_page_bloc.dart';
+
 import 'package:pikachu_education/data/data_modal/data_question_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
 import 'package:pikachu_education/pages/answer_page/component/post_answer/create_answer_page.dart';
+import '../../../bloc/bloc_list_answer_page/list_answer_page_bloc.dart';
 import '../../authentication/component/dialog_custom.dart';
 
 

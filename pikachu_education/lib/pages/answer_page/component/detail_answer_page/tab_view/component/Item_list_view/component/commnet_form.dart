@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../../../../blog/blog_detail_answer_page/detail_answer_page_bloc.dart';
+import '../../../../../../../../bloc/bloc_detail_answer_page/detail_answer_page_bloc.dart';
 import '../../../../../../../../data/data_modal/data_answer_modal.dart';
 import '../../../../../../../../data/data_modal/data_comment_modal.dart';
 import '../../../../../../../../data/data_modal/data_question_modal.dart';

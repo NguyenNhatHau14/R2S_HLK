@@ -2,9 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:pikachu_education/blog/blog_detail_answer_page/detail_answer_page_bloc.dart';
-import 'package:pikachu_education/blog/blog_home_page/data_home_bloc.dart';
 import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
+import '../../../bloc/bloc_home_page/data_home_bloc.dart';
 import '../../../routes/page_name.dart';
 
 class DrawPageForHomePage extends StatefulWidget {

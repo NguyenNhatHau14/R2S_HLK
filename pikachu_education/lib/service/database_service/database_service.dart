@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:pikachu_education/data/data_modal/data_answer_modal.dart';
 import '../../data/data_modal/data_comment_modal.dart';
@@ -20,12 +21,18 @@ class DatabaseService {
   static Future<List<DataQuestionModal>> fetchDataQuestionFromSever() async {
     List<DataQuestionModal> listDataQuestions = [];
     List<DataUserModal> listDataUsers = [];
+
     var needSnapShotUser =
         await FirebaseDatabase.instance.ref("users").orderByKey().get();
     var dataUsers = (needSnapShotUser.value ?? {}) as Map;
     dataUsers.forEach((keyUser, value) {
       var user = (dataUsers[keyUser] ?? {}) as Map;
-      listDataUsers.add(DataUserModal.fromMap(key: keyUser, map: value));
+      List<String> listQuestionIdLiked =[];
+      var questionIdLikedMap=(user['listQuestionIdLiked']??{}) as Map;
+      questionIdLikedMap.forEach((key, value) {listQuestionIdLiked.add(value); });
+      print('check listQuestionIdLiked at Database Service $listQuestionIdLiked');
+
+      listDataUsers.add(DataUserModal.fromMap(key: keyUser, map: value,listQuestionIdLiked:listQuestionIdLiked));
       var questionList = (user['questions'] ?? {}) as Map;
       questionList.forEach((key, value) {
         var question = (questionList[key] ?? {}) as Map;
@@ -38,6 +45,7 @@ class DatabaseService {
             numberAnswer: answers.length));
       });
     });
+
 
     return listDataQuestions;
   }
@@ -201,11 +209,59 @@ class DatabaseService {
 
   static Future<void> deleteComment(
       {required String userIdOfQuestion,
-        required String questionId,
-        required String answerId,
-        required String commentId}) async {
+      required String questionId,
+      required String answerId,
+      required String commentId}) async {
     DatabaseReference ref = FirebaseDatabase.instance.ref(
         "/users/$userIdOfQuestion/questions/$questionId/answers/$answerId/comments/$commentId");
     await ref.remove();
+  }
+
+  static Future<List<String>> getListQuestionIdLiked(
+      {required String currentUserId}) async {
+    List<String> listQuestionIdLiked = [];
+    var needSnapShotListQuestionLiked = await FirebaseDatabase.instance
+        .ref('/users/$currentUserId/listQuestionIdLiked')
+        .orderByKey()
+        .get();
+    var listQuestionLikedMap = (needSnapShotListQuestionLiked.value ?? {}) as Map;
+    listQuestionLikedMap.forEach((key, value) {listQuestionIdLiked.add(value); });
+    print(listQuestionIdLiked);
+    return listQuestionIdLiked;
+  }
+
+  static Future<void> likedQuestion(
+      {required String userIdOfQuestion,
+      required String questionId,
+      required String currentUserId }) async {
+    DatabaseReference ref =  FirebaseDatabase.instance
+        .ref("/users/$userIdOfQuestion/questions/$questionId")
+        .child('listUserIdLiked');
+    await ref.update({currentUserId:currentUserId});
+
+    DatabaseReference addListQuestionIdLikeToUserRef = FirebaseDatabase.instance
+        .ref("/users/$currentUserId")
+        .child('listQuestionIdLiked');
+    await addListQuestionIdLikeToUserRef.update({questionId: questionId});
+
+    DatabaseReference increaseQuestionIdLikeToUserRef = FirebaseDatabase.instance
+        .ref("/users/$userIdOfQuestion/questions/$questionId");
+    await increaseQuestionIdLikeToUserRef.update({'numberLike':ServerValue.increment(1)});
+
+
+  }
+
+
+  static Future<void> removedLikeQuestion(
+      {required String currentUserId, required String questionId,required String userIdOfQuestion }) async {
+    await FirebaseDatabase.instance
+        .ref('/users/$currentUserId/listQuestionIdLiked/$questionId').remove();
+    await FirebaseDatabase.instance
+        .ref('/users/$userIdOfQuestion/questions/$questionId/listUserIdLiked/$currentUserId').remove();
+    print('/users/$userIdOfQuestion/questions/$questionId/listUserIdLiked/$currentUserId');
+    DatabaseReference increaseQuestionIdLikeToUserRef = FirebaseDatabase.instance
+        .ref("/users/$userIdOfQuestion/questions/$questionId");
+    await increaseQuestionIdLikeToUserRef.update({'numberLike':ServerValue.increment(-1)});
+
   }
 }

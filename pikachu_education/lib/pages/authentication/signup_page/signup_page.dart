@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../blog/blog_signup_page/signup_bloc.dart';
+import '../../../bloc/bloc_signup_page/signup_bloc.dart';
 import '../../../routes/page_name.dart';
 import '../../../utils/management_image.dart';
 

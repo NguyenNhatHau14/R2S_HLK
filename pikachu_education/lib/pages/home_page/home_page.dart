@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pikachu_education/blog/blog_home_page/data_home_bloc.dart';
 import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../bloc/bloc_home_page/data_home_bloc.dart';
 import '../../routes/page_name.dart';
 import '../../service/database_service/database_service.dart';
 import '../../utils/management_image.dart';
@@ -33,7 +33,8 @@ class _HomePageState extends State<HomePage> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   DataUserModal currentUserInfo =
-      DataUserModal(userId: 'userId', userName: 'userName', email: 'email');
+      DataUserModal(userId: 'userId', userName: 'userName', email: 'email',listQuestionIdLiked: []);
+  List<String> listQuestionIdLiked=[];
 
   getCurrentUserInfo(String userID) async {
     var currentUserFromDataBase =
@@ -42,7 +43,12 @@ class _HomePageState extends State<HomePage> {
       currentUserInfo = currentUserFromDataBase;
     });
   }
-
+  getListQuestionIdLiked({required String userId})async {
+    var listQuestionIdLikeFromSever = await DatabaseService.getListQuestionIdLiked(currentUserId: userId);
+    setState(() {
+      listQuestionIdLiked=listQuestionIdLikeFromSever;
+    });
+  }
   @override
   void dispose() {
     searchController.dispose();
@@ -57,11 +63,14 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _dataHomeBloc.add(FetchDataQuestionEvent());
     getCurrentUserInfo(widget.userId);
+    getListQuestionIdLiked(userId: widget.userId);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    print('okokokokla $listQuestionIdLiked');
     return BlocProvider.value(
       value: _dataHomeBloc,
       child: BlocListener<DataHomePageBloc, DataHomePageState>(
@@ -80,6 +89,14 @@ class _HomePageState extends State<HomePage> {
         }
         if (state is LogoutSuccessState) {
           Navigator.pushNamed(context, PageName.loginPage);
+        }
+        if (state is LikedQuestionSuccessState) {
+          context.read<DataHomePageBloc>().add(RefreshDataQuestion());
+          getListQuestionIdLiked(userId: widget.userId);
+        }
+        if (state is RemovedLikeQuestionSuccessState) {
+          context.read<DataHomePageBloc>().add(RefreshDataQuestion());
+         getListQuestionIdLiked(userId: widget.userId);
         }
       }, child: BlocBuilder<DataHomePageBloc, DataHomePageState>(
         builder: (context, state) {
@@ -119,6 +136,7 @@ class _HomePageState extends State<HomePage> {
                                   .add(RefreshDataQuestion());
                             },
                             child: ListViewQuestion(
+                              listQuestionIdLiked: listQuestionIdLiked,
                               titleController: titleController,
                               editQuestionFormFieldKey:
                                   editQuestionFormFieldKey,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pikachu_education/blog/blog_detail_answer_page/detail_answer_page_bloc.dart';
 import 'package:pikachu_education/data/data_modal/data_answer_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_comment_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_question_modal.dart';
 import 'package:pikachu_education/pages/answer_page/component/detail_answer_page/tab_view/component/Item_list_view/component/pop_up_menu_button/pop_up_menu_button.dart';
 
+import '../../../../../../../../bloc/bloc_detail_answer_page/detail_answer_page_bloc.dart';
 import '../../../../../../../../utils/management_image.dart';
 
 class CommentModal extends StatefulWidget {

@@ -55,5 +55,21 @@ class DataHomePageBloc extends Bloc<DataHomePageEvent, DataHomePageState> {
       await LoginService.logout();
       emit(LogoutSuccessState());
     });
+
+    on<LikeQuestionsEvent>((event, emit) async {
+      await DatabaseService.likedQuestion(
+          userIdOfQuestion: event.userIdOfQuestion,
+          questionId: event.questionId,
+          currentUserId: event.currentUserId);
+      emit(LikedQuestionSuccessState());
+    });
+
+    on<RemoveLikeQuestionsEvent>((event, emit) async {
+      await DatabaseService.removedLikeQuestion(
+          userIdOfQuestion: event.userIdOfQuestion,
+          questionId: event.questionId,
+          currentUserId: event.currentUserId);
+      emit(RemovedLikeQuestionSuccessState());
+    });
   }
 }

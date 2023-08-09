@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
-import '../../../../../blog/blog_home_page/data_home_bloc.dart';
 import '../../../../../data/data_modal/data_question_modal.dart';
+import '../../../../bloc/bloc_home_page/data_home_bloc.dart';
 import '../../../../utils/management_time.dart';
 import 'component/list_subject.dart';
 

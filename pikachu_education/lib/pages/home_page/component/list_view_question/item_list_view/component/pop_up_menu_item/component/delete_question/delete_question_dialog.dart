@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pikachu_education/data/data_modal/data_question_modal.dart';
 
-import '../../../../../../../../../blog/blog_home_page/data_home_bloc.dart';
+import '../../../../../../../../../bloc/bloc_home_page/data_home_bloc.dart';
 
 class DeleteQuestionDialog extends StatefulWidget {
   const DeleteQuestionDialog(

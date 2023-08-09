@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pikachu_education/blog/blog_list_answer_page/list_answer_page_bloc.dart';
 import 'package:pikachu_education/data/data_modal/data_answer_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_question_modal.dart';
+
+import '../../../../../../../bloc/bloc_list_answer_page/list_answer_page_bloc.dart';
 
 class DeleteAnswerDialog extends StatefulWidget {
   const DeleteAnswerDialog({super.key,
