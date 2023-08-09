@@ -84,7 +84,7 @@ class _DetailAnswerPageState extends State<DetailAnswerPage>
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TabBarOnTop(currentUserInfo: widget.questionInfo),
+                    TabBarOnTop(questionInfo: widget.questionInfo,currentUserInfo: widget.currentUserInfo),
                     AnswerDetail(answerInfo: widget.answerInfo),
                     TabBarShowNumberLikeComment(
                         answerInfo: widget.answerInfo,

@@ -10,8 +10,9 @@ class RefreshDataQuestion extends DataHomePageEvent {}
 class PostDataQuestionsEvent extends DataHomePageEvent {
   DataQuestionModal dataToPost;
   String userId;
+  File file;
 
-  PostDataQuestionsEvent({required this.dataToPost, required this.userId});
+  PostDataQuestionsEvent({required this.dataToPost, required this.userId,required this.file});
 }
 
 class GetCurrentUserInfoEvent extends DataHomePageEvent {
@@ -57,6 +58,7 @@ class RemoveLikeQuestionsEvent extends DataHomePageEvent {
   String userIdOfQuestion;
   String questionId;
   String currentUserId;
+
 
   RemoveLikeQuestionsEvent(
       {required this.userIdOfQuestion,

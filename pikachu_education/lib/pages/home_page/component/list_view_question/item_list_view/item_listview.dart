@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pikachu_education/data/data_modal/data_question_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
-import 'package:pikachu_education/service/database_service/database_service.dart';
 import '../../../../../bloc/bloc_home_page/data_home_bloc.dart';
 import '../../../../../routes/page_name.dart';
 import '../../../../../utils/management_image.dart';
 import 'component/pop_up_menu_item/pop_up_menu_button.dart';
 
 class ItemListviewQuestion extends StatefulWidget {
-  const ItemListviewQuestion({super.key,
-    required this.index,
-    required this.dataQuestionFromServer,
-    required this.currentUserInfo,
-    required this.dataHomePageBloc,
-    required this.subjectController,
-    required this.contentController,
-    required this.titleController,
-    required this.editQuestionFormFieldKey,
-    required this.listQuestionIdLiked});
+  const ItemListviewQuestion(
+      {super.key,
+      required this.index,
+      required this.dataQuestionFromServer,
+      required this.currentUserInfo,
+      required this.dataHomePageBloc,
+      required this.subjectController,
+      required this.contentController,
+      required this.titleController,
+      required this.editQuestionFormFieldKey,
+      required this.listQuestionIdLiked});
 
   final GlobalKey<FormState> editQuestionFormFieldKey;
   final TextEditingController titleController;
@@ -87,7 +87,7 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                         ),
                         PopUpMenuButtonHomePage(
                           editQuestionFormFieldKey:
-                          widget.editQuestionFormFieldKey,
+                              widget.editQuestionFormFieldKey,
                           dataQuestionFromServer: widget.dataQuestionFromServer,
                           checkOwner: checkOwner,
                           dataHomePageBloc: widget.dataHomePageBloc,
@@ -134,10 +134,21 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
                     child: Text(
-                      //ToDo
+                        //ToDo
                         widget.dataQuestionFromServer[widget.index]
                             .questionContent,
                         style: const TextStyle(fontSize: 12)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: SizedBox(
+                        child: (widget.dataQuestionFromServer[widget.index]
+                                    .imageUrl) ==
+                                ''
+                            ? const SizedBox()
+                            : Image.network(widget
+                                .dataQuestionFromServer[widget.index]
+                                .imageUrl!)),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
@@ -149,10 +160,9 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                           child: Row(
                             children: [
                               Text(
-                                  '${widget.dataQuestionFromServer[widget.index]
-                                      .numberAnswer} answer' //ToDo
-                                // '${widget.dataQuestionFromServer[index].numberAnswer}'
-                              ),
+                                  '${widget.dataQuestionFromServer[widget.index].numberAnswer} answer' //ToDo
+                                  // '${widget.dataQuestionFromServer[index].numberAnswer}'
+                                  ),
                               const Icon(Icons.message)
                             ],
                           ),
@@ -175,27 +185,27 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                                       RemoveLikeQuestionsEvent(
                                           userIdOfQuestion: widget
                                               .dataQuestionFromServer[
-                                          widget.index]
+                                                  widget.index]
                                               .userId,
                                           questionId: widget
                                               .dataQuestionFromServer[
-                                          widget.index]
+                                                  widget.index]
                                               .questionId,
                                           currentUserId:
-                                          widget.currentUserInfo.userId));
+                                              widget.currentUserInfo.userId));
                                 } else {
                                   context.read<DataHomePageBloc>().add(
                                       LikeQuestionsEvent(
                                           userIdOfQuestion: widget
                                               .dataQuestionFromServer[
-                                          widget.index]
+                                                  widget.index]
                                               .userId,
                                           questionId: widget
                                               .dataQuestionFromServer[
-                                          widget.index]
+                                                  widget.index]
                                               .questionId,
-                                          currentUserId: widget.currentUserInfo
-                                              .userId));
+                                          currentUserId:
+                                              widget.currentUserInfo.userId));
                                 }
                               },
                               child: Padding(
@@ -203,10 +213,9 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                                 child: Row(
                                   children: [
                                     Text(
-                                        '${widget.dataQuestionFromServer[widget
-                                            .index].numberLike} Like'
-                                      // '${widget.dataQuestionFromServer[index].numberLike}'
-                                    ),
+                                        '${widget.dataQuestionFromServer[widget.index].numberLike} Like'
+                                        // '${widget.dataQuestionFromServer[index].numberLike}'
+                                        ),
                                     Icon(
                                       checkLiked
                                           ? Icons.favorite

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pikachu_education/data/data_modal/data_question_modal.dart';
+import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
 
 import '../../../../../../routes/page_name.dart';
 
 class TabBarOnTop extends StatefulWidget {
-  const TabBarOnTop({super.key,required this.currentUserInfo});
- final DataQuestionModal currentUserInfo;
+  const TabBarOnTop({super.key,required this.questionInfo,required this.currentUserInfo});
+ final DataQuestionModal questionInfo;
+ final DataUserModal currentUserInfo;
   @override
   State<TabBarOnTop> createState() => _TabBarOnTopState();
 }
@@ -33,7 +35,7 @@ class _TabBarOnTopState extends State<TabBarOnTop> {
               child: InkWell(
                 onTap: () {
                   Navigator.pushNamed(
-                      context, PageName.loginPage);
+                      context, PageName.profilePage,arguments: widget.currentUserInfo);
                 },
                 child: Text(widget.currentUserInfo.userName,
                     style: const TextStyle(

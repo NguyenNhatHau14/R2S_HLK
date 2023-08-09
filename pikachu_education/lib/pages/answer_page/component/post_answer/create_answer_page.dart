@@ -145,17 +145,19 @@ class _createAnswerPageState extends State<createAnswerPage> {
                                 },
                                 child: Container(
                                   alignment: Alignment.center,
-                                  width: 165,
                                   height: 50,
                                   decoration: BoxDecoration(
                                       color: Color(0xFFD9D9D9),
                                       borderRadius: BorderRadius.circular(10)),
-                                  child: const Text(
-                                    'Cancel',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Cancel',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                 )),
                             TextButton(
@@ -182,17 +184,20 @@ class _createAnswerPageState extends State<createAnswerPage> {
                                 },
                                 child: Container(
                                   alignment: Alignment.center,
-                                  width: 165,
+
                                   height: 50,
                                   decoration: BoxDecoration(
                                       color: Color(0xFFFDCA15),
                                       borderRadius: BorderRadius.circular(10)),
-                                  child: const Text(
-                                    'Create Answer',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Create Answer',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                 )),
                           ],

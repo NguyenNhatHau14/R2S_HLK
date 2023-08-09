@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -6,7 +7,9 @@ import 'package:meta/meta.dart';
 import '../../data/data_modal/data_question_modal.dart';
 import '../../data/data_modal/data_user_modal.dart';
 import '../../service/database_service/database_service.dart';
+import '../../service/get_from_gallery_service/get_image.dart';
 import '../../service/service_login/firebase_login.dart';
+import '../../service/storage_service/storage_service.dart';
 
 part 'data_home_event.dart';
 
@@ -32,8 +35,10 @@ class DataHomePageBloc extends Bloc<DataHomePageEvent, DataHomePageState> {
     });
 
     on<PostDataQuestionsEvent>((event, emit) async {
+     var imageUrl = await StorageService.upLoadImageToStorage(file: event.file);
       await DatabaseService.postDataQuestionToSever(
-          itemToPost: event.dataToPost, userId: event.userId);
+          itemToPost: event.dataToPost, userId: event.userId, imageUrl: imageUrl);
+
       emit(PostDataQuestionSuccessState());
     });
 

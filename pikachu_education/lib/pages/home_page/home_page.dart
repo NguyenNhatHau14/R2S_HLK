@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pikachu_education/data/data_modal/data_question_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../bloc/bloc_home_page/data_home_bloc.dart';
@@ -33,8 +34,16 @@ class _HomePageState extends State<HomePage> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   DataUserModal currentUserInfo =
-      DataUserModal(userId: 'userId', userName: 'userName', email: 'email',listQuestionIdLiked: []);
-  List<String> listQuestionIdLiked=[];
+      DataUserModal(userId: 'userId', userName: 'userName', email: 'email');
+  DataQuestionModal questionInitial = DataQuestionModal(
+      userId: 'userId',
+      userName: 'userName',
+      timePost: 'timePost',
+      questionId: 'questionId',
+      questionSubject: 'questionSubject',
+      questionTitle: 'questionTitle',
+      questionContent: 'questionContent');
+  List<String> listQuestionIdLiked = [];
 
   getCurrentUserInfo(String userID) async {
     var currentUserFromDataBase =
@@ -43,12 +52,15 @@ class _HomePageState extends State<HomePage> {
       currentUserInfo = currentUserFromDataBase;
     });
   }
-  getListQuestionIdLiked({required String userId})async {
-    var listQuestionIdLikeFromSever = await DatabaseService.getListQuestionIdLiked(currentUserId: userId);
+
+  getListQuestionIdLiked({required String userId}) async {
+    var listQuestionIdLikeFromSever =
+        await DatabaseService.getListQuestionIdLiked(currentUserId: userId);
     setState(() {
-      listQuestionIdLiked=listQuestionIdLikeFromSever;
+      listQuestionIdLiked = listQuestionIdLikeFromSever;
     });
   }
+
   @override
   void dispose() {
     searchController.dispose();
@@ -70,42 +82,39 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print('okokokokla $listQuestionIdLiked');
     return BlocProvider.value(
-      value: _dataHomeBloc,
-      child: BlocListener<DataHomePageBloc, DataHomePageState>(
-          listener: (context, state) {
-        if (state is FetchDataQuestionSuccessState) {
-          _refreshController.refreshCompleted();
-        }
-        if (state is PostDataQuestionSuccessState) {
-          context.read<DataHomePageBloc>().add(RefreshDataQuestion());
-        }
-        if (state is EditQuestionSuccessState) {
-          context.read<DataHomePageBloc>().add(RefreshDataQuestion());
-        }
-        if (state is DeleteQuestionSuccessState) {
-          context.read<DataHomePageBloc>().add(RefreshDataQuestion());
-        }
-        if (state is LogoutSuccessState) {
-          Navigator.pushNamed(context, PageName.loginPage);
-        }
-        if (state is LikedQuestionSuccessState) {
-          context.read<DataHomePageBloc>().add(RefreshDataQuestion());
-          getListQuestionIdLiked(userId: widget.userId);
-        }
-        if (state is RemovedLikeQuestionSuccessState) {
-          context.read<DataHomePageBloc>().add(RefreshDataQuestion());
-         getListQuestionIdLiked(userId: widget.userId);
-        }
-      }, child: BlocBuilder<DataHomePageBloc, DataHomePageState>(
-        builder: (context, state) {
-          if (state is FetchDataQuestionSuccessState) {
-            var dataQuestionFromServer = state.listDataUserModal;
-            return Scaffold(
+        value: _dataHomeBloc,
+        child: BlocListener<DataHomePageBloc, DataHomePageState>(
+            listener: (context, state) {
+              if (state is FetchDataQuestionSuccessState) {
+                _refreshController.refreshCompleted();
+              }
+              if (state is PostDataQuestionSuccessState) {
+                context.read<DataHomePageBloc>().add(RefreshDataQuestion());
+              }
+              if (state is EditQuestionSuccessState) {
+                context.read<DataHomePageBloc>().add(RefreshDataQuestion());
+              }
+              if (state is DeleteQuestionSuccessState) {
+                context.read<DataHomePageBloc>().add(RefreshDataQuestion());
+              }
+              if (state is LogoutSuccessState) {
+                Navigator.pushNamed(context, PageName.loginPage);
+              }
+              if (state is LikedQuestionSuccessState) {
+                context.read<DataHomePageBloc>().add(RefreshDataQuestion());
+                getListQuestionIdLiked(userId: widget.userId);
+              }
+              if (state is RemovedLikeQuestionSuccessState) {
+                context.read<DataHomePageBloc>().add(RefreshDataQuestion());
+                getListQuestionIdLiked(userId: widget.userId);
+              }
+            },
+            child: Scaffold(
               backgroundColor: Colors.white,
               body: SafeArea(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
@@ -127,34 +136,42 @@ class _HomePageState extends State<HomePage> {
                           )
                         ],
                       ),
-                      Expanded(
-                        child: SmartRefresher(
-                            controller: _refreshController,
-                            onRefresh: () {
-                              context
-                                  .read<DataHomePageBloc>()
-                                  .add(RefreshDataQuestion());
-                            },
-                            child: ListViewQuestion(
-                              listQuestionIdLiked: listQuestionIdLiked,
-                              titleController: titleController,
-                              editQuestionFormFieldKey:
-                                  editQuestionFormFieldKey,
-                              subjectController: subjectController,
-                              contentController: contentController,
-                              dataHomePageBloc: _dataHomeBloc,
-                              dataQuestionFromServer: dataQuestionFromServer,
-                              currentUserInfo: currentUserInfo,
-                            )),
+                      BlocBuilder<DataHomePageBloc, DataHomePageState>(
+                        builder: (context, state) {
+                          if (state is FetchDataQuestionSuccessState) {
+                            var dataQuestionFromServer =
+                                state.listDataUserModal;
+                            return Expanded(
+                              child: SmartRefresher(
+                                  controller: _refreshController,
+                                  onRefresh: () {
+                                    context
+                                        .read<DataHomePageBloc>()
+                                        .add(RefreshDataQuestion());
+                                  },
+                                  child: ListViewQuestion(
+                                    listQuestionIdLiked: listQuestionIdLiked,
+                                    titleController: titleController,
+                                    editQuestionFormFieldKey:
+                                        editQuestionFormFieldKey,
+                                    subjectController: subjectController,
+                                    contentController: contentController,
+                                    dataHomePageBloc: _dataHomeBloc,
+                                    dataQuestionFromServer:
+                                        dataQuestionFromServer,
+                                    currentUserInfo: currentUserInfo,
+                                  )),
+                            );
+                          } else {
+                            return const Expanded(
+                              child: Center(
+                                  child: CircularProgressIndicator()),
+                            );
+                          }
+                        },
                       )
                     ]),
               ),
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      )),
-    );
+            )));
   }
 }

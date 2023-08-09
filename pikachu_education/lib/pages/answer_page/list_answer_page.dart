@@ -88,7 +88,7 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                                 child: InkWell(
                                   onTap: () {
                                     Navigator.pushNamed(
-                                        context, PageName.loginPage);
+                                        context, PageName.profilePage,arguments: widget.currentUserInfo);
                                   },
                                   child: Text(
                                       (widget.currentUserInfo.userName.length ??

@@ -27,12 +27,10 @@ class DatabaseService {
     var dataUsers = (needSnapShotUser.value ?? {}) as Map;
     dataUsers.forEach((keyUser, value) {
       var user = (dataUsers[keyUser] ?? {}) as Map;
-      List<String> listQuestionIdLiked =[];
-      var questionIdLikedMap=(user['listQuestionIdLiked']??{}) as Map;
-      questionIdLikedMap.forEach((key, value) {listQuestionIdLiked.add(value); });
-      print('check listQuestionIdLiked at Database Service $listQuestionIdLiked');
-
-      listDataUsers.add(DataUserModal.fromMap(key: keyUser, map: value,listQuestionIdLiked:listQuestionIdLiked));
+      // List<String> listQuestionIdLiked =[];
+      // var questionIdLikedMap=(user['listQuestionIdLiked']??{}) as Map;
+      // questionIdLikedMap.forEach((key, value) {listQuestionIdLiked.add(value); });
+      listDataUsers.add(DataUserModal.fromMap(key: keyUser, map: value));
       var questionList = (user['questions'] ?? {}) as Map;
       questionList.forEach((key, value) {
         var question = (questionList[key] ?? {}) as Map;
@@ -51,7 +49,7 @@ class DatabaseService {
   }
 
   static Future<void> postDataQuestionToSever(
-      {required DataQuestionModal itemToPost, required String userId}) async {
+      {required DataQuestionModal itemToPost, required String userId,required String imageUrl}) async {
     DatabaseReference ref = FirebaseDatabase.instance
         .ref("users/$userId")
         .child('questions')
@@ -61,7 +59,8 @@ class DatabaseService {
       'questionTitle': itemToPost.questionTitle,
       'questionSubject': itemToPost.questionSubject,
       'questionContent': itemToPost.questionContent,
-      'numberLike': itemToPost.numberLike
+      'numberLike': itemToPost.numberLike,
+      'imageUrl': imageUrl,
     });
   }
 
@@ -134,7 +133,6 @@ class DatabaseService {
       'answerTitle': itemToPost.answerTitle,
       'answerContent': itemToPost.answerContent,
     });
-    print('{users/$userIdOfQuestion/questions/$questionId/answers/$answerId}');
   }
 
   static Future<void> deleteAnswer(
@@ -226,7 +224,6 @@ class DatabaseService {
         .get();
     var listQuestionLikedMap = (needSnapShotListQuestionLiked.value ?? {}) as Map;
     listQuestionLikedMap.forEach((key, value) {listQuestionIdLiked.add(value); });
-    print(listQuestionIdLiked);
     return listQuestionIdLiked;
   }
 
@@ -258,7 +255,6 @@ class DatabaseService {
         .ref('/users/$currentUserId/listQuestionIdLiked/$questionId').remove();
     await FirebaseDatabase.instance
         .ref('/users/$userIdOfQuestion/questions/$questionId/listUserIdLiked/$currentUserId').remove();
-    print('/users/$userIdOfQuestion/questions/$questionId/listUserIdLiked/$currentUserId');
     DatabaseReference increaseQuestionIdLikeToUserRef = FirebaseDatabase.instance
         .ref("/users/$userIdOfQuestion/questions/$questionId");
     await increaseQuestionIdLikeToUserRef.update({'numberLike':ServerValue.increment(-1)});

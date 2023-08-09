@@ -5,7 +5,7 @@ class DataUserModal {
   final String userName;
   final String email;
   Map<dynamic, dynamic>? listQuestion;
-  List<String>? listQuestionIdLiked;
+  Map<dynamic, dynamic>? listQuestionIdLiked;
 
   DataUserModal(
       {required this.userId,
@@ -15,13 +15,13 @@ class DataUserModal {
       this.listQuestionIdLiked});
 
   static DataUserModal fromMap(
-          {required String key, required Map<dynamic, dynamic> map,required List<String> listQuestionIdLiked}) =>
+          {required String key, required Map<dynamic, dynamic> map}) =>
       DataUserModal(
           userId: key,
           userName: map['name'],
           email: map['email'],
           listQuestion: map['questions'],
-          listQuestionIdLiked: listQuestionIdLiked);
+          listQuestionIdLiked: map['listQuestionIdLiked']);
 
   toJson() {
     return {
