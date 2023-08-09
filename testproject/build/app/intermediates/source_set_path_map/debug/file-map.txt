@@ -1,0 +1,12 @@
+com.example.testproject.app-debug-0 C:\R2S\R2S_HLK\testproject\android\app\src\debug\res
+com.example.testproject.app-main-1 C:\R2S\R2S_HLK\testproject\android\app\src\main\res
+com.example.testproject.app-pngs-2 C:\R2S\R2S_HLK\testproject\build\app\generated\res\pngs\debug
+com.example.testproject.app-resValues-3 C:\R2S\R2S_HLK\testproject\build\app\generated\res\resValues\debug
+com.example.testproject.app-rs-4 C:\R2S\R2S_HLK\testproject\build\app\generated\res\rs\debug
+com.example.testproject.app-mergeDebugResources-5 C:\R2S\R2S_HLK\testproject\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.example.testproject.app-mergeDebugResources-6 C:\R2S\R2S_HLK\testproject\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.example.testproject.app-merged_res-7 C:\R2S\R2S_HLK\testproject\build\app\intermediates\merged_res\debug
+com.example.testproject.app-jetified-window-1.0.0-beta04-8 C:\Users\NguyenNhatHau\.gradle\caches\transforms-3\25cee5f028ac2a6b79fd6278ff5b59e2\transformed\jetified-window-1.0.0-beta04\res
+com.example.testproject.app-jetified-annotation-experimental-1.1.0-9 C:\Users\NguyenNhatHau\.gradle\caches\transforms-3\6c0c163cc77ae6c91f9f7dfcd179c29c\transformed\jetified-annotation-experimental-1.1.0\res
+com.example.testproject.app-core-1.6.0-10 C:\Users\NguyenNhatHau\.gradle\caches\transforms-3\7e9df2ac2213a6bd3cef0f2f27870d79\transformed\core-1.6.0\res
+com.example.testproject.app-jetified-window-java-1.0.0-beta04-11 C:\Users\NguyenNhatHau\.gradle\caches\transforms-3\ae81e06d24c799147c26814497a2a305\transformed\jetified-window-java-1.0.0-beta04\res

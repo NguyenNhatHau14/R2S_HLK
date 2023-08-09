@@ -1,0 +1,4 @@
+#Fri Jul 14 14:40:13 ICT 2023
+base.0=C\:\\R2S\\R2S_HLK\\testflutter_easyloading\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
