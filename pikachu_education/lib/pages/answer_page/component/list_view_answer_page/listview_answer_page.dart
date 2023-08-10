@@ -13,7 +13,8 @@ class ListViewAnswerPage extends StatefulWidget {
       required this.currentUserInfo,
       required this.contentController,
       required this.editAnswerFormFieldKey,
-      required this.titleController});
+      required this.titleController,
+      required this.listAnswerIdLiked});
 
   final ListAnswerPageBloc listAnswerPageBloc;
   final DataQuestionModal questionInfo;
@@ -21,6 +22,7 @@ class ListViewAnswerPage extends StatefulWidget {
   final GlobalKey<FormState> editAnswerFormFieldKey;
   final TextEditingController titleController;
   final TextEditingController contentController;
+  final List<String> listAnswerIdLiked;
 
   @override
   State<ListViewAnswerPage> createState() => _ListViewAnswerPageState();
@@ -58,6 +60,7 @@ class _ListViewAnswerPageState extends State<ListViewAnswerPage> {
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) => ItemListView(
+                      listAnswerIdLiked: widget.listAnswerIdLiked,
                       titleController: widget.titleController,
                       contentController: widget.contentController,
                       editAnswerFormFieldKey: widget.editAnswerFormFieldKey,

@@ -9,17 +9,17 @@ import '../../../../../utils/management_image.dart';
 import 'component/pop_up_menu_button.dart';
 
 class ItemListView extends StatefulWidget {
-  const ItemListView({
-    super.key,
-    required this.index,
-    required this.listAnswerPageBloc,
-    required this.listDataAnswerFromSever,
-    required this.currentUserInfo,
-    required this.questionInfo,
-    required this.contentController,
-    required this.titleController,
-    required this.editAnswerFormFieldKey,
-  });
+  const ItemListView(
+      {super.key,
+      required this.index,
+      required this.listAnswerPageBloc,
+      required this.listDataAnswerFromSever,
+      required this.currentUserInfo,
+      required this.questionInfo,
+      required this.contentController,
+      required this.titleController,
+      required this.editAnswerFormFieldKey,
+      required this.listAnswerIdLiked});
 
   final ListAnswerPageBloc listAnswerPageBloc;
   final List<DataAnswerModal> listDataAnswerFromSever;
@@ -29,6 +29,7 @@ class ItemListView extends StatefulWidget {
   final TextEditingController titleController;
   final TextEditingController contentController;
   final int index;
+  final List<String> listAnswerIdLiked;
 
   @override
   State<ItemListView> createState() => _ItemListViewState();
@@ -37,6 +38,9 @@ class ItemListView extends StatefulWidget {
 class _ItemListViewState extends State<ItemListView> {
   @override
   Widget build(BuildContext context) {
+
+    bool checkLiked = widget.listAnswerIdLiked
+        .contains(widget.listDataAnswerFromSever[widget.index].answerId);
     var checkOwner = widget.currentUserInfo.userId ==
         widget.listDataAnswerFromSever[widget.index].userIdPost;
     return BlocProvider.value(
@@ -101,12 +105,12 @@ class _ItemListViewState extends State<ItemListView> {
                       padding: const EdgeInsets.all(20.0),
                       child: SizedBox(
                           child: (widget.listDataAnswerFromSever[widget.index]
-                              .imageUrl) ==
-                              ''
+                                      .imageUrl) ==
+                                  ''
                               ? const SizedBox()
                               : Image.network(widget
-                              .listDataAnswerFromSever[widget.index]
-                              .imageUrl!)),
+                                  .listDataAnswerFromSever[widget.index]
+                                  .imageUrl!)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -114,11 +118,42 @@ class _ItemListViewState extends State<ItemListView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              if (checkLiked) {
+                                context.read<ListAnswerPageBloc>().add(
+                                    RemoveLikeAnswersEvent(
+                                        userIdOfQuestion:
+                                            widget.questionInfo.userId,
+                                        currentUserId:
+                                            widget.currentUserInfo.userId,
+                                        questionId:
+                                            widget.questionInfo.questionId,
+                                        answerId: widget
+                                            .listDataAnswerFromSever[
+                                                widget.index]
+                                            .answerId));
+                              } else {
+                                context.read<ListAnswerPageBloc>().add(
+                                    LikeAnswersEvent(
+                                        userIdOfQuestion:
+                                            widget.questionInfo.userId,
+                                        currentUserId:
+                                            widget.currentUserInfo.userId,
+                                        questionId:
+                                            widget.questionInfo.questionId,
+                                        answerId: widget
+                                            .listDataAnswerFromSever[
+                                                widget.index]
+                                            .answerId));
+                              }
+                            },
                             child: Row(
                               children: [
-                                const Icon(
-                                  Icons.favorite_border,
+                                 Icon(
+                                  checkLiked
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: Colors.red,
                                 ),
                                 Text(
                                     '${widget.listDataAnswerFromSever[widget.index].numberLike} like'),

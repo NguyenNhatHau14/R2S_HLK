@@ -6,13 +6,15 @@ class DataUserModal {
   final String email;
   Map<dynamic, dynamic>? listQuestion;
   Map<dynamic, dynamic>? listQuestionIdLiked;
+  Map<dynamic, dynamic>? listAnswerIdLiked;
 
   DataUserModal(
       {required this.userId,
       required this.userName,
       required this.email,
       this.listQuestion,
-      this.listQuestionIdLiked});
+      this.listQuestionIdLiked,
+      this.listAnswerIdLiked});
 
   static DataUserModal fromMap(
           {required String key, required Map<dynamic, dynamic> map}) =>
@@ -21,7 +23,8 @@ class DataUserModal {
           userName: map['name'],
           email: map['email'],
           listQuestion: map['questions'],
-          listQuestionIdLiked: map['listQuestionIdLiked']);
+          listQuestionIdLiked: map['listQuestionIdLiked'],
+          listAnswerIdLiked: map['listAnswerIdLiked']);
 
   toJson() {
     return {

@@ -28,7 +28,8 @@ class PostAnswerEvent extends ListAnswerPageEvent {
   PostAnswerEvent(
       {required this.userIdOfQuestion,
       required this.questionId,
-      required this.itemToPost,required this.file});
+      required this.itemToPost,
+      required this.file});
 }
 
 class EditAnswerEvent extends ListAnswerPageEvent {
@@ -52,5 +53,31 @@ class DeleteAnswerEvent extends ListAnswerPageEvent {
   DeleteAnswerEvent(
       {required this.userIdOfQuestion,
       required this.questionId,
+      required this.answerId});
+}
+
+class LikeAnswersEvent extends ListAnswerPageEvent {
+  String userIdOfQuestion;
+  String questionId;
+  String currentUserId;
+  String answerId;
+
+  LikeAnswersEvent(
+      {required this.userIdOfQuestion,
+      required this.questionId,
+      required this.currentUserId,
+      required this.answerId});
+}
+
+class RemoveLikeAnswersEvent extends ListAnswerPageEvent {
+  String userIdOfQuestion;
+  String questionId;
+  String currentUserId;
+  String answerId;
+
+  RemoveLikeAnswersEvent(
+      {required this.userIdOfQuestion,
+      required this.questionId,
+      required this.currentUserId,
       required this.answerId});
 }

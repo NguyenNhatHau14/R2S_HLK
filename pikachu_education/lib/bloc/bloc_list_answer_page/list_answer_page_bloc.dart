@@ -53,5 +53,21 @@ class ListAnswerPageBloc
       );
       emit(DeleteAnswerSuccessState());
     });
+
+    on<LikeAnswersEvent>((event, emit) async {
+      await DatabaseService.likedAnswer(
+          userIdOfQuestion: event.userIdOfQuestion,
+          questionId: event.questionId,
+          currentUserId: event.currentUserId,answerId: event.answerId);
+      emit(LikeAnswerSuccessState());
+    });
+
+    on<RemoveLikeAnswersEvent>((event, emit) async {
+      await DatabaseService.removedLikeAnswer(
+          userIdOfQuestion: event.userIdOfQuestion,
+          questionId: event.questionId,
+          currentUserId: event.currentUserId,answerId: event.answerId);
+      emit(RemoveLikeAnswerSuccessState());
+    });
   }
 }

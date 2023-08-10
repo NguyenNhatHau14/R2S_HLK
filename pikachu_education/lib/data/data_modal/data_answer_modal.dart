@@ -9,6 +9,7 @@ class DataAnswerModal {
   final Map<dynamic, dynamic>? listComment;
   final int? numberComment;
   final String? imageUrl;
+  final Map<dynamic, dynamic>? listUserIdLiked;
 
   DataAnswerModal(
       {required this.userNamePost,
@@ -20,7 +21,8 @@ class DataAnswerModal {
       this.listComment,
       this.numberLike,
       this.numberComment,
-      this.imageUrl});
+      this.imageUrl,
+      this.listUserIdLiked});
 
   static DataAnswerModal fromMap(
           {required String key,
@@ -36,5 +38,6 @@ class DataAnswerModal {
           numberLike: map['numberLike'] ?? 0,
           listComment: map['listComment'],
           numberComment: numberComment,
-          imageUrl: map['imageUrl']??'');
+          imageUrl: map['imageUrl'] ?? '',
+          listUserIdLiked: map['listUserIdLiked'] ?? {});
 }

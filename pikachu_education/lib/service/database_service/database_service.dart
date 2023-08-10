@@ -249,7 +249,6 @@ class DatabaseService {
 
   }
 
-
   static Future<void> removedLikeQuestion(
       {required String currentUserId, required String questionId,required String userIdOfQuestion }) async {
     await FirebaseDatabase.instance
@@ -260,5 +259,50 @@ class DatabaseService {
         .ref("/users/$userIdOfQuestion/questions/$questionId");
     await increaseQuestionIdLikeToUserRef.update({'numberLike':ServerValue.increment(-1)});
 
+  }
+
+  static Future<List<String>> getListAnswerIdLiked(
+      {required String currentUserId}) async {
+    List<String> listAnswerIdLiked = [];
+    var needSnapShotListAnswerLiked = await FirebaseDatabase.instance
+        .ref('/users/$currentUserId/listAnswerIdLiked')
+        .orderByKey()
+        .get();
+    var listQuestionLikedMap = (needSnapShotListAnswerLiked.value ?? {}) as Map;
+    listQuestionLikedMap.forEach((key, value) {listAnswerIdLiked.add(value); });
+    return listAnswerIdLiked;
+  }
+
+  static Future<void> likedAnswer(
+      {required String userIdOfQuestion,
+        required String questionId,
+        required String answerId,
+        required String currentUserId }) async {
+    DatabaseReference ref =  FirebaseDatabase.instance
+        .ref("/users/$userIdOfQuestion/questions/$questionId/answers/$answerId")
+        .child('listUserIdLiked');
+    await ref.update({currentUserId:currentUserId});
+    DatabaseReference addListAnswerIdLikeToUserRef = FirebaseDatabase.instance
+        .ref("/users/$currentUserId")
+        .child('listAnswerIdLiked');
+    await addListAnswerIdLikeToUserRef.update({answerId: answerId});
+
+    DatabaseReference increaseQuestionIdLikeToUserRef = FirebaseDatabase.instance
+        .ref("/users/$userIdOfQuestion/questions/$questionId/answers/$answerId");
+    await increaseQuestionIdLikeToUserRef.update({'numberLike':ServerValue.increment(1)});
+
+
+
+  }
+
+  static Future<void> removedLikeAnswer(
+      {required String currentUserId, required String questionId,required String userIdOfQuestion,required String answerId }) async {
+    await FirebaseDatabase.instance
+        .ref('/users/$currentUserId/listAnswerIdLiked/$answerId').remove();
+    await FirebaseDatabase.instance
+        .ref('/users/$userIdOfQuestion/questions/$questionId/answers/$answerId/listUserIdLiked/$currentUserId').remove();
+    DatabaseReference increaseQuestionIdLikeToUserRef = FirebaseDatabase.instance
+        .ref("/users/$userIdOfQuestion/questions/$questionId/answers/$answerId");
+    await increaseQuestionIdLikeToUserRef.update({'numberLike':ServerValue.increment(-1)});
   }
 }

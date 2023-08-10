@@ -12,4 +12,7 @@ class FetchListAnswerPageSuccessState extends ListAnswerPageState {
 class  PostAnswerSuccessState extends ListAnswerPageState {}
 class  EditAnswerSuccessState extends ListAnswerPageState {}
 class  DeleteAnswerSuccessState extends ListAnswerPageState {}
+class  LikeAnswerSuccessState extends ListAnswerPageState {}
+class  RemoveLikeAnswerSuccessState extends ListAnswerPageState {}
+
 

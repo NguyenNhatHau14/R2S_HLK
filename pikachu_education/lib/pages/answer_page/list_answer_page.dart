@@ -5,6 +5,7 @@ import 'package:pikachu_education/routes/page_name.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../bloc/bloc_list_answer_page/list_answer_page_bloc.dart';
 import '../../data/data_modal/data_question_modal.dart';
+import '../../service/database_service/database_service.dart';
 import 'component/detail_question.dart';
 import 'component/list_view_answer_page/listview_answer_page.dart';
 import 'component/post_answer_button.dart';
@@ -27,6 +28,15 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
   final TextEditingController contentController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
   final GlobalKey<FormState> editAnswerFormFieldKey = GlobalKey<FormState>();
+  List<String> listAnswerIdLiked=[];
+
+  getListQuestionIdLiked({required String userId}) async {
+    var listQuestionIdLikeFromSever =
+    await DatabaseService.getListAnswerIdLiked(currentUserId: userId);
+    setState(() {
+      listAnswerIdLiked = listQuestionIdLikeFromSever;
+    });
+  }
 
   @override
   void dispose() {
@@ -36,6 +46,7 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
 
   @override
   void initState() {
+    getListQuestionIdLiked(userId: widget.currentUserInfo.userId);
     super.initState();
   }
 
@@ -61,6 +72,20 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                     RefreshDataAnswerListEvent(
                         userIdOfQuestion: widget.questionInfo.userId,
                         questionId: widget.questionInfo.questionId));
+              }
+              if (state is LikeAnswerSuccessState) {
+                context.read<ListAnswerPageBloc>().add(
+                    RefreshDataAnswerListEvent(
+                        userIdOfQuestion: widget.questionInfo.userId,
+                        questionId: widget.questionInfo.questionId));
+                getListQuestionIdLiked(userId: widget.currentUserInfo.userId);
+              }
+              if (state is RemoveLikeAnswerSuccessState) {
+                context.read<ListAnswerPageBloc>().add(
+                    RefreshDataAnswerListEvent(
+                        userIdOfQuestion: widget.questionInfo.userId,
+                        questionId: widget.questionInfo.questionId));
+                getListQuestionIdLiked(userId: widget.currentUserInfo.userId);
               }
             },
             child: BlocBuilder<ListAnswerPageBloc, ListAnswerPageState>(
@@ -129,7 +154,7 @@ class _ListAnswerPageState extends State<ListAnswerPage> {
                                     questionId:
                                         widget.questionInfo.questionId));
                           },
-                          child: ListViewAnswerPage(
+                          child: ListViewAnswerPage(listAnswerIdLiked: listAnswerIdLiked,
                             editAnswerFormFieldKey: editAnswerFormFieldKey,
                             contentController: contentController,
                             titleController: titleController,

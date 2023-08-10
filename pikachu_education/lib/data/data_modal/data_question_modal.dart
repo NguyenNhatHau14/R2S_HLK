@@ -44,7 +44,7 @@ class DataQuestionModal {
           numberAnswer: numberAnswer,
           listDataAnswer: map['answers'],
           numberLike: map['numberLike'] ?? 0,
-          listUserIdLiked: map['listUserIdLiked'],
+          listUserIdLiked: map['listUserIdLiked']??{},
           imageUrl: map['imageUrl'] ?? '');
 
   Map<dynamic, dynamic> toMap() {
