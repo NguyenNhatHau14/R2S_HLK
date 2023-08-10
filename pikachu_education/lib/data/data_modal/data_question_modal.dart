@@ -12,6 +12,7 @@ class DataQuestionModal {
   final Map<dynamic, dynamic>? listUserIdLiked;
   final String? imageUrl;
 
+
   DataQuestionModal(
       {required this.userId,
       required this.userName,

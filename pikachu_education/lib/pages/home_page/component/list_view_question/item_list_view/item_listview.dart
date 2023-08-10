@@ -167,15 +167,6 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                             ],
                           ),
                         ),
-                        // InkWell(
-                        //   onTap: () {
-                        //     DatabaseService.getListQuestionIdLiked(currentUserId: widget.currentUserInfo.userId);
-                        //   },
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.all(8.0),
-                        //     child: Container(height: 50, color: Colors.blue,child: Text('Check Data'),)
-                        //   ),
-                        // ),
                         BlocBuilder<DataHomePageBloc, DataHomePageState>(
                           builder: (context, state) {
                             return InkWell(

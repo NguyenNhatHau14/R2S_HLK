@@ -98,6 +98,17 @@ class _ItemListViewState extends State<ItemListView> {
                       ),
                     ),
                     Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: SizedBox(
+                          child: (widget.listDataAnswerFromSever[widget.index]
+                              .imageUrl) ==
+                              ''
+                              ? const SizedBox()
+                              : Image.network(widget
+                              .listDataAnswerFromSever[widget.index]
+                              .imageUrl!)),
+                    ),
+                    Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -106,7 +106,7 @@ class DatabaseService {
   static Future<void> postDataAnswerToSever(
       {required DataAnswerModal itemToPost,
       required String userIdOfQuestion,
-      required String questionId}) async {
+      required String questionId,required String imageUrl}) async {
     DatabaseReference ref = FirebaseDatabase.instance
         .ref("users/$userIdOfQuestion/questions/$questionId")
         .child('answers')
@@ -117,7 +117,8 @@ class DatabaseService {
       'timePost': itemToPost.timePost,
       'answerTitle': itemToPost.answerTitle,
       'answerContent': itemToPost.answerContent,
-      'numberLike': itemToPost.numberLike
+      'numberLike': itemToPost.numberLike,
+      'imageUrl': imageUrl
     });
   }
 

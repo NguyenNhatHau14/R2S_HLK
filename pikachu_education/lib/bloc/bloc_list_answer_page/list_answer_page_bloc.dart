@@ -1,8 +1,11 @@
 
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import '../../data/data_modal/data_answer_modal.dart';
 import '../../service/database_service/database_service.dart';
+import '../../service/storage_service/storage_service.dart';
 
 part 'list_answer_page_event.dart';
 
@@ -12,10 +15,11 @@ class ListAnswerPageBloc
     extends Bloc<ListAnswerPageEvent, ListAnswerPageState> {
   ListAnswerPageBloc() : super(ListAnswerPageInitial()) {
     on<PostAnswerEvent>((event, emit) async {
+      var imageUrl = await StorageService.upLoadImageToStorage(file: event.file);
       await DatabaseService.postDataAnswerToSever(
           itemToPost: event.itemToPost,
           userIdOfQuestion: event.userIdOfQuestion,
-          questionId: event.questionId);
+          questionId: event.questionId,imageUrl: imageUrl);
       emit(PostAnswerSuccessState());
     });
 
