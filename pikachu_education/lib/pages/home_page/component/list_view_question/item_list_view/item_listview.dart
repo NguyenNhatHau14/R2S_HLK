@@ -67,7 +67,17 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.asset(ManagementImage.defaultAvatar2),
+                        widget.dataQuestionFromServer[widget.index]
+                                    .userAvatarUrl ==
+                                ''
+                            ? Image.asset(ManagementImage.defaultAvatar2)
+                            : ClipRRect(borderRadius: BorderRadius.circular(10),
+                              child: SizedBox( width: 40,height: 40,
+                                child: Image.network(widget
+                                    .dataQuestionFromServer[widget.index]
+                                    .userAvatarUrl!,fit: BoxFit.fill),
+                              ),
+                            ),
                         Padding(
                           padding: const EdgeInsets.only(right: 8, left: 8),
                           child: Column(

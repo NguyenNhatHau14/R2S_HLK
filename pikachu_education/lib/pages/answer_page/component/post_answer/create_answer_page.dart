@@ -296,7 +296,7 @@ class _createAnswerPageState extends State<createAnswerPage> {
                                                 userIdOfQuestion:
                                                     widget.userIdOfQuestion,
                                                 questionId: widget.questionId,
-                                                itemToPost: item,file: _image!));
+                                                itemToPost: item,file: _image));
                                       }
                                     },
                                     child: Container(

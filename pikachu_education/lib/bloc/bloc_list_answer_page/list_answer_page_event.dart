@@ -23,7 +23,7 @@ class PostAnswerEvent extends ListAnswerPageEvent {
   String userIdOfQuestion;
   String questionId;
   DataAnswerModal itemToPost;
-  File file;
+  File? file;
 
   PostAnswerEvent(
       {required this.userIdOfQuestion,

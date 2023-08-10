@@ -10,7 +10,7 @@ class RefreshDataQuestion extends DataHomePageEvent {}
 class PostDataQuestionsEvent extends DataHomePageEvent {
   DataQuestionModal dataToPost;
   String userId;
-  File file;
+  File? file;
 
   PostDataQuestionsEvent({required this.dataToPost, required this.userId,required this.file});
 }

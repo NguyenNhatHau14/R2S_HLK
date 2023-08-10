@@ -163,14 +163,22 @@ class _createQuestionPageState extends State<createQuestionPage> {
                             height: 10,
                           ),
                           Container(
-                            decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),border: Border.all()),
-
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all()),
                             child: Column(children: [
                               const Padding(
                                 padding: EdgeInsets.all(8.0),
-                                child: Text('Add Image By:',style: TextStyle(color: Colors.grey,fontSize: 25,fontWeight: FontWeight.w400)),
+                                child: Text('Add Image By:',
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w400)),
                               ),
-                              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   InkWell(
                                     onTap: () {
@@ -187,7 +195,8 @@ class _createQuestionPageState extends State<createQuestionPage> {
                                           Container(
                                               height: 50,
                                               decoration: BoxDecoration(
-                                                  color: const Color(0xFFFDCA15),
+                                                  color:
+                                                      const Color(0xFFFDCA15),
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           10)),
@@ -200,14 +209,17 @@ class _createQuestionPageState extends State<createQuestionPage> {
                                                         EdgeInsets.all(8.0),
                                                     child: Text(
                                                       'Your Storage',
-                                                      style: TextStyle(color: Colors.grey,
+                                                      style: TextStyle(
+                                                          color: Colors.grey,
                                                           fontSize: 15,
                                                           fontWeight:
                                                               FontWeight.w400),
                                                     ),
                                                   ),
-                                                  Icon(Icons
-                                                      .photo_library,color: Colors.grey,),
+                                                  Icon(
+                                                    Icons.photo_library,
+                                                    color: Colors.grey,
+                                                  ),
                                                 ],
                                               )),
                                         ],
@@ -241,13 +253,16 @@ class _createQuestionPageState extends State<createQuestionPage> {
                                                   children: [
                                                     Text(
                                                       'Your Camera',
-                                                      style: TextStyle(color: Colors.grey,
+                                                      style: TextStyle(
+                                                          color: Colors.grey,
                                                           fontSize: 15,
                                                           fontWeight:
                                                               FontWeight.w400),
                                                     ),
-                                                    Icon(Icons
-                                                        .camera_alt_outlined,color: Colors.grey,),
+                                                    Icon(
+                                                      Icons.camera_alt_outlined,
+                                                      color: Colors.grey,
+                                                    ),
                                                   ],
                                                 ),
                                               )),
@@ -267,8 +282,8 @@ class _createQuestionPageState extends State<createQuestionPage> {
                             children: [
                               TextButton(
                                   onPressed: () {
-                                    StorageService.upLoadImageToStorage(file: _image!);
-
+                                    StorageService.upLoadImageToStorage(
+                                        file: _image!);
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
@@ -295,6 +310,8 @@ class _createQuestionPageState extends State<createQuestionPage> {
                                             .validate() ==
                                         true) {
                                       var item = DataQuestionModal(
+                                        userAvatarUrl:
+                                            widget.userCurrentInfo.avatarUrl??'',
                                         timePost: ManagementTime.getTimePost(),
                                         questionContent: contentController.text,
                                         questionSubject: subjectController.text,
@@ -307,8 +324,9 @@ class _createQuestionPageState extends State<createQuestionPage> {
                                       context.read<DataHomePageBloc>().add(
                                           PostDataQuestionsEvent(
                                               dataToPost: item,
-                                              userId: widget
-                                                  .userCurrentInfo.userId,file: _image!));
+                                              userId:
+                                                  widget.userCurrentInfo.userId,
+                                              file: _image));
                                       Navigator.pop(context);
                                     }
                                   },

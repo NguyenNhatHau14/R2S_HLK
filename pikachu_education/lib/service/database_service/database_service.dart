@@ -71,6 +71,7 @@ class DatabaseService {
       'questionContent': itemToPost.questionContent,
       'numberLike': itemToPost.numberLike,
       'imageUrl': imageUrl,
+      'userAvatarUrl': itemToPost.userAvatarUrl
     });
   }
 
