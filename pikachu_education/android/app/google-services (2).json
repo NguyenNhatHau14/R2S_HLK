@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "658781946419",
+    "project_id": "r2s-pikachu-education",
+    "storage_bucket": "r2s-pikachu-education.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658781946419:android:69c03361feb9ee452d1946",
+        "android_client_info": {
+          "package_name": "com.example.pikachu_education"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658781946419-569rmgirf9e9i30usq9b7od5m8r65khq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCp-N-M37YFrgp28chvJSc72mdC8tQLzU8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "658781946419-569rmgirf9e9i30usq9b7od5m8r65khq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
