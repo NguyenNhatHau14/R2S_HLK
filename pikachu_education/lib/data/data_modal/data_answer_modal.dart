@@ -1,6 +1,7 @@
 class DataAnswerModal {
   final String userIdPost;
   final String userNamePost;
+  final String? userAvatarUrl;
   final String timePost;
   final String answerId;
   final String answerTitle;
@@ -22,7 +23,7 @@ class DataAnswerModal {
       this.numberLike,
       this.numberComment,
       this.imageUrl,
-      this.listUserIdLiked});
+      this.listUserIdLiked,this.userAvatarUrl});
 
   static DataAnswerModal fromMap(
           {required String key,
@@ -39,5 +40,5 @@ class DataAnswerModal {
           listComment: map['listComment'],
           numberComment: numberComment,
           imageUrl: map['imageUrl'] ?? '',
-          listUserIdLiked: map['listUserIdLiked'] ?? {});
+          listUserIdLiked: map['listUserIdLiked'] ?? {},userAvatarUrl: map['userAvatarUrl']??'');
 }

@@ -33,7 +33,6 @@ class TabViewDetailAnswer extends StatefulWidget {
   final TextEditingController editComment;
   final GlobalKey<FormState> editCommentFormFieldKey;
 
-
   @override
   State<TabViewDetailAnswer> createState() => _TabViewDetailAnswerState();
 }
@@ -89,37 +88,11 @@ class _TabViewDetailAnswerState extends State<TabViewDetailAnswer> {
                     ),
                   ],
                 ),
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.only(top: 25),
-                          child: Container(
-                            color: Colors.yellow,
-                          )),
-                      Padding(
-                          padding: const EdgeInsets.only(top: 25),
-                          child: Container(
-                            color: Colors.yellow,
-                          )),
-                      Padding(
-                          padding: const EdgeInsets.only(top: 25),
-                          child: Container(
-                            color: Colors.yellow,
-                          )),
-                      Padding(
-                          padding: const EdgeInsets.only(top: 25),
-                          child: Container(
-                            color: Colors.yellow,
-                          )),
-                      Padding(
-                          padding: const EdgeInsets.only(top: 25),
-                          child: Container(
-                            color: Colors.yellow,
-                          )),
-                    ],
-                  ),
-                ),
+                // ListView.separated(
+                //     itemBuilder: itemBuilder,
+                //     separatorBuilder: (context, index) =>
+                //         Divider(color: Colors.transparent, thickness: 10),
+                //     itemCount: itemCount),
               ],
             );
           },

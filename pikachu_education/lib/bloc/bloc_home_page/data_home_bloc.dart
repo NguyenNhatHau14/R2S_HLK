@@ -31,11 +31,19 @@ class DataHomePageBloc extends Bloc<DataHomePageEvent, DataHomePageState> {
     });
 
     on<PostDataQuestionsEvent>((event, emit) async {
-     var imageUrl = await StorageService.upLoadImageToStorage(file: event.file);
-      await DatabaseService.postDataQuestionToSever(
-          itemToPost: event.dataToPost, userId: event.userId, imageUrl: imageUrl);
+      if(event.file==null){
+        await DatabaseService.postDataQuestionToSever(
+            itemToPost: event.dataToPost, userId: event.userId, imageUrl: '');
+        emit(PostDataQuestionSuccessState());
+      }
+      else{
+        var imageUrl = await StorageService.upLoadImageToStorage(file: event.file!);
+        await DatabaseService.postDataQuestionToSever(
+            itemToPost: event.dataToPost, userId: event.userId, imageUrl: imageUrl);
 
-      emit(PostDataQuestionSuccessState());
+        emit(PostDataQuestionSuccessState());
+      }
+
     });
 
     on<EditQuestionsEvent>((event, emit) async {

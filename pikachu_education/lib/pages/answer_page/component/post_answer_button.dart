@@ -55,6 +55,7 @@ class _PostAnswerButtonState extends State<PostAnswerButton> {
                             questionId: widget.questionInfo.questionId,
                             currentUserId: widget.currentUserInfo.userId,
                             currentUserName: widget.currentUserInfo.userName,
+                        currentUserInfo: widget.currentUserInfo,
                           ));
                   // showModalBottomSheet(
                   //     backgroundColor: const Color(0xFFFDFFAE),

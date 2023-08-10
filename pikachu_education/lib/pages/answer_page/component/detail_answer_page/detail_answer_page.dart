@@ -33,6 +33,7 @@ class _DetailAnswerPageState extends State<DetailAnswerPage>
   final commentFormFieldKey = GlobalKey<FormState>();
   final editCommentFormFieldKey = GlobalKey<FormState>();
   TextEditingController editCommentController = TextEditingController();
+  List<String> listUserIdLiked =[];
 
   @override
   void dispose() {

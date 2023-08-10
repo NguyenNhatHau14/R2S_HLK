@@ -303,12 +303,13 @@ class _createQuestionPageState extends State<createQuestionPage> {
                                         questionId: '',
                                         userName: '',
                                         userId: '',
+                                        userAvatarUrl: widget.userCurrentInfo.avatarUrl
                                       );
                                       context.read<DataHomePageBloc>().add(
                                           PostDataQuestionsEvent(
                                               dataToPost: item,
                                               userId: widget
-                                                  .userCurrentInfo.userId,file: _image!));
+                                                  .userCurrentInfo.userId,file: _image));
                                       Navigator.pop(context);
                                     }
                                   },

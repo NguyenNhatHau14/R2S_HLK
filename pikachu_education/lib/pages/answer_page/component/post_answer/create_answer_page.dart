@@ -6,6 +6,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pikachu_education/bloc/bloc_get_image_to_create_answer/get_image_to_create_answer_bloc.dart';
+import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
 import 'package:pikachu_education/utils/management_time.dart';
 import '../../../../bloc/bloc_list_answer_page/list_answer_page_bloc.dart';
 import '../../../../data/data_modal/data_answer_modal.dart';
@@ -18,8 +19,9 @@ class createAnswerPage extends StatefulWidget {
       required this.questionId,
       required this.userIdOfQuestion,
       required this.currentUserId,
-      required this.currentUserName});
+      required this.currentUserName,required this.currentUserInfo});
 
+  final DataUserModal currentUserInfo;
   final ListAnswerPageBloc listAnswerPageBloc;
   final String userIdOfQuestion;
   final String questionId;
@@ -281,6 +283,7 @@ class _createAnswerPageState extends State<createAnswerPage> {
                                               .validate() ==
                                           true) {
                                         var item = DataAnswerModal(
+                                          userAvatarUrl: widget.currentUserInfo.avatarUrl??'',
                                             userIdPost: widget.currentUserId,
                                             userNamePost:
                                                 widget.currentUserName,
@@ -296,7 +299,7 @@ class _createAnswerPageState extends State<createAnswerPage> {
                                                 userIdOfQuestion:
                                                     widget.userIdOfQuestion,
                                                 questionId: widget.questionId,
-                                                itemToPost: item,file: _image!));
+                                                itemToPost: item,file: _image));
                                       }
                                     },
                                     child: Container(

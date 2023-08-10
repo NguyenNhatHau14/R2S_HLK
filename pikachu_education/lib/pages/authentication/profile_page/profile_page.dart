@@ -79,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: Colors.red,
                                 borderRadius:
                                 BorderRadius.all(Radius.circular(130))),
-                            child: widget.currentUserInfo.avatarUrl == null
+                            child: widget.currentUserInfo.avatarUrl == ''
                                 ? ClipRRect(
                                 borderRadius: BorderRadius.circular(130),
                                 child: Image.asset(

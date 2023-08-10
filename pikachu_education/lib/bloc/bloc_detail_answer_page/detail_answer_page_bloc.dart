@@ -18,6 +18,7 @@ class DetailAnswerPageBloc
       // TODO: implement event handler
     });
     on<PostCommentEvent>((event, emit) async {
+
       await DatabaseService.postDataCommentToSever(
           itemToPost: event.itemToPost,
           userIdOfQuestion: event.userIdOfQuestion,

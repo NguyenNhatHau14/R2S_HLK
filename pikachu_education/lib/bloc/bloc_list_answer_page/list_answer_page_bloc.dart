@@ -15,12 +15,22 @@ class ListAnswerPageBloc
     extends Bloc<ListAnswerPageEvent, ListAnswerPageState> {
   ListAnswerPageBloc() : super(ListAnswerPageInitial()) {
     on<PostAnswerEvent>((event, emit) async {
-      var imageUrl = await StorageService.upLoadImageToStorage(file: event.file);
-      await DatabaseService.postDataAnswerToSever(
-          itemToPost: event.itemToPost,
-          userIdOfQuestion: event.userIdOfQuestion,
-          questionId: event.questionId,imageUrl: imageUrl);
-      emit(PostAnswerSuccessState());
+      if(event.file==null){
+        await DatabaseService.postDataAnswerToSever(
+            itemToPost: event.itemToPost,
+            userIdOfQuestion: event.userIdOfQuestion,
+            questionId: event.questionId,imageUrl: '');
+        emit(PostAnswerSuccessState());
+      }
+      else{
+        var imageUrl = await StorageService.upLoadImageToStorage(file: event.file!);
+        await DatabaseService.postDataAnswerToSever(
+            itemToPost: event.itemToPost,
+            userIdOfQuestion: event.userIdOfQuestion,
+            questionId: event.questionId,imageUrl: imageUrl);
+        emit(PostAnswerSuccessState());
+      }
+
     });
 
     on<RefreshDataAnswerListEvent>((event, emit) async {

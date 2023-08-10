@@ -38,7 +38,6 @@ class ItemListView extends StatefulWidget {
 class _ItemListViewState extends State<ItemListView> {
   @override
   Widget build(BuildContext context) {
-
     bool checkLiked = widget.listAnswerIdLiked
         .contains(widget.listDataAnswerFromSever[widget.index].answerId);
     var checkOwner = widget.currentUserInfo.userId ==
@@ -72,11 +71,51 @@ class _ItemListViewState extends State<ItemListView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          Row(
+                            children: [
                               widget.listDataAnswerFromSever[widget.index]
-                                  .answerTitle,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18)),
+                                          .userAvatarUrl ==
+                                      ''
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(5),
+                                      child: SizedBox(
+                                          width: 40,
+                                          height: 40,
+                                          child: Image.asset(
+                                            ManagementImage.defaultAvatar,
+                                            fit: BoxFit.fill,
+                                          )),
+                                    )
+                                  : ClipRRect(
+                                      borderRadius: BorderRadius.circular(5),
+                                      child: SizedBox(
+                                          width: 40,
+                                          height: 40,
+                                          child: Image.network(
+                                            widget
+                                                .listDataAnswerFromSever[
+                                                    widget.index]
+                                                .userAvatarUrl!,
+                                            fit: BoxFit.fill,
+                                          )),
+                                    ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(widget
+                                        .listDataAnswerFromSever[widget.index]
+                                        .userNamePost),
+                                    Text(widget
+                                        .listDataAnswerFromSever[widget.index]
+                                        .timePost,style: const TextStyle(
+                                        fontSize: 10, color: Color(0x4D000000)))
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+
                           PopUpMenuButtonAnswerPage(
                             listAnswerPageBloc: widget.listAnswerPageBloc,
                             questionInfo: widget.questionInfo,
@@ -94,6 +133,11 @@ class _ItemListViewState extends State<ItemListView> {
                         ],
                       ),
                     ),
+                    Text(
+                        widget.listDataAnswerFromSever[widget.index]
+                            .answerTitle,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18)),
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
@@ -149,7 +193,7 @@ class _ItemListViewState extends State<ItemListView> {
                             },
                             child: Row(
                               children: [
-                                 Icon(
+                                Icon(
                                   checkLiked
                                       ? Icons.favorite
                                       : Icons.favorite_border,

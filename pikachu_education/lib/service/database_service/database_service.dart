@@ -71,6 +71,7 @@ class DatabaseService {
       'questionContent': itemToPost.questionContent,
       'numberLike': itemToPost.numberLike,
       'imageUrl': imageUrl,
+      'userAvatarUrl': itemToPost.userAvatarUrl,
     });
   }
 
@@ -128,7 +129,8 @@ class DatabaseService {
       'answerTitle': itemToPost.answerTitle,
       'answerContent': itemToPost.answerContent,
       'numberLike': itemToPost.numberLike,
-      'imageUrl': imageUrl
+      'imageUrl': imageUrl,
+      'userAvatarUrl':itemToPost.userAvatarUrl,
     });
   }
 
@@ -314,5 +316,18 @@ class DatabaseService {
     DatabaseReference increaseQuestionIdLikeToUserRef = FirebaseDatabase.instance
         .ref("/users/$userIdOfQuestion/questions/$questionId/answers/$answerId");
     await increaseQuestionIdLikeToUserRef.update({'numberLike':ServerValue.increment(-1)});
+  }
+
+
+  static Future<List<String>> getListUserIdLikedAnswer(
+      {required String questionId,required String userIdOfQuestion,required String answerId }) async {
+    List<String> listUserIdLikedAnswer = [];
+    var needSnapShotListUserIdLiked = await FirebaseDatabase.instance
+        .ref('/users/$userIdOfQuestion/questions/$questionId/answers/$answerId/listUserIdLiked')
+        .orderByKey()
+        .get();
+    var listQuestionLikedMap = (needSnapShotListUserIdLiked.value ?? {}) as Map;
+    listQuestionLikedMap.forEach((key, value) {listUserIdLikedAnswer.add(value); });
+    return listUserIdLikedAnswer;
   }
 }
