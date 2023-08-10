@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:pikachu_education/data/data_modal/data_answer_modal.dart';
@@ -13,9 +15,17 @@ class DatabaseService {
     var currentUserInfoMap = (currentUserInfoSnapshot.value ?? {}) as Map;
     final DataUserModal currentUserInfo = DataUserModal(
         userId: userID,
+        avatarUrl: currentUserInfoMap['avatarUrl']??'',
         userName: currentUserInfoMap['name'] ?? '',
         email: currentUserInfoMap['email'] ?? '');
     return currentUserInfo;
+  }
+
+  static Future<void> postUserAvatar(
+      {required String avatarUrl,required String userId}) async {
+    DatabaseReference ref =
+    FirebaseDatabase.instance.ref("users/$userId");
+    await ref.update({'avatarUrl':avatarUrl});
   }
 
   static Future<List<DataQuestionModal>> fetchDataQuestionFromSever() async {

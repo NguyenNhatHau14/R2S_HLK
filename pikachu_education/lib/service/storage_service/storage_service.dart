@@ -15,4 +15,9 @@ class StorageService{
      return imageUrl;
 
   }
+  static Future<void> deleteImageOnStorage ({required String imageName}) async {
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirImage =referenceRoot.child('images/$imageName');
+   await referenceDirImage.delete();
+  }
 }
