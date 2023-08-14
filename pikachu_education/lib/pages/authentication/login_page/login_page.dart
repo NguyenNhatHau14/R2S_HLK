@@ -248,31 +248,31 @@ class _LoginPageState extends State<LoginPage> {
                                       ]),
                                     )),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 12, bottom: 12, right: 8),
-                                child: InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, PageName.homePage);
-                                      SaveDataToLocal.saveDataForLogin(
-                                          context,
-                                          emailController.text = '',
-                                          passwordController.text = '');
-                                    },
-                                    child:
-                                        const Text('Go to Home Without Login')),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 12, bottom: 12, right: 8),
-                                child: InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, PageName.changePasswordPage);
-                                    },
-                                    child: Text('change password')),
-                              )
+                              // Padding(
+                              //   padding: const EdgeInsets.only(
+                              //       top: 12, bottom: 12, right: 8),
+                              //   child: InkWell(
+                              //       onTap: () {
+                              //         Navigator.pushNamed(
+                              //             context, PageName.homePage);
+                              //         SaveDataToLocal.saveDataForLogin(
+                              //             context,
+                              //             emailController.text = '',
+                              //             passwordController.text = '');
+                              //       },
+                              //       child:
+                              //           const Text('Go to Home Without Login')),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(
+                              //       top: 12, bottom: 12, right: 8),
+                              //   child: InkWell(
+                              //       onTap: () {
+                              //         Navigator.pushNamed(
+                              //             context, PageName.changePasswordPage);
+                              //       },
+                              //       child: Text('change password')),
+                              // )
                             ]),
                       ),
                     ),

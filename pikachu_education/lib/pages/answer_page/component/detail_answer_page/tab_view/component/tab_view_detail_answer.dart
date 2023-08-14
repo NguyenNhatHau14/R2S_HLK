@@ -6,6 +6,7 @@ import 'package:pikachu_education/data/data_modal/data_question_modal.dart';
 import 'package:pikachu_education/data/data_modal/data_user_modal.dart';
 import 'package:pikachu_education/pages/answer_page/component/detail_answer_page/tab_view/component/text_form_field_comment.dart';
 import '../../../../../../bloc/bloc_detail_answer_page/detail_answer_page_bloc.dart';
+import 'Item_list_view/item_like_listview.dart';
 import 'Item_list_view/item_listview.dart';
 
 class TabViewDetailAnswer extends StatefulWidget {
@@ -20,7 +21,8 @@ class TabViewDetailAnswer extends StatefulWidget {
       required this.listDataComment,
       required this.commentFormFieldKey,
       required this.editCommentFormFieldKey,
-      required this.editComment});
+      required this.editComment,
+      required this.listUserIdLiked});
 
   final TabController tabController;
   final TextEditingController commentController;
@@ -32,6 +34,7 @@ class TabViewDetailAnswer extends StatefulWidget {
   final GlobalKey<FormState> commentFormFieldKey;
   final TextEditingController editComment;
   final GlobalKey<FormState> editCommentFormFieldKey;
+  final List<String> listUserIdLiked;
 
   @override
   State<TabViewDetailAnswer> createState() => _TabViewDetailAnswerState();
@@ -45,6 +48,7 @@ class _TabViewDetailAnswerState extends State<TabViewDetailAnswer> {
 
   @override
   Widget build(BuildContext context) {
+    List<DataUserModal>listUserLiked=[];
     return BlocProvider.value(
       value: widget.detailAnswerPageBloc,
       child: BlocListener<DetailAnswerPageBloc, DetailAnswerPageState>(
@@ -88,11 +92,12 @@ class _TabViewDetailAnswerState extends State<TabViewDetailAnswer> {
                     ),
                   ],
                 ),
-                // ListView.separated(
-                //     itemBuilder: itemBuilder,
-                //     separatorBuilder: (context, index) =>
-                //         Divider(color: Colors.transparent, thickness: 10),
-                //     itemCount: itemCount),
+                ListView.separated(
+                    itemBuilder: (context, index) =>
+                        ItemLikeListView(userId: widget.listUserIdLiked[index]),
+                    separatorBuilder: (context, index) =>
+                        const Divider(color: Colors.transparent, thickness: 10),
+                    itemCount: widget.listUserIdLiked.length),
               ],
             );
           },

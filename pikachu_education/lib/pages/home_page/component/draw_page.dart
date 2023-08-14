@@ -42,31 +42,32 @@ class _DrawPageForHomePageState extends State<DrawPageForHomePage> {
                     backgroundColor: Colors.red,
                     child: const Icon(Icons.people),
                     label: 'Profile',
-                    labelBackgroundColor: Colors.red,
+                    labelBackgroundColor: const Color(0xFFFDCA15),
                     onTap: () {
                       Navigator.pushNamed(
                           context, PageName.profilePage,
                           arguments: widget.currentUserInfo);
                     },
                   ),
-                  SpeedDialChild(
-                    backgroundColor: Colors.grey,
-                    child: const Icon(Icons.settings),
-                    label: 'Settings',
-                    labelBackgroundColor: Colors.grey,
-                    onTap: () {
-                      // Handle Phone menu action
-                    },
-                  ),
-                  SpeedDialChild(
-                    child: const Icon(Icons.camera),
-                    label: 'Camera',
-                    onTap: () {
-                      // Handle Camera menu action
-                    },
-                  ),
+                  // SpeedDialChild(
+                  //   backgroundColor: Colors.grey,
+                  //   child: const Icon(Icons.settings),
+                  //   label: 'Settings',
+                  //   labelBackgroundColor: Colors.grey,
+                  //   onTap: () {
+                  //     // Handle Phone menu action
+                  //   },
+                  // ),
+                  // SpeedDialChild(
+                  //   child: const Icon(Icons.camera),
+                  //   label: 'Camera',
+                  //   onTap: () {
+                  //     // Handle Camera menu action
+                  //   },
+                  // ),
                   SpeedDialChild(
                     child: const Icon(Icons.logout),
+                    labelBackgroundColor: const Color(0xFFFDCA15),
                     label: 'Logout',
                     onTap: () async {
                       context.read<DataHomePageBloc>().add(LogoutEvent());

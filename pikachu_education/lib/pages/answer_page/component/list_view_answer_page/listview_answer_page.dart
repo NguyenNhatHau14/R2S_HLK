@@ -74,20 +74,19 @@ class _ListViewAnswerPageState extends State<ListViewAnswerPage> {
                   ),
                 );
               } else {
-                return const Expanded(
-                    child: Padding(
+                return const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Center(
-                    child: Text(
-                      'Nobody can give answer for this question, please add answer to this question or visit another time. Thanks!!!',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 30),
-                      textAlign: TextAlign.center,
-                    ),
+                child: Text(
+                  'Nobody can give answer for this question, please add answer to this question or visit another time. Thanks!!!',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30),
+                  textAlign: TextAlign.center,
+                ),
                   ),
-                ));
+                );
               }
             } else {
               return const Center(child: CircularProgressIndicator());

@@ -10,6 +10,7 @@ import 'package:pikachu_education/pages/answer_page/component/detail_answer_page
 import 'package:pikachu_education/pages/answer_page/component/detail_answer_page/tab_view/component/tab_view_detail_answer_no_comment.dart';
 
 import '../../../../bloc/bloc_detail_answer_page/detail_answer_page_bloc.dart';
+import '../../../../service/database_service/database_service.dart';
 
 class DetailAnswerPage extends StatefulWidget {
   const DetailAnswerPage(
@@ -33,7 +34,18 @@ class _DetailAnswerPageState extends State<DetailAnswerPage>
   final commentFormFieldKey = GlobalKey<FormState>();
   final editCommentFormFieldKey = GlobalKey<FormState>();
   TextEditingController editCommentController = TextEditingController();
-  List<String> listUserIdLiked =[];
+  List<String> listUserIdLiked = [];
+
+  getListQuestionIdLiked() async {
+    var listQuestionIdLikeFromSever =
+        await DatabaseService.getListUserIdLikedAnswer(
+            questionId: widget.questionInfo.questionId,
+            userIdOfQuestion: widget.questionInfo.userId,
+            answerId: widget.answerInfo.answerId);
+    setState(() {
+      listUserIdLiked = listQuestionIdLikeFromSever;
+    });
+  }
 
   @override
   void dispose() {
@@ -44,6 +56,7 @@ class _DetailAnswerPageState extends State<DetailAnswerPage>
 
   @override
   void initState() {
+    getListQuestionIdLiked();
     detailAnswerPageBloc.add(FetchDataCommentEvent(
         answerId: widget.answerInfo.answerId,
         questionId: widget.questionInfo.questionId,
@@ -85,7 +98,9 @@ class _DetailAnswerPageState extends State<DetailAnswerPage>
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TabBarOnTop(questionInfo: widget.questionInfo,currentUserInfo: widget.currentUserInfo),
+                    TabBarOnTop(
+                        questionInfo: widget.questionInfo,
+                        currentUserInfo: widget.currentUserInfo),
                     AnswerDetail(answerInfo: widget.answerInfo),
                     TabBarShowNumberLikeComment(
                         answerInfo: widget.answerInfo,
@@ -114,7 +129,7 @@ class _DetailAnswerPageState extends State<DetailAnswerPage>
                             } else {
                               return SizedBox(
                                 height: MediaQuery.sizeOf(context).height / 1.5,
-                                child: TabViewDetailAnswer(
+                                child: TabViewDetailAnswer(listUserIdLiked: listUserIdLiked,
                                   tabController: tabController,
                                   commentController: commentController,
                                   currentUserInfo: widget.currentUserInfo,

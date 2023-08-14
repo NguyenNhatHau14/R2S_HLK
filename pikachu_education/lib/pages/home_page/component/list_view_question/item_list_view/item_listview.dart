@@ -219,8 +219,8 @@ class _ItemListviewQuestionState extends State<ItemListviewQuestion> {
                                         ),
                                     Icon(
                                       checkLiked
-                                          ? Icons.favorite_border
-                                          : Icons.favorite,
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
                                       color: Colors.red,
                                     )
                                   ],

@@ -37,7 +37,7 @@ class _SearchButtonState extends State<SearchButton> {
             textFieldColor: const Color(0xFFFDFFAE),
             color: const Color(0xFFFDCA15),
             onSubmitted: (p0) {},
-            animationDurationInMilli: 2000,
+            animationDurationInMilli: 500,
           ),
         ),
       ),
